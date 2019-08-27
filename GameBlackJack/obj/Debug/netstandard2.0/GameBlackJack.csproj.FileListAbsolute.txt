@@ -1,0 +1,6 @@
+C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\bin\Debug\netstandard2.0\GameBlackJack.deps.json
+C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\bin\Debug\netstandard2.0\GameBlackJack.dll
+C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.csprojAssemblyReference.cache
+C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.csproj.CoreCompileInputs.cache
+C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.AssemblyInfoInputs.cache
+C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.AssemblyInfo.cs
