@@ -9,7 +9,7 @@ namespace HenE.GameBlackJack
     /// <summary>
     /// De klas van de hand.
     /// </summary>
-    internal class Hand
+    public class Hand
     {
         /// <summary>
         /// Gets or sets De spelers.
@@ -20,6 +20,11 @@ namespace HenE.GameBlackJack
         /// Gets or sets de kaarten.
         /// </summary>
         private Kaarten Kaarten { get; set; }
+
+        /// <summary>
+        /// Gets or stes de fiches.
+        /// </summary>
+        private Fiches Inzet { get; set; }
 
         /// <summary>
         /// Gets or sets de status van de hand.

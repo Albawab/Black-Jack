@@ -4,9 +4,7 @@
 
 namespace HenE.GameBlackJack
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
     using HenE.GameBlackJack.Enum;
 
     /// <summary>
@@ -94,88 +92,87 @@ namespace HenE.GameBlackJack
 
             this.Portemonnee.Add(fiches);
         }
-    }
 
-    /// <summary>
-    /// Controleer of de speler mag de waarde zetten.
-    /// </summary>
-    /// <param name="tafel">Huidige tafel.</param>
-    public void ZetFiches(Tafel tafel, Hand hand, int waardeVanDeFiches)
-    {
-        if (tafel.BepaalOfDeWaarDeTussenTweeGrens())
+        /// <summary>
+        /// Controleer of de speler mag de waarde zetten.
+        /// </summary>
+        /// <param name="tafel">Huidige tafel.</param>
+        public void ZetFiches(Tafel tafel, Hand hand, int Bedrag)
         {
-            this.Portemonnee.Remove(hand.VerliezEenFiches((FichesEnum)waardeVanDeFiches));
-        }
-    }
-
-    /// <summary>
-    /// De speler beslist wat wil hij doen.
-    /// </summary>
-    /// <param name="tafel">Huidige tafel.</param>
-    /// <param name="wilDoen">Wat wil hij doen.</param>
-    /// <param name="dealer">De dealer.</param>
-    /// <param name="fiche">De waarde van de fiches.</param>
-    /// <param name="fiches">De class van de fiches.</param>
-    /// <returns></returns>
-    public void DeSpelerWilDoen(Tafel tafel, string wilDoen, Dealer dealer, int fiche, Fiches fiches)
-    {
-        this.Hand = this.huidigeHand;
-        foreach (Hand hand in this.hands)
-        {
-            if (hand == this.hand)
+            if (tafel.BepaalOfHetBedragTussenTweeGrens(Bedrag))
             {
-                this.huidigeHand = hand;
+                this.Portemonnee.Remove();
             }
         }
 
-        switch (wilDoen)
+        /// <summary>
+        /// De speler beslist wat wil hij doen.
+        /// </summary>
+        /// <param name="tafel">Huidige tafel.</param>
+        /// <param name="wilDoen">Wat wil hij doen.</param>
+        /// <param name="dealer">De dealer.</param>
+        /// <param name="fiche">De waarde van de fiches.</param>
+        /// <param name="fiches">De class van de fiches.</param>
+        /// <returns></returns>
+        public void DeSpelerWilDoen(Tafel tafel, string wilDoen, Dealer dealer, int fiche, Fiches fiches)
         {
-            case "koop":
-                this.huidigeHand += dealer.KrijgEenKaart(tafel, this);
-                break;
-            case "passen":
-                dealer.NaarVolgendeHand(tafel, this);
-                break;
-            case "verdubbelen":
-                ZetFiches(tafel, fiches.waarde);
-                dealer.GeefEenKaart(tafel, this);
-                break;
-            case "Splitsen":
-                dealer.SplitsDeKaarten(tafel, this);
-                this.ZetFiches(tafel, fiche);
-                break;
-            default:
-                break;
+            this.Hand = this.huidigeHand;
+            foreach (Hand hand in this.hands)
+            {
+                if (hand == this.hand)
+                {
+                    this.huidigeHand = hand;
+                }
+            }
+
+            switch (wilDoen)
+            {
+                case "koop":
+                    this.huidigeHand += dealer.KrijgEenKaart(tafel, this);
+                    break;
+                case "passen":
+                    dealer.NaarVolgendeHand(tafel, this);
+                    break;
+                case "verdubbelen":
+                    ZetFiches(tafel, fiches.waarde);
+                    dealer.GeefEenKaart(tafel, this);
+                    break;
+                case "Splitsen":
+                    dealer.SplitsDeKaarten(tafel, this);
+                    this.ZetFiches(tafel, fiche);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Voeg de neuwe waarde van de fiches aan de Portemonnee van de speler.
+        /// Als de speler winnaar is.
+        /// </summary>
+        /// <param name="fiches">De waarde van de fiches.</param>
+        public void VerzamelenDeFiches(int fiches)
+        {
+            this.Portemonnee.Add(fiches);
+        }
+
+        /// <summary>
+        /// Voeg de neuwe waarde van de fiches aan de Portemonnee van de speler.
+        /// Als de speler verliezer is.
+        /// </summary>
+        /// <param name="fiches">De waarde van de fiches.</param>
+        public void VerlizenDefiches(int fiches)
+        {
+        }
+
+        /// <summary>
+        /// Als de speler wil stoppen.
+        /// </summary>
+        /// <param name="huidigeHand">De hand van de speler.</param>
+        public void SluitDeHand(Hand huidigeHand)
+        {
+            this.hands.Remove(huidigeHand);
         }
     }
 
-    /// <summary>
-    /// Voeg de neuwe waarde van de fiches aan de Portemonnee van de speler.
-    /// Als de speler winnaar is.
-    /// </summary>
-    /// <param name="fiches">De waarde van de fiches.</param>
-    public void VerzamelenDeFiches(int fiches)
-    {
-        this.Portemonnee.Add(fiches);
-    }
-
-    /// <summary>
-    /// Voeg de neuwe waarde van de fiches aan de Portemonnee van de speler.
-    /// Als de speler verliezer is.
-    /// </summary>
-    /// <param name="fiches">De waarde van de fiches.</param>
-    public void VerlizenDefiches(int fiches)
-    {
-    }
-
-    /// <summary>
-    /// Als de speler wil stoppen.
-    /// </summary>
-    /// <param name="huidigeHand">De hand van de speler.</param>
-    public void SluitDeHand(Hand huidigeHand)
-    {
-        this.hands.Remove(huidigeHand);
-    }
-
-}
 }

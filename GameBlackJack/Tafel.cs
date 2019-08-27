@@ -31,6 +31,16 @@ namespace HenE.GameBlackJack
         private Fiches FichesBak { get; set; }
 
         /// <summary>
+        /// Gets or sets minimale bedrag wat op deze tafel ingezet moet worden.
+        /// </summary>
+        private int MinimalnZet { get; set; }
+
+        /// <summary>
+        /// Gets or sets minimale bedrag wat op deze tafel ingezet moet worden.
+        /// </summary>
+        private int MaximaleInZet { get; set; }
+
+        /// <summary>
         /// Gets or sets Stapel kaarten.
         /// </summary>
         private StapelKaarten StapelKaarten { get; set; }
@@ -62,6 +72,16 @@ namespace HenE.GameBlackJack
         {
             this.pleks.Add(eenPlek);
             return eenPlek;
+        }
+
+        public bool BepaalOfHetBedragTussenTweeGrens(int spelerWilzetten)
+        {
+            if (this.MinimalnZet != spelerWilzetten && this.MaximaleInZet != spelerWilzetten)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

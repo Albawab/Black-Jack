@@ -11,9 +11,14 @@ namespace HenE.GameBlackJack
     /// </summary>
     public class Fiches
     {
-        public Fiches(Waarde_Van_Enum waarde, FichesEnum fichesKleur)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Fiches"/> class.
+        /// </summary>
+        /// <param name="bedrag">Het bedrag.</param>
+        /// <param name="fichesKleur">De kleur van de fiches.</param>
+        public Fiches(Waarde_Van_Enum bedrag, FichesEnum fichesKleur)
         {
-            this.Waarde = waarde;
+            this.Waarde = bedrag;
             this.FicheKleur = fichesKleur;
         }
 
