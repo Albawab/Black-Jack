@@ -5,6 +5,10 @@
     <RootNamespace>HenE.GameBlackJack</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\GameBlackJack.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Speler.cs~RF2a062aa3.TMP" />
   </ItemGroup>

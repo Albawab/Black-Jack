@@ -6,9 +6,16 @@ namespace Balck_Jack
 {
     using System;
 
-    class Program
+    /// <summary>
+    /// Program van het spel.
+    /// </summary>
+    public class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Main method.
+        /// </summary>
+        /// <param name="args">args.</param>
+        public static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
         }

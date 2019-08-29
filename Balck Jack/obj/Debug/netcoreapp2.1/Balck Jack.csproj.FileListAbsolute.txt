@@ -6,3 +6,9 @@ C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.
 C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.csproj.CoreCompileInputs.cache
 C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.AssemblyInfoInputs.cache
 C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.AssemblyInfo.cs
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\Balck Jack.pdb
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.dll
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.pdb
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\Balck Jack.xml
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\HenEBalck_Jack.Properties.Resources.resources
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.csproj.GenerateResource.cache

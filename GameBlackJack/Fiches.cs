@@ -16,7 +16,7 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="bedrag">Het bedrag.</param>
         /// <param name="fichesKleur">De kleur van de fiches.</param>
-        public Fiches(Waarde_Van_Enum bedrag, FichesEnum fichesKleur)
+        public Fiches(FichesWaarde bedrag, FichesKleur fichesKleur)
         {
             this.Waarde = bedrag;
             this.FicheKleur = fichesKleur;
@@ -25,11 +25,11 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// Gets or sets de waarde van een fiche.
         /// </summary>
-        private Waarde_Van_Enum Waarde { get; set; }
+        public FichesWaarde Waarde { get; set; }
 
         /// <summary>
         /// Gets or sets de kleur van een fiche.
         /// </summary>
-        private FichesEnum FicheKleur { get; set; }
+        private FichesKleur FicheKleur { get; set; }
     }
 }

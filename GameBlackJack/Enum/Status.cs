@@ -4,10 +4,9 @@
 
 namespace HenE.GameBlackJack.Enum
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
+    /// <summary>
+    /// De status van de speler.
+    /// </summary>
     public enum Status
     {
         /// <summary>

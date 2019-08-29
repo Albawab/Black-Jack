@@ -1,19 +1,17 @@
-﻿// <copyright file="Tafel.cs" company="PlaceholderCompany">
+﻿// <copyright file="Tafels.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
 namespace HenE.GameBlackJack
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
-    /// De klas van de tafel.
+    /// De klas van de tafels.
     /// </summary>
-    public class Tafel
+    public class Tafels
     {
-        private List<Plek> pleks = new List<Plek>();
+        private readonly List<Plek> pleks = new List<Plek>();
 
         /// <summary>
         /// Gets or sets De dealer van het spel.
@@ -31,6 +29,11 @@ namespace HenE.GameBlackJack
         private Fiches FichesBak { get; set; }
 
         /// <summary>
+        /// Gets or Sets De stapel van de kaarten.
+        /// </summary>
+        private StapelKaarten StapelKaarten { get; set; }
+
+        /// <summary>
         /// Gets or sets minimale bedrag wat op deze tafel ingezet moet worden.
         /// </summary>
         private int MinimalnZet { get; set; }
@@ -39,11 +42,6 @@ namespace HenE.GameBlackJack
         /// Gets or sets minimale bedrag wat op deze tafel ingezet moet worden.
         /// </summary>
         private int MaximaleInZet { get; set; }
-
-        /// <summary>
-        /// Gets or sets Stapel kaarten.
-        /// </summary>
-        private StapelKaarten StapelKaarten { get; set; }
 
         /// <summary>
         /// Deze Plek beschikbaar of niet.
@@ -74,6 +72,11 @@ namespace HenE.GameBlackJack
             return eenPlek;
         }
 
+        /// <summary>
+        /// Check of de waarde tusse de grens is.
+        /// </summary>
+        /// <param name="spelerWilzetten">De waarde die de speler wil zetten.</param>
+        /// <returns>true of false.</returns>
         public bool BepaalOfHetBedragTussenTweeGrens(int spelerWilzetten)
         {
             if (this.MinimalnZet != spelerWilzetten && this.MaximaleInZet != spelerWilzetten)
@@ -82,6 +85,24 @@ namespace HenE.GameBlackJack
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// De plek die bezet is op de tafel.
+        /// </summary>
+        /// <returns>De plek als list.</returns>
+        public List<Plek> EenPlek()
+        {
+            List<Plek> bezetPlek = new List<Plek>();
+            foreach (Plek plek in this.pleks)
+            {
+                if (plek != null)
+                {
+                    bezetPlek.Add(plek);
+                }
+            }
+
+            return bezetPlek;
         }
     }
 }

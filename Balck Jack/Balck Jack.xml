@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Balck Jack</name>
+    </assembly>
+    <members>
+        <member name="T:Balck_Jack.Program">
+            <summary>
+            Program van het spel.
+            </summary>
+        </member>
+        <member name="M:Balck_Jack.Program.Main(System.String[])">
+            <summary>
+            Main method.
+            </summary>
+            <param name="args">args.</param>
+        </member>
+        <member name="T:HenEBalck_Jack.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:HenEBalck_Jack.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:HenEBalck_Jack.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,4 +1,4 @@
-﻿// <copyright file="Speler.cs" company="PlaceholderCompany">
+﻿// <copyright file="Plek.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 

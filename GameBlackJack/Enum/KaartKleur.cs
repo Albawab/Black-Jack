@@ -1,17 +1,13 @@
-﻿// <copyright file="Fiches.cs" company="PlaceholderCompany">
+﻿// <copyright file="KaartKleur.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
 namespace HenE.GameBlackJack.Enum
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
     /// <summary>
-    /// Enum van de fieches.
+    /// De kleuren/Sorten van een kaart.
     /// </summary>
-    public enum FichesEnum
+    public enum KaartKleur
     {
         /// <summary>
         /// Geen waarde.
@@ -19,23 +15,23 @@ namespace HenE.GameBlackJack.Enum
         IsDefined,
 
         /// <summary>
-        /// Groene fiche.
+        /// Hart.
         /// </summary>
-        Groen,
+        Hart,
 
         /// <summary>
-        /// Gele fiche.
+        /// Schoppen
         /// </summary>
-        Geel,
+        Schoppen,
 
         /// <summary>
-        /// Blue fiche.
+        /// Ruiten.
         /// </summary>
-        Blue,
+        Ruiten,
 
         /// <summary>
-        /// Rode fiche.
+        /// Klaveren.
         /// </summary>
-        Rood,
+        Klaveren,
     }
 }

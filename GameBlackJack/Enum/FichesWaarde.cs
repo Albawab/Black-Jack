@@ -1,17 +1,13 @@
-﻿// <copyright file="Waarde Van Enum.cs" company="PlaceholderCompany">
+﻿// <copyright file="FichesWaarde.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
 namespace HenE.GameBlackJack.Enum
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
     /// <summary>
     /// Enum van het bedrag.
     /// </summary>
-    public enum Waarde_Van_Enum
+    public enum FichesWaarde
     {
         /// <summary>
         /// Is defined.
@@ -37,6 +33,5 @@ namespace HenE.GameBlackJack.Enum
         /// bedrag van 25.
         /// </summary>
         Vijfentwintig,
-
     }
 }
