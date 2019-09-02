@@ -4,6 +4,7 @@
 
 namespace HenE.GameBlackJack
 {
+    using System;
     using System.Collections.Generic;
     using HenE.GameBlackJack.Enum;
 
@@ -12,8 +13,20 @@ namespace HenE.GameBlackJack
     /// </summary>
     public class Hand
     {
-        private readonly IList<Fiches> fiches = new List<Fiches>();
-        private readonly IList<Kaarten> kaartens = new List<Kaarten>();
+        private readonly IList<Fiche> fiches = new List<Fiche>();
+        private readonly IList<Kaart> kaartens = new List<Kaart>();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Hand"/> class.
+        /// </summary>
+        /// <param name="persoon">Huidige persoon.</param>
+        public Hand(Persoon persoon)
+        {
+            if (persoon is null)
+            {
+                throw new ArgumentNullException("Persoon mag niet leeg zijn.");
+            }
+        }
 
         /// <summary>
         /// Gets or sets De spelers.
@@ -23,7 +36,7 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// Gets or sets de kaarten.
         /// </summary>
-        private Kaarten Kaarten { get; set; }
+        private Kaart Kaarten { get; set; }
 
         /// <summary>
         /// Gets or sets de status van de hand.
@@ -34,7 +47,7 @@ namespace HenE.GameBlackJack
         /// Voeg de fiches er in.
         /// </summary>
         /// <param name="fiche">Een fiche.</param>
-        public void VoegEenFichesIn(Fiches fiche)
+        public void VoegEenFichesIn(Fiche fiche)
         {
             this.fiches.Add(fiche);
         }
@@ -43,7 +56,7 @@ namespace HenE.GameBlackJack
         /// Voeg de fiches er in.
         /// </summary>
         /// <param name="kaart">Een Kaart.</param>
-        public void VoegKaartIn(Kaarten kaart)
+        public void VoegKaartIn(Kaart kaart)
         {
             this.kaartens.Add(kaart);
         }
@@ -53,9 +66,9 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="hand">Huidige hand.</param>
         /// <returns>De fiches.</returns>
-        public Fiches FichesInHand(Hand hand)
+        public Fiche FichesInHand(Hand hand)
         {
-            foreach (Fiches fiche in this.fiches)
+            foreach (Fiche fiche in this.fiches)
             {
                 if (hand.fiches == fiche)
                 {

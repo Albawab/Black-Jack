@@ -34,4 +34,6 @@ namespace HenE.GameBlackJack.Enum
         /// </summary>
         Klaveren,
     }
+
+    // voor het gemak
 }

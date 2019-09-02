@@ -4,10 +4,6 @@
 
 namespace HenE.GameBlackJack
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
     /// <summary>
     /// De class van de persoon.
     /// </summary>

@@ -4,8 +4,9 @@
 
 namespace HenE.GameBlackJack.HelperEnum
 {
+    using System.Collections.Generic;
     using HenE.GameBlackJack.Enum;
-    using HenE.GameBlackJack.Tafel;
+    using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
     /// Omzetten de waarde tot fiche.
@@ -15,14 +16,29 @@ namespace HenE.GameBlackJack.HelperEnum
         private readonly FichesBak fichesBak;
 
         /// <summary>
+        /// Creat een lijst van de fiches.
+        /// </summary>
+        /// <returns>List van de fiches.</returns>
+        public static List<FichesKleur> GetFichesKleur()
+        {
+            return new List<FichesKleur>()
+            {
+                FichesKleur.Blue,
+                FichesKleur.Geel,
+                FichesKleur.Groen,
+                FichesKleur.Rood,
+            };
+        }
+
+        /// <summary>
         /// Omzetten de waarde die wil de speler kopen tot fiches.
         /// </summary>
         /// <param name="hetBedrag">Het bedrag.</param>
         /// <returns>Een fiche.</returns>
-        public Fiches OmzettenWaardeDieDeSpelerwil_TotEenFiche(int hetBedrag)
+        public Fiche OmzettenWaardeDieDeSpelerwil_TotEenFiche(int hetBedrag)
         {
             FichesWaarde waarde = this.OmzettenWaardeDieDeSpelerwilTotFiche(hetBedrag);
-            Fiches fiche = this.fichesBak.ZoekEenFiche(waarde);
+            Fiche fiche = this.fichesBak.ZoekEenFiche(waarde);
 
             return fiche;
         }
