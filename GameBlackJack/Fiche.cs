@@ -14,20 +14,20 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// Initializes a new instance of the <see cref="Fiche"/> class.
         /// </summary>
-        /// <param name="fichesKleur">De kleur van de fiches.</param>
-        public Fiche(FichesKleur fichesKleur)
+        /// <param name="fichesKleure">De kleur van een fiche.</param>
+        public Fiche(FichesKleur fichesKleure)
         {
-            this.FicheKleur = fichesKleur;
+            this.FicheKleur = fichesKleure;
         }
 
         /// <summary>
-        /// Gets or sets de waarde van een fiche.
+        /// Gets de waarde van een fiche.
         /// </summary>
-        public FichesWaarde Waarde { get; set; }
+        public FichesWaarde Waarde { get; private set; }
 
         /// <summary>
-        /// Gets or sets de kleur van een fiche.
+        /// Gets de kleur van een fiche.
         /// </summary>
-        private FichesKleur FicheKleur { get; set; }
+        public FichesKleur FicheKleur { get; private set; }
     }
 }

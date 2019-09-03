@@ -5,6 +5,7 @@
 namespace Balck_Jack
 {
     using System;
+    using System.Collections.Generic;
     using HenE.GameBlackJack;
     using HenE.GameBlackJack.Enum;
     using HenE.GameBlackJack.HelperEnum;
@@ -43,17 +44,41 @@ namespace Balck_Jack
 
             // Add de dealer.
             Dealer dealer = new Dealer("Jos");
+            Spel spel = new Spel();
 
             // Behandel de tafel.
-            Tafel tafel = new Tafel(4, fichesBak, stapelKaarten, dealer);
+            Tafel tafel = new Tafel(4, fichesBak, stapelKaarten, dealer, spel);
 
-            Speler speler = new Speler("Piet");
+            Console.WriteLine("Leuk dat je hier bent, wil je me je naam vertellen.");
+
+            // string naam = Console.ReadLine();
+            Speler speler = new Speler("A");
             tafel.AddEenSpeler(speler);
             Speler speler1 = new Speler("Kees");
             tafel.AddEenSpeler(speler1);
 
-            Spel spel = new Spel();
-            spel.Start(tafel);
+            int waarde = 0;
+            string kopen = "10";
+            Console.WriteLine("Ik ben de dealer Mijn naam is Jos. Ik heb fiches van 5, 10, 15, 20, en 25 euro. Wat wil je dan koppen?");
+            Console.WriteLine("Graag type 5, 10, 15, 20 of 25.");
+
+            // kopen = Console.ReadLine();
+            while (!int.TryParse(kopen, out waarde))
+            {
+                Console.WriteLine("Type een nummer!");
+                kopen = Console.ReadLine();
+            }
+
+            speler.Koopfiches(waarde, dealer, fichesBak);
+            string fiches = speler.FichesInPortemonnee();
+            Console.WriteLine($"{speler.Naam} je heeft {fiches} fiche/fiches.");
+            int nummer = 1;
+            List<int> gekozen = new List<int>();
+            gekozen.Add(nummer);
+            speler.FichesZetten(gekozen, spel);
+
+            dealer.DeelDeBeginKaarten(spel, tafel);
+            dealer.DeelDeTweedeRondjeVanDeKaarten(spel, tafel);
         }
     }
 }

@@ -13,12 +13,12 @@ namespace HenE.GameBlackJack.HelperEnum
     /// </summary>
     public class HelperFiches
     {
-        private readonly FichesBak fichesBak;
+        private FichesBak FichesBak { get; set; }
 
         /// <summary>
         /// Creat een lijst van de fiches.
         /// </summary>
-        /// <returns>List van de fiches.</returns>
+        /// <returns>List van de fiches waarde.</returns>
         public static List<FichesKleur> GetFichesKleur()
         {
             return new List<FichesKleur>()
@@ -34,11 +34,14 @@ namespace HenE.GameBlackJack.HelperEnum
         /// Omzetten de waarde die wil de speler kopen tot fiches.
         /// </summary>
         /// <param name="hetBedrag">Het bedrag.</param>
+        /// <param name="fichesBak">Het fiches.</param>
+        /// <param name="dealer">Huidige dealer.</param>
         /// <returns>Een fiche.</returns>
-        public Fiche OmzettenWaardeDieDeSpelerwil_TotEenFiche(int hetBedrag)
+        public Fiche OmzettenWaardeDieDeSpelerwil_TotEenFiche(int hetBedrag, FichesBak fichesBak, Dealer dealer)
         {
+            this.FichesBak = fichesBak;
             FichesWaarde waarde = this.OmzettenWaardeDieDeSpelerwilTotFiche(hetBedrag);
-            Fiche fiche = this.fichesBak.ZoekEenFiche(waarde);
+            Fiche fiche = this.FichesBak.ZoekEenFiche(waarde, dealer);
 
             return fiche;
         }

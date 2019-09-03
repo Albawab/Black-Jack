@@ -4,13 +4,10 @@
 
 namespace HenE.GameBlackJack
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
-    using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
-    /// Behandel he spel.
+    /// Behandel het spel.
     /// </summary>
     public class Spel
     {
@@ -19,8 +16,26 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// Start het spel.
         /// </summary>
-        public void Start(Tafel tafel)
+        /// <param name="hand">Huidige hand.</param>
+
+        public void VoegEenHandIn(Hand hand)
         {
+            this.handen.Add(hand);
+        }
+
+        /// <summary>
+        /// Zoek in de handen lijst en geet een hand terug.
+        /// </summary>
+        /// <returns>Een lijst van handen.</returns>
+        public List<Hand> NeemHand()
+        {
+            List<Hand> terugGeven = new List<Hand>();
+            foreach (Hand hand in this.handen)
+            {
+                terugGeven.Add(hand);
+            }
+
+            return terugGeven;
         }
     }
 }

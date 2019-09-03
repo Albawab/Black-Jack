@@ -5,6 +5,7 @@
 namespace HenE.GameBlackJack
 {
     using System.Collections.Generic;
+    using System.Text;
     using HenE.GameBlackJack.HelperEnum;
     using HenE.GameBlackJack.SpelSpullen;
 
@@ -56,17 +57,54 @@ namespace HenE.GameBlackJack
         /// De speler bepaalt wat hij wil kopen.
         /// </summary>
         /// <param name="hetBedrag">De waarde van de fiches.</param>
-        public void Koopfiches(int hetBedrag)
+        /// <param name="dealer">Huidige dealer.</param>
+        /// <param name="fichesBak">Huidige fiches bak.</param>
+        public void Koopfiches(int hetBedrag, Dealer dealer, FichesBak fichesBak)
         {
-            Fiche createFiche = this.helperFiches.OmzettenWaardeDieDeSpelerwil_TotEenFiche(hetBedrag);
-            /*foreach (Hand hand1 in this.Hands)
+            HelperFiches helperFiches = new HelperFiches();
+            Fiche createFiche = helperFiches.OmzettenWaardeDieDeSpelerwil_TotEenFiche(hetBedrag, fichesBak, dealer);
+            this.portemonnee.Add(createFiche);
+        }
+
+        /// <summary>
+        /// Zoek hoe veel fiches de speler heeft in zijn portemonnee.
+        /// </summary>
+        /// <returns>fiches als string.</returns>
+        public string FichesInPortemonnee()
+        {
+            int i = 0;
+            StringBuilder fiches = new StringBuilder();
+            foreach (Fiche fiche in this.portemonnee)
             {
-                hand = hand1;
+                i++;
+                string stringFiche = fiche.FicheKleur.ToString();
+                fiches.Append("\n" + i.ToString() + "-" + stringFiche + "\n");
             }
 
-            Fiches fiche = this.dealer.GeefEenFiche(hand, createFiche);
-            this.Portemonnee.Add(fiche);
-            */
+            return fiches.ToString();
+        }
+
+        /// <summary>
+        /// Zoek in de portemonnee voor een fiche.
+        /// </summary>
+        /// <param name="gekozen">Wat de speler heeft gekozen.</param>
+        /// <param name="spel">Dit Spel.</param>
+        public void FichesZetten(List<int> gekozen, Spel spel)
+        {
+            List<Fiche> itemGekozen = new List<Fiche>();
+            foreach (int item in gekozen)
+            {
+                Fiche fiche = this.portemonnee[item - 1];
+                Hand hand = new Hand(this);
+                spel.VoegEenHandIn(hand);
+                hand.VoegEenFichesIn(fiche);
+                itemGekozen.Add(fiche);
+            }
+
+            foreach (Fiche fiche1 in itemGekozen)
+            {
+                this.portemonnee.Remove(fiche1);
+            }
         }
 
         /// <summary>
@@ -109,6 +147,7 @@ namespace HenE.GameBlackJack
             */
             switch (wilDoen)
             {
+                // enum
                 case "koop":
                     hand1.VoegKaartIn(dealer.GeefEenKaart(hand1));
                     break;

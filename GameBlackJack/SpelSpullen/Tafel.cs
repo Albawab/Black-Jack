@@ -23,7 +23,8 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// <param name="fichesBak">Waar de fiches staat.</param>
         /// <param name="stapelKaarten">Waar de kaarten staat.</param>
         /// <param name="dealer">De dealer van heet spel.</param>
-        public Tafel(int aantelPlekken, FichesBak fichesBak, StapelKaarten stapelKaarten, Dealer dealer)
+        /// <param name="spel"> Huidige speler.</param>
+        public Tafel(int aantelPlekken, FichesBak fichesBak, StapelKaarten stapelKaarten, Dealer dealer, Spel spel)
         {
             this.Dealer = dealer;
             this.StapelKaarten = stapelKaarten;
@@ -43,9 +44,9 @@ namespace HenE.GameBlackJack.SpelSpullen
         private FichesBak FichesBak { get; set; }
 
         /// <summary>
-        /// Gets or Sets De stapel van de kaarten.
+        /// Gets ts De stapel van de kaarten.
         /// </summary>
-        private StapelKaarten StapelKaarten { get; set; }
+        public StapelKaarten StapelKaarten { get; private set; }
 
         /// <summary>
         /// Gets or sets minimale bedrag wat op deze tafel ingezet moet worden.
@@ -68,13 +69,26 @@ namespace HenE.GameBlackJack.SpelSpullen
             }
         }
 
+        /*
+        /// <summary>
+        /// Add een hand aan de dealer.
+        /// </summary>
+        /// <param name="dealer">Huidige dealer.</param>
+        /// <param name="spel">Huidig spel.</param>
+        public void VoegDealerIn(Dealer dealer, Spel spel)
+        {
+            Hand hand = new Hand(dealer);
+            spel.VoegEenHandIn(hand);
+        }
+        */
+
         /// <summary>
         /// Voeg een speler aan het spel in.
         /// </summary>
         /// <param name="speler">Nieuwe speler.</param>
+        /// <param name="spel">Huidige spel.</param>
         public void AddEenSpeler(Speler speler)
         {
-            Hand hand = new Hand(speler);
             // voeg een hand.
             Plek plek = this.VrijPlek();
             speler.NeemtEenPlek(plek);

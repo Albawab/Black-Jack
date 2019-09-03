@@ -14,7 +14,7 @@ namespace HenE.GameBlackJack
     public class Hand
     {
         private readonly IList<Fiche> fiches = new List<Fiche>();
-        private readonly IList<Kaart> kaartens = new List<Kaart>();
+        private readonly IList<Kaart> kaarten = new List<Kaart>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Hand"/> class.
@@ -27,6 +27,11 @@ namespace HenE.GameBlackJack
                 throw new ArgumentNullException("Persoon mag niet leeg zijn.");
             }
         }
+
+        /// <summary>
+        /// Gets or sets de punten.
+        /// </summary>
+        private int Punten{ get; set; }
 
         /// <summary>
         /// Gets or sets De spelers.
@@ -58,7 +63,7 @@ namespace HenE.GameBlackJack
         /// <param name="kaart">Een Kaart.</param>
         public void VoegKaartIn(Kaart kaart)
         {
-            this.kaartens.Add(kaart);
+            this.kaarten.Add(kaart);
         }
 
         /// <summary>
@@ -77,6 +82,52 @@ namespace HenE.GameBlackJack
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Geef de lijst van de kaarten terug.
+        /// </summary>
+        /// <returns>Lijst van de kaarten.</returns>
+        public List<Kaart> NeemKaarten()
+        {
+            List<Kaart> terugKaarten = new List<Kaart>();
+            foreach (Kaart kaart in this.kaarten)
+            {
+                terugKaarten.Add(kaart);
+            }
+
+            return terugKaarten;
+        }
+
+        /// <summary>
+        /// Voeg de punten aan de hand van de speler.
+        /// </summary>
+        /// <param name="punten">de punten.</param>
+        public void AddEenPunten(int punten)
+        {
+            this.Punten += punten;
+        }
+
+        /// <summary>
+        /// Als de hand heeft 21 punten dan het is Black Jack.
+        /// </summary>
+        /// <returns>Black jack of nee.</returns>
+        public bool BlackJeck()
+        {
+            if (this.Punten == 21)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Verandert de situatie van de hand tot Blackjack.
+        /// </summary>
+        public void PutBlackJack()
+        {
+            this.StatusVanDeHand = Status.BlackJack;
         }
     }
 }

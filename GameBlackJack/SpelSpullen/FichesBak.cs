@@ -14,11 +14,12 @@ namespace HenE.GameBlackJack.SpelSpullen
     {
         private int aantelRijenVanFiches = 0;
         private List<FichesKleur> fichesKleur = null;
+        private List<FichesWaarde> fichesWaardes = null;
 
         /// <summary>
         /// De fiches die in de fichesBak zitten.
         /// </summary>
-        private IList<Fiche> fiches = new List<Fiche>();
+        private List<Fiche> fiches = new List<Fiche>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FichesBak"/> class.
@@ -57,18 +58,12 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// Zoek op een fiche die de waarde van het gelijk aan de waarde die de speler wil kopen.
         /// </summary>
         /// <param name="waarde">De waarde.</param>
+        /// <param name="dealer">Huidige dealer.</param>
         /// <returns>Een fiche.</returns>
-        public Fiche ZoekEenFiche(FichesWaarde waarde)
+        public Fiche ZoekEenFiche(FichesWaarde waarde, Dealer dealer)
         {
-            foreach (Fiche fiche in this.fiches)
-            {
-                if (fiche.Waarde == waarde)
-                {
-                    return fiche;
-                }
-            }
-
-            return null;
+            Fiche fiche1 = dealer.GeefWaardeAanFiche(waarde, this.fiches);
+            return fiche1;
         }
 
         /// <summary>
