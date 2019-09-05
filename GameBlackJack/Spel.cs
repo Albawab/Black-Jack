@@ -17,7 +17,6 @@ namespace HenE.GameBlackJack
         /// Start het spel.
         /// </summary>
         /// <param name="hand">Huidige hand.</param>
-
         public void VoegEenHandIn(Hand hand)
         {
             this.handen.Add(hand);

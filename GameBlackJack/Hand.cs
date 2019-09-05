@@ -7,14 +7,15 @@ namespace HenE.GameBlackJack
     using System;
     using System.Collections.Generic;
     using HenE.GameBlackJack.Enum;
+    using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
     /// De klas van de hand.
     /// </summary>
     public class Hand
     {
-        private readonly IList<Fiche> fiches = new List<Fiche>();
-        private readonly IList<Kaart> kaarten = new List<Kaart>();
+        private readonly List<Fiche> fiches = new List<Fiche>();
+        private readonly List<Kaart> kaarten = new List<Kaart>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Hand"/> class.
@@ -26,12 +27,18 @@ namespace HenE.GameBlackJack
             {
                 throw new ArgumentNullException("Persoon mag niet leeg zijn.");
             }
+
+            if (persoon is Speler)
+            {
+                Console.WriteLine(persoon as Dealer);
+                this.Speler = (Speler)persoon;
+            }
         }
 
         /// <summary>
         /// Gets or sets de punten.
         /// </summary>
-        private int Punten{ get; set; }
+        private int Punten { get; set; }
 
         /// <summary>
         /// Gets or sets De spelers.
@@ -69,19 +76,10 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// De fiches in de hand van de speler.
         /// </summary>
-        /// <param name="hand">Huidige hand.</param>
         /// <returns>De fiches.</returns>
-        public Fiche FichesInHand(Hand hand)
+        public List<Fiche> FichesInHand()
         {
-            foreach (Fiche fiche in this.fiches)
-            {
-                if (hand.fiches == fiche)
-                {
-                    return fiche;
-                }
-            }
-
-            return null;
+            return this.fiches;
         }
 
         /// <summary>
@@ -128,6 +126,115 @@ namespace HenE.GameBlackJack
         public void PutBlackJack()
         {
             this.StatusVanDeHand = Status.BlackJack;
+        }
+
+        /// <summary>
+        /// Vraagt of de status van de hand is defined.
+        /// </summary>
+        /// <param name="hand">huidige hand.</param>
+        /// <returns>Is de hand defined of nee.</returns>
+        public bool HandStatusDefined(Hand hand)
+        {
+            if (hand.StatusVanDeHand == Status.IsDefined)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// geeft de punten terug.
+        /// </summary>
+        /// <returns>Hoeveel punten de speler heeft.</returns>
+        public int HuidigePunten()
+        {
+            return this.Punten;
+        }
+
+        /// <summary>
+        /// Verander de staus van de hand.
+        /// </summary>
+        /// <param name="status">De status.</param>
+        public void VeranderDeStatusVanDeHand(Status status)
+        {
+            this.StatusVanDeHand = status;
+        }
+
+        /// <summary>
+        /// Geef de huidige speler terug.
+        /// </summary>
+        /// <returns>Huidige speler.</returns>
+        public Speler HuidigeSpeler()
+        {
+            return this.Speler;
+        }
+
+        public void Verdubbelen(Dealer dealer, Tafel tafel, Spel spel)
+        {
+            this.VeranderDeStatusVanDeHand(Status.Verdubbelen);
+            FichesBak fichesBak = tafel.HuidigeFichesBak();
+            List<Fiche> fiches = this.FichesInHand();
+            List<Fiche> fichesWilZetten = this.Speler.ZetGelijkFiches(fiches, dealer, fichesBak);
+            foreach (Fiche fiche in fichesWilZetten)
+            {
+                this.VoegEenFichesIn(fiche);
+            }
+
+            Console.WriteLine($"{this.Speler.Naam}, wil je kopen of passen K of P?");
+
+            if (this.Punten == 21)
+            {
+                // Fiche fiche = huidigeHand.FichesInHand();
+                this.StatusVanDeHand = Status.BlackJack;
+                //..                       dealer.GeefEenFicheAanDeHand(this); // ==> Hier Een Keer en half moet zijn.
+
+                if (this.Punten >= 9 && this.Punten <= 11)
+                {
+                    this.Verdubbelen(dealer, tafel, spel);
+                }
+            }
+
+
+        }
+
+        public void Splits(Dealer dealer, Tafel tafel, Spel spel)
+        {
+            this.VeranderDeStatusVanDeHand(Status.Verdubbelen);
+            Hand nieuweHand = new Hand(this.Speler);
+            spel.VoegEenHandIn(nieuweHand);
+            this.Speler.VoegEenHandIn(nieuweHand);
+            FichesBak fichesBak = tafel.HuidigeFichesBak();
+            List<Fiche> fiches = this.FichesInHand();
+            List<Fiche> fichesWilZetten = this.Speler.ZetGelijkFiches(fiches, dealer, fichesBak);
+            foreach (Fiche fiche in fichesWilZetten)
+            {
+                this.VoegEenFichesIn(fiche);
+            }
+
+            foreach (Hand eenHandVanDeSpeler in this.Speler.GeefHanden())
+            {
+                dealer.DeelEenKaart(eenHandVanDeSpeler);
+                dealer.CheckDeHand(eenHandVanDeSpeler);
+                if (this.Punten <= 21)
+                {
+                    if (this.BlackJeck())
+                    {
+                        // Fiche fiche = huidigeHand.FichesInHand();
+                        this.StatusVanDeHand = Status.BlackJack;
+                        //..                       dealer.GeefEenFicheAanDeHand(this); // ==> Hier Een Keer en half moet zijn.
+                    }
+                    else
+                    {
+                        if (this.Punten >= 9 && this.Punten <= 11)
+                        {
+                            this.Verdubbelen(dealer, tafel, spel);
+                        }
+                    }
+                }
+
+                Console.WriteLine($"{this.Speler.Naam}, wil je kopen of passen?");
+            }
         }
     }
 }

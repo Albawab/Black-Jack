@@ -69,6 +69,15 @@ namespace HenE.GameBlackJack.SpelSpullen
             }
         }
 
+        /// <summary>
+        /// Geef de fiches bak terug.
+        /// </summary>
+        /// <returns>De fiches bak.</returns>
+        public FichesBak HuidigeFichesBak()
+        {
+            return this.FichesBak;
+        }
+
         /*
         /// <summary>
         /// Add een hand aan de dealer.

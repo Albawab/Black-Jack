@@ -16,7 +16,8 @@ namespace HenE.GameBlackJack
     {
         private Kaart kaart;
         private Fiche fiche;
-        private readonly FichesBak fichesBank;
+        private FichesBak fichesBank = null;
+        private StapelKaarten kaarten = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Dealer"/> class.
@@ -44,14 +45,14 @@ namespace HenE.GameBlackJack
         /// <param name="tafel">huidige tafel.</param>
         public void DeelDeBeginKaarten(Spel spel, Tafel tafel)
         {
-            StapelKaarten kaarten = tafel.StapelKaarten;
+            this.kaarten = tafel.StapelKaarten;
             Hand hand = new Hand(this);
             this.Hand = hand;
             spel.VoegEenHandIn(hand);
             List<Hand> handen = spel.NeemHand();
             foreach (Hand hand1 in handen)
             {
-                this.kaart = kaarten.NeemEenKaart();
+                this.kaart = this.kaarten.NeemEenKaart();
                 hand1.VoegKaartIn(this.kaart);
             }
         }
@@ -65,23 +66,27 @@ namespace HenE.GameBlackJack
         {
             StapelKaarten kaarten = tafel.StapelKaarten;
             List<Hand> handen = spel.NeemHand();
-            foreach (Hand hudigeHand in handen)
+            foreach (Hand huidigeHand in handen)
             {
-                if (hudigeHand == this.Hand)
+                if (huidigeHand == this.Hand)
                 {
                     this.kaart = null;
                 }
                 else
                 {
                     this.kaart = kaarten.NeemEenKaart();
-                    hudigeHand.VoegKaartIn(this.kaart);
-                    this.CheckDeHand(handen);
-                    if (hudigeHand.BlackJeck())
+                    huidigeHand.VoegKaartIn(this.kaart);
+                    this.CheckDeHand(huidigeHand);
+                    if (huidigeHand.BlackJeck())
                     {
-                        hudigeHand.PutBlackJack();
+                       // Fiche fiche = huidigeHand.FichesInHand();
+                       huidigeHand.PutBlackJack();
+ //..                      this.GeefEenFiche(huidigeHand, this.fiche); // ==> Hier Een Keer en half moet zijn.
                     }
                 }
             }
+
+            this.CheckWatElkeSpelerInDeHandHeeft(spel, tafel);
         }
 
         /// <summary>
@@ -89,7 +94,7 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="hand">Huidige hand.</param>
         /// <returns>Een Kaart.</returns>
-        public Kaart GeefEenKaart(Hand hand)
+        public Kaart GeefEenKaartTerug(Hand hand)
         {
             // this.kaart = this.stapelKaarten.NeemEenKaart();
             return this.kaart;
@@ -106,19 +111,6 @@ namespace HenE.GameBlackJack
             this.fiche = this.fichesBank.NeemEenFiche(huidigeFiches);
             return this.fiche;
         }
-
-        /*
-        /// <summary>
-        /// Deze method gaat een fiche nemen vanuit de fiches bak.
-        /// </summary>
-        /// <param name="waarde">De waarde.</param>
-        /// <returns>een fiche.</returns>
-        public Fiche NeemEenFicheGelijkAanBedrag(FichesWaarde waarde)
-        {
-            this.fiche = this.fichesBank.ZoekEenFiche(waarde, this);
-            return this.fiche;
-        }
-        */
 
         /// <summary>
         /// Geeft een waarde aan de juste fiche.
@@ -179,14 +171,12 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// De dealer controleert wat de hand heeft.
         /// </summary>
-        /// <param name="handen">Lijst of handen.</param>
-        private void CheckDeHand(List<Hand> handen)
+        /// <param name="hand">Huidige hand.</param>
+        public void CheckDeHand(Hand hand)
         {
             List<Kaart> kaarten;
-            foreach (Hand hand in handen)
-            {
-                kaarten = hand.NeemKaarten();
-                foreach (Kaart kaart in kaarten)
+            kaarten = hand.NeemKaarten();
+            foreach (Kaart kaart in kaarten)
                 {
                     switch (kaart.Teken)
                     {
@@ -229,6 +219,47 @@ namespace HenE.GameBlackJack
                         case KaartTeken.Boer:
                             hand.AddEenPunten(10);
                             break;
+                    }
+                }
+        }
+
+        /// <summary>
+        /// De dealer deelt een kaart aan de speler.
+        /// </summary>
+        /// <param name="hand">Huidige hand.</param>
+        public void DeelEenKaart(Hand hand)
+        {
+            Kaart kaart = this.kaarten.NeemEenKaart();
+            hand.VoegKaartIn(kaart);
+        }
+
+        /// <summary>
+        /// Deze method controleert wat elke hand heeft (Kaarten.).
+        /// </summary>
+        /// <param name="spel">Het spel.</param>
+        /// <param name="tafel">De tafel met de spullen.</param>
+        private void CheckWatElkeSpelerInDeHandHeeft(Spel spel, Tafel tafel)
+        {
+            foreach (Hand hand in spel.NeemHand())
+            {
+                if (hand.HandStatusDefined(hand))
+                {
+                   // this.CheckDeHand(hand);
+                    int punten = hand.HuidigePunten();
+                    if (punten >= 9 && punten <= 11)
+                    {
+                        Console.WriteLine("Prima, je heeft 9 t/m 11 punten dus je mag verdubbelen. Zou je verdubbelen J of N?");
+                        ConsoleKeyInfo antwoord = Console.ReadKey();
+                        while (antwoord.Key != ConsoleKey.J && antwoord.Key != ConsoleKey.N)
+                        {
+                            Console.WriteLine("Graag type \"J\" of \"N\"");
+                            antwoord = Console.ReadKey();
+                        }
+
+                        if (antwoord.Key == ConsoleKey.J)
+                        {
+                            hand.Verdubbelen(this, tafel, spel);
+                        }
                     }
                 }
             }
