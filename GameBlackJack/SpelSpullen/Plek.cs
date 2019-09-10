@@ -12,24 +12,13 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// <summary>
         /// Initializes a new instance of the <see cref="Plek"/> class.
         /// </summary>
-        /// <param name="vijPlek">Is deze plek bezet of niet.</param>
-        public Plek(bool vijPlek)
+        public Plek()
         {
-            this.VrijBlek = vijPlek;
         }
 
         /// <summary>
-        /// Gets a value indicating whether gets or sets De plek waar de speler gaat zitten.
+        /// Gets or sets de speler die wil spelen.
         /// </summary>
-        public bool VrijBlek { get; private set; }
-
-        /// <summary>
-        /// Mag niet meer de plek gebruiken.
-        /// </summary>
-        /// <param name="plek">Huidige plek.</param>
-        public void DoeDePlekBezet(Plek plek)
-        {
-            plek.VrijBlek = false;
-        }
+        public Speler Speler { get; set; }
     }
 }

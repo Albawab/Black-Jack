@@ -6,42 +6,53 @@ namespace HenE.GameBlackJack.SpelSpullen
 {
     using System;
     using System.Collections.Generic;
+    using HenE.GameBlackJack.Kaarten;
 
     /// <summary>
-    /// De klas van de tafels.
+    /// Hier staat de spullen van het spel.
     /// </summary>
     public class Tafel
     {
-        private readonly List<Plek> plekken = new List<Plek>();
-        private readonly List<Speler> spelers = new List<Speler>();
-        private int aantelPlekken = 0;
+        private readonly Plek[] plekken;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Tafel"/> class.
         /// </summary>
-        /// <param name="aantelPlekken">Hoe veel plekken aan de tafel .</param>
-        /// <param name="fichesBak">Waar de fiches staat.</param>
+        /// <param name="aantalPlekken">Hoe veel plekken aan de tafel .</param>
+        /// <param name="fiches">Waar de fiches staat.</param>
         /// <param name="stapelKaarten">Waar de kaarten staat.</param>
-        /// <param name="dealer">De dealer van heet spel.</param>
-        /// <param name="spel"> Huidige speler.</param>
-        public Tafel(int aantelPlekken, FichesBak fichesBak, StapelKaarten stapelKaarten, Dealer dealer, Spel spel)
+        private Tafel(int aantalPlekken, Fiches fiches, StapelKaarten stapelKaarten)
         {
-            this.Dealer = dealer;
             this.StapelKaarten = stapelKaarten;
-            this.FichesBak = fichesBak;
-            this.aantelPlekken = aantelPlekken;
-            this.VoegEenPlekAanTafelIn();
+            this.Fiches = fiches;
+            this.plekken = new Plek[aantalPlekken];
+
+            for (int i = 0; i < this.plekken.Length; i++)
+            {
+                this.plekken[i] = new Plek();
+            }
         }
 
         /// <summary>
-        /// Gets or sets de dealer van het spel.
+        /// Gets de dealer van het spel.
         /// </summary>
-        private Dealer Dealer { get; set; }
+        public Dealer Dealer { get; private set; }
+
+        /// <summary>
+        /// Gets de plekken met de spelers die aan de tafel zijn.
+        /// </summary>
+        public Plek[] Plekken
+        {
+            get
+            {
+                return this.plekken;
+            }
+        }
 
         /// <summary>
         /// Gets or sets De fiches.
         /// </summary>
-        private FichesBak FichesBak { get; set; }
+        public Fiches Fiches { get; set; }
 
         /// <summary>
         /// Gets ts De stapel van de kaarten.
@@ -58,26 +69,6 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// </summary>
         private int MaximaleInZet { get; set; }
 
-        /// <summary>
-        /// Voeg de plek aan de tafel in.
-        /// </summary>
-        public void VoegEenPlekAanTafelIn()
-        {
-            for (int plek = 0; plek < this.aantelPlekken; plek++)
-            {
-                this.plekken.Add(new Plek(true));
-            }
-        }
-
-        /// <summary>
-        /// Geef de fiches bak terug.
-        /// </summary>
-        /// <returns>De fiches bak.</returns>
-        public FichesBak HuidigeFichesBak()
-        {
-            return this.FichesBak;
-        }
-
         /*
         /// <summary>
         /// Add een hand aan de dealer.
@@ -91,47 +82,92 @@ namespace HenE.GameBlackJack.SpelSpullen
         }
         */
 
-        /// <summary>
-        /// Voeg een speler aan het spel in.
-        /// </summary>
-        /// <param name="speler">Nieuwe speler.</param>
-        /// <param name="spel">Huidige spel.</param>
-        public void AddEenSpeler(Speler speler)
+            /// <summary>
+            /// Maak een nieuwe tafel.
+            /// </summary>
+            /// <param name="fiches">De fiches die aan de tafel zijn.</param>
+            /// <returns>De nieuwe tafel.</returns>
+        public static Tafel CreateBlackJackTafel(Fiches fiches)
         {
-            // voeg een hand.
-            Plek plek = this.VrijPlek();
-            speler.NeemtEenPlek(plek);
-            plek.DoeDePlekBezet(plek);
-            this.spelers.Add(speler);
+            Tafel tafel = new Tafel(6, fiches, StapelKaartenFactory.CreateBlackJackKaarten(2));
+            return tafel;
         }
 
-        /*
         /// <summary>
-        /// Deze Plek beschikbaar of niet.
+        /// functie om van dealer te wisselen.
         /// </summary>
-        /// <param name="dePlek">De plek.</param>
-        /// <returns>Vrij plek.</returns>
-        public Plek VrijPlek()
+        /// <param name="newDealer">nieuwe dealer.</param>
+        /// <returns>odue dealer.</returns>
+        public Dealer WijzigDealer(Dealer newDealer)
         {
-            foreach (Plek plek in this.plekken)
-            {
-                if (plek)
-                {
+            Dealer oldDealer = this.Dealer;
 
+            this.Dealer = newDealer;
+            return oldDealer;
+        }
+
+        /// <summary>
+        /// Als de speler verlaat de tafel.wordt de plaats vij.
+        /// </summary>
+        /// <param name="speler">Huidige speler.</param>
+        /// <returns>Of de speler nog zit of hij al de plaats heeft verlaten.</returns>
+        public bool SpelerVerlaatTafel(Speler speler)
+        {
+            if (speler == null)
+            {
+                throw new ArgumentNullException("Speler mag niet null zijn.");
+            }
+
+            for (int positie = 0; positie < this.plekken.Length; positie++)
+            {
+                // let op hier 0 based
+                if (this.plekken[positie].Speler == speler)
+                {
+                    this.plekken[positie].Speler = null;
                 }
             }
 
-        } */
+            return true;
+        }
 
         /// <summary>
-        /// Doe deze plek niet meer beschikbaar.
+        /// De spler gaat op een plek zitten.
         /// </summary>
-        /// <param name="eenPlek">De plek.</param>
-        /// <returns>Deze plek.</returns>
-        public Plek DezePlekIsNietMeerVrij(Plek eenPlek)
+        /// <param name="speler">huidige speler.</param>
+        /// <param name="positie">Waar de speler wil zitten.</param>
+        /// <returns>Of de plaats beschikbaar is of niet.</returns>
+        public bool SpelerNeemtPlaats(Speler speler, uint positie)
         {
-            this.plekken.Add(eenPlek);
-            return eenPlek;
+            if (speler == null)
+            {
+                throw new ArgumentNullException("Speler mag niet null zijn.");
+            }
+
+            if (this.ZitErEenSpelerOpDezePlek(positie))
+            {
+                // er zit al een speler op die plek
+                return false;
+            }
+
+            this.plekken[positie - 1].Speler = speler;
+
+            return true;
+        }
+
+        /// <summary>
+        /// functie om te kijken of een speler op deze plek zit.
+        /// </summary>
+        /// <param name="positie">positie van de plek , 1 based.</param>
+        /// <returns>true als er een speler op die positie zit.</returns>
+        public bool ZitErEenSpelerOpDezePlek(uint positie)
+        {
+            // unsigned genomen dus dam kan het geen < 0 zijn.
+            if (positie < 1 || positie > this.plekken.Length)
+            {
+                throw new ArgumentOutOfRangeException($"positie moet tussen 1 en {this.plekken.Length} vallen.");
+            }
+
+            return this.plekken[positie - 1].Speler != null;
         }
 
         /// <summary>
@@ -167,6 +203,7 @@ namespace HenE.GameBlackJack.SpelSpullen
             return bezetPlek;
         }
 
+        /*
         /// <summary>
         /// Check of de plek beschikbaar is.
         /// </summary>
@@ -184,5 +221,6 @@ namespace HenE.GameBlackJack.SpelSpullen
 
             return null;
         }
+        */
     }
 }

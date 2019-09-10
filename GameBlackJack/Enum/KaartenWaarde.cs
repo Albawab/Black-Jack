@@ -1,9 +1,12 @@
-﻿// <copyright file="KaartWaarde.cs" company="PlaceholderCompany">
+﻿// <copyright file="KaartenWaarde.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
 namespace HenE.GameBlackJack.Enum
 {
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
     /// De enum van de waarde van de kaart.
     /// </summary>

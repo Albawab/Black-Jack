@@ -13,7 +13,7 @@ namespace HenE.GameBlackJack.HelperEnum
     /// </summary>
     public class HelperFiches
     {
-        private FichesBak FichesBak { get; set; }
+        private Fiches FichesBak { get; set; }
 
         /// <summary>
         /// Creat een lijst van de fiches.
@@ -37,13 +37,15 @@ namespace HenE.GameBlackJack.HelperEnum
         /// <param name="fichesBak">Het fiches.</param>
         /// <param name="dealer">Huidige dealer.</param>
         /// <returns>Een fiche.</returns>
-        public Fiche OmzettenWaardeDieDeSpelerwil_TotEenFiche(int hetBedrag, FichesBak fichesBak, Dealer dealer)
+        public Fiche OmzettenWaardeDieDeSpelerwil_TotEenFiche(int hetBedrag, Fiches fichesBak, Dealer dealer)
         {
             this.FichesBak = fichesBak;
             FichesWaarde waarde = this.OmzettenWaardeDieDeSpelerwilTotFiche(hetBedrag);
-            Fiche fiche = this.FichesBak.ZoekEenFiche(waarde, dealer);
 
-            return fiche;
+            // Fiche fiche = this.FichesBak.ZoekEenFiche(waarde, dealer);
+
+            // return fiche;
+            return null;
         }
 
         /// <summary>

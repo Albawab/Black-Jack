@@ -1,19 +1,25 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>Balck Jack</name>
+        <name>Black Jack</name>
     </assembly>
     <members>
-        <member name="T:Balck_Jack.Program">
+        <member name="T:HenEBalck_Jack.Helpers.FichesConsolePrinter">
             <summary>
-            Program van het spel.
+            class om de fiches in de console te rpinten.
             </summary>
         </member>
-        <member name="M:Balck_Jack.Program.Main(System.String[])">
+        <member name="M:HenEBalck_Jack.Helpers.FichesConsolePrinter.PrintFiches(HenE.GameBlackJack.SpelSpullen.Fiches)">
             <summary>
-            Main method.
+            fubnctuie om de fiches te printen.
             </summary>
-            <param name="args">args.</param>
+            <param name="fiches"> de fiches die ik wil printen.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.Helpers.FichesConsolePrinter.PrintWaardeFiches(HenE.GameBlackJack.SpelSpullen.Fiches)">
+            <summary>
+            Printe de waarde van de fiche.
+            </summary>
+            <param name="fiches">De fiche.</param>
         </member>
         <member name="T:HenEBalck_Jack.Properties.Resources">
             <summary>
@@ -30,6 +36,17 @@
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
             </summary>
+        </member>
+        <member name="T:Balck_Jack.Program">
+            <summary>
+            Program van het spel.
+            </summary>
+        </member>
+        <member name="M:Balck_Jack.Program.Main(System.String[])">
+            <summary>
+            Main method.
+            </summary>
+            <param name="args">args.</param>
         </member>
     </members>
 </doc>

@@ -7,36 +7,26 @@ namespace HenE.GameBlackJack.Enum
     /// <summary>
     /// De status van de speler.
     /// </summary>
-    public enum Status
+    public enum HandStatussen
     {
         /// <summary>
-        /// Id define.
+        /// De speler nog niet gestart.
         /// </summary>
-        IsDefined,
+        NogNietGestart,
 
         /// <summary>
-        /// De speler is Black Jack.
+        /// Als de speler gestart.
         /// </summary>
-        BlackJack,
+        Gestart,
+
+        /// <summary>
+        /// als je gepasset.
+        /// </summary>
+        OnHold,
 
         /// <summary>
         /// De speler wil stopen.
         /// </summary>
         Gestopt,
-
-        /// <summary>
-        /// De speler mag verdubbelen.
-        /// </summary>
-        Verdubbelen,
-
-        /// <summary>
-        /// de speler mag splitsen.
-        /// </summary>
-        Splitsen,
-
-        /// <summary>
-        /// De speler blijft staan.
-        /// </summary>
-        Staan,
     }
 }

@@ -15,6 +15,7 @@ namespace HenE.GameBlackJack.SpelSpullen
     public class StapelKaarten
     {
         private readonly List<KaartTeken> mogelijkeKaartTekens;
+        private readonly List<KaartWaarde> kaartWaardes;
         private readonly int aantalPakken = 0;
 
         /// <summary>
@@ -58,22 +59,22 @@ namespace HenE.GameBlackJack.SpelSpullen
             {
                 foreach (KaartTeken tekenVanKaart in this.mogelijkeKaartTekens)
                 {
-                    this.Kaarten.Add(new Kaart(KaartKleur.Hart, tekenVanKaart));
+                    this.Kaarten.Add(new Kaart(KaartKleur.Hart, tekenVanKaart, this.GeefWaardeAanKaart()));
                 }
 
                 foreach (KaartTeken tekenVanKaart in this.mogelijkeKaartTekens)
                 {
-                    this.Kaarten.Add(new Kaart(KaartKleur.Klaveren, tekenVanKaart));
+                    this.Kaarten.Add(new Kaart(KaartKleur.Klaveren, tekenVanKaart, this.GeefWaardeAanKaart()));
                 }
 
                 foreach (KaartTeken tekenVanKaart in this.mogelijkeKaartTekens)
                 {
-                    this.Kaarten.Add(new Kaart(KaartKleur.Ruiten, tekenVanKaart));
+                    this.Kaarten.Add(new Kaart(KaartKleur.Ruiten, tekenVanKaart, this.GeefWaardeAanKaart()));
                 }
 
                 foreach (KaartTeken tekenVanKaart in this.mogelijkeKaartTekens)
                 {
-                    this.Kaarten.Add(new Kaart(KaartKleur.Schoppen, tekenVanKaart));
+                    this.Kaarten.Add(new Kaart(KaartKleur.Schoppen, tekenVanKaart, this.GeefWaardeAanKaart()));
                 }
             }
 
@@ -114,6 +115,63 @@ namespace HenE.GameBlackJack.SpelSpullen
         private int GetRandomIndex(int minNumber, int maxNumber)
         {
             return new Random().Next(minNumber, maxNumber);
+        }
+
+        /// <summary>
+        /// Geef de juste waarde aan een kaart.
+        /// </summary>
+        private int GeefWaardeAanKaart()
+        {
+            int waarde = 0;
+            foreach (Kaart kaart in this.Kaarten)
+            {
+                switch (kaart.Teken)
+                {
+                    case KaartTeken.Aas:
+                        waarde = 1;
+                        break;
+                    case KaartTeken.Twee:
+                        waarde = 2;
+                        break;
+                    case KaartTeken.Drie:
+                        waarde = 3;
+                        break;
+                    case KaartTeken.Vier:
+                        waarde = 4;
+                        break;
+                    case KaartTeken.Vijf:
+                        waarde = 5;
+                        break;
+                    case KaartTeken.Zes:
+                        waarde = 6;
+                        break;
+                    case KaartTeken.Zeven:
+                        waarde = 7;
+                        break;
+                    case KaartTeken.Acht:
+                        waarde = 8;
+                        break;
+                    case KaartTeken.Negen:
+                        waarde = 9;
+                        break;
+                    case KaartTeken.Tien:
+                        waarde = 10;
+                        break;
+                    case KaartTeken.Heer:
+                        waarde = 10;
+                        break;
+                    case KaartTeken.Vrouw:
+                        waarde = 10;
+                        break;
+                    case KaartTeken.Boer:
+                        waarde = 10;
+                        break;
+                    default:
+                        return 0;
+                }
+            }
+
+            return waarde;
         }
     }
 }

@@ -5,11 +5,10 @@
 namespace Balck_Jack
 {
     using System;
-    using System.Collections.Generic;
     using HenE.GameBlackJack;
-    using HenE.GameBlackJack.Enum;
-    using HenE.GameBlackJack.HelperEnum;
     using HenE.GameBlackJack.SpelSpullen;
+    using HenEBalck_Jack.Helpers;
+    using static HenE.GameBlackJack.Fiche;
 
     /// <summary>
     /// Program van het spel.
@@ -22,63 +21,41 @@ namespace Balck_Jack
         /// <param name="args">args.</param>
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            // fiches
+            // de hoofdbak met fiches
+            Fiches cassiereFiches = FicheFactory.CreateFiches(1000);
+            FichesConsolePrinter.PrintWaardeFiches(cassiereFiches);
 
-            // Behandel de kaarten.
-            StapelKaarten stapelKaarten = new StapelKaarten(2, KaartTekenHelper.GetKaartTekenZonderJoker());
-            foreach (Kaart kaart in stapelKaarten.Kaarten)
+            // tafel
+            Tafel tafel = Tafel.CreateBlackJackTafel(cassiereFiches.GeefMeFischesTerWaardeVan(500));
+            FichesConsolePrinter.PrintWaardeFiches(tafel.Fiches);
+
+            // is   de waarde vban de fiches nu 500?
+            FichesConsolePrinter.PrintWaardeFiches(cassiereFiches);
+
+            // dealer
+            // dealer aanmaken en toewijzen aan een tafel
+            Dealer dealer = new Dealer("Kees");
+            dealer.GaAanTafelZitten(tafel);
+
+            // spelers, komen binnen en kopen bij het cassiere fiches
+            Speler spelerA = new Speler("Abdul");
+
+            // koopt fiches vbij de cassiere
+            spelerA.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(20, 10, true));
+
+            FichesConsolePrinter.PrintWaardeFiches(spelerA.Fiches);
+            FichesConsolePrinter.PrintFiches(spelerA.Fiches);
+            FichesConsolePrinter.PrintWaardeFiches(cassiereFiches);
+
+            if (spelerA.GaatAanTafelZitten(tafel, 1))
             {
-                Console.WriteLine(kaart.ToString());
+                // ok, ik zit
             }
 
-            Console.WriteLine("Shuffle");
-            stapelKaarten.Shuffle(1);
+            BlackjackController blackJackController = new BlackjackController(tafel);
 
-            foreach (Kaart kaart in stapelKaarten.Kaarten)
-            {
-                Console.WriteLine(kaart.ToString());
-            }
-
-            // Behandel de fiches bak.
-            FichesBak fichesBak = new FichesBak(10, HelperFiches.GetFichesKleur());
-
-            // Add de dealer.
-            Dealer dealer = new Dealer("Jos");
-            Spel spel = new Spel();
-
-            // Behandel de tafel.
-            Tafel tafel = new Tafel(4, fichesBak, stapelKaarten, dealer, spel);
-
-            Console.WriteLine("Leuk dat je hier bent, wil je me je naam vertellen.");
-
-            // string naam = Console.ReadLine();
-            Speler speler = new Speler("A");
-            tafel.AddEenSpeler(speler);
-            Speler speler1 = new Speler("Kees");
-            tafel.AddEenSpeler(speler1);
-
-            int waarde = 0;
-            string kopen = "10";
-            Console.WriteLine("Ik ben de dealer Mijn naam is Jos. Ik heb fiches van 5, 10, 15, 20, en 25 euro. Wat wil je dan koppen?");
-            Console.WriteLine("Graag type 5, 10, 15, 20 of 25.");
-
-            // kopen = Console.ReadLine();
-            while (!int.TryParse(kopen, out waarde))
-            {
-                Console.WriteLine("Type een nummer!");
-                kopen = Console.ReadLine();
-            }
-
-            speler.Koopfiches(waarde, dealer, fichesBak);
-            string fiches = speler.FichesInPortemonnee();
-            Console.WriteLine($"{speler.Naam} je heeft {fiches} fiche/fiches.");
-            int nummer = 1;
-            List<int> gekozen = new List<int>();
-            gekozen.Add(nummer);
-            speler.FichesZetten(gekozen, spel);
-
-            dealer.DeelDeBeginKaarten(spel, tafel);
-            dealer.DeelDeTweedeRondjeVanDeKaarten(spel, tafel);
+            blackJackController.Start();
         }
     }
 }

@@ -14,14 +14,21 @@ namespace HenE.GameBlackJack
         private List<Hand> handen = new List<Hand>();
 
         /// <summary>
+        /// Gets de handen van de spelers en de dealer.
+        /// </summary>
+        public List<Hand> Handen { get; private set; }
+
+        /// <summary>
         /// Start het spel.
         /// </summary>
         /// <param name="hand">Huidige hand.</param>
         public void VoegEenHandIn(Hand hand)
         {
             this.handen.Add(hand);
+            this.Handen = this.handen;
         }
 
+        /*
         /// <summary>
         /// Zoek in de handen lijst en geet een hand terug.
         /// </summary>
@@ -36,5 +43,6 @@ namespace HenE.GameBlackJack
 
             return terugGeven;
         }
+        */
     }
 }

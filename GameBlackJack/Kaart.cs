@@ -16,10 +16,12 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="kleur">De kleur van de kaart.</param>
         /// <param name="teken">Het teken van de kaart.</param>
-        public Kaart(KaartKleur kleur, KaartTeken teken)
+        /// <param name="waarde">De waarde van de kaart.</param>
+        public Kaart(KaartKleur kleur, KaartTeken teken, int waarde)
         {
             this.Kleur = kleur;
             this.Teken = teken;
+            this.Waarde = waarde;
         }
 
         /// <summary>
@@ -31,6 +33,11 @@ namespace HenE.GameBlackJack
         /// Gets De Teken van een kaart.
         /// </summary>
         public KaartTeken Teken { get; private set; }
+
+        /// <summary>
+        /// Gets De waarde van de kaart.
+        /// </summary>
+        public int Waarde { get; private set; }
 
         /// <summary>
         /// Change the kaart to string.

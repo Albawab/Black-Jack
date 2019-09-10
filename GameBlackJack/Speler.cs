@@ -6,12 +6,11 @@ namespace HenE.GameBlackJack
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
-    using HenE.GameBlackJack.HelperEnum;
+    using HenE.GameBlackJack.Enum;
     using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
-    /// De klas van de Speler.
+    /// Slaan de gegevens van de speler op.
     /// </summary>
     public class Speler : Persoon
     {
@@ -23,7 +22,7 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// Hoeveel fiches de speler heeft.
         /// </summary>
-        private readonly List<Fiche> portemonnee = new List<Fiche>();
+        private readonly Fiches fiches = new Fiches();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Speler"/> class.
@@ -37,7 +36,7 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// Gets Waar de speler wil zitten.
         /// </summary>
-        public Plek PlekAanTafel { get; private set; }
+        public Tafel HuidigeTafel { get; private set; }
 
         /// <summary>
         /// Gets de hand van de speler.
@@ -45,12 +44,48 @@ namespace HenE.GameBlackJack
         public Hand Hand { get; private set; }
 
         /// <summary>
-        /// Geef de speler een plek.
+        /// Gets de fiches die met de speler zijn.
         /// </summary>
-        /// <param name="plek">op dit plek de speler zit.</param>
-        public void NeemtEenPlek(Plek plek)
+        public Fiches Fiches
         {
-            this.PlekAanTafel = plek;
+            get
+            {
+                return this.fiches;
+            }
+        }
+
+        /// <summary>
+        /// Waar de speler wil zitten.
+        /// </summary>
+        /// <param name="tafel">De tafel waar de speler wil zitten.</param>
+        /// <param name="positie">De nummer van de plek.</param>
+        /// <returns>of mag zitten of niet.</returns>
+        public bool GaatAanTafelZitten(Tafel tafel, uint positie)
+        {
+            // controleren of tafel niet null is
+
+            // als je al ergens anders zat, moet je daar weg gaan
+            if (this.HuidigeTafel != null)
+            {
+                this.VerlaatTafel();
+            }
+
+            return tafel.SpelerNeemtPlaats(this, positie);
+        }
+
+        /// <summary>
+        /// Als de speler heeft de tafe verlaten.
+        /// </summary>
+        /// <returns>Heeft de speler de tafel verlaten of niet.</returns>
+        public bool VerlaatTafel()
+        {
+            // als ik nergens zit, is dat prima
+            if (this.HuidigeTafel == null)
+            {
+                return true;
+            }
+
+            return this.HuidigeTafel.SpelerVerlaatTafel(this);
         }
 
         /// <summary>
@@ -59,29 +94,11 @@ namespace HenE.GameBlackJack
         /// <param name="hetBedrag">De waarde van de fiches.</param>
         /// <param name="dealer">Huidige dealer.</param>
         /// <param name="fichesBak">Huidige fiches bak.</param>
-        public void Koopfiches(int hetBedrag, Dealer dealer, FichesBak fichesBak)
+        public void Koopfiches(int hetBedrag, Dealer dealer, Fiches fichesBak)
         {
-            HelperFiches helperFiches = new HelperFiches();
-            Fiche createFiche = helperFiches.OmzettenWaardeDieDeSpelerwil_TotEenFiche(hetBedrag, fichesBak, dealer);
-            this.portemonnee.Add(createFiche);
-        }
-
-        /// <summary>
-        /// Zoek hoe veel fiches de speler heeft in zijn portemonnee.
-        /// </summary>
-        /// <returns>fiches als string.</returns>
-        public string FichesInPortemonnee()
-        {
-            int i = 0;
-            StringBuilder fiches = new StringBuilder();
-            foreach (Fiche fiche in this.portemonnee)
-            {
-                i++;
-                string stringFiche = fiche.FicheKleur.ToString();
-                fiches.Append("\n" + i.ToString() + "-" + stringFiche + "\n");
-            }
-
-            return fiches.ToString();
+            // HelperFiches helperFiches = new HelperFiches();
+            // Fiche createFiche = helperFiches.OmzettenWaardeDieDeSpelerwil_TotEenFiche(hetBedrag, fichesBak, dealer);
+            // this.Fiches.Add(createFiche);
         }
 
         /// <summary>
@@ -91,7 +108,7 @@ namespace HenE.GameBlackJack
         /// <param name="spel">Dit Spel.</param>
         public void FichesZetten(List<int> gekozen, Spel spel)
         {
-            List<Fiche> itemGekozen = new List<Fiche>();
+            /*List<Fiche> itemGekozen = new List<Fiche>();
             foreach (int item in gekozen)
             {
                 Fiche fiche = this.portemonnee[item - 1];
@@ -106,6 +123,7 @@ namespace HenE.GameBlackJack
             {
                 this.portemonnee.Remove(fiche1);
             }
+            */
         }
 
         /// <summary>
@@ -115,63 +133,6 @@ namespace HenE.GameBlackJack
         public List<Hand> GeefHanden()
         {
             return this.handen;
-        }
-
-        /// <summary>
-        /// De speler zet de fiches op.
-        /// De fiches is gelijk aan de fiches die in de hand is.
-        /// Verwijdert de fiches van portemonnee.
-        /// </summary>
-        /// <param name="fiches">De fiches die in de hand is.</param>
-        /// <param name="dealer">Hidige dealer.</param>
-        /// <param name="fichesBak">Huidige fiches bak.</param>
-        /// <returns>De fiches die de speler wil zitten.</returns>
-        public List<Fiche> ZetGelijkFiches(List<Fiche> fiches, Dealer dealer, FichesBak fichesBak)
-        {
-            List<Fiche> fichesDeSpelerWilZetten = new List<Fiche>();
-            if (this.portemonnee.Count != 0)
-            {
-                foreach (Fiche fiche in fiches)
-                {
-                    foreach (Fiche ficheInPortemonnee in this.portemonnee)
-                    {
-                        if (fiche.FicheKleur == ficheInPortemonnee.FicheKleur)
-                        {
-                            fichesDeSpelerWilZetten.Add(ficheInPortemonnee);
-                            this.portemonnee.Remove(ficheInPortemonnee); // ==> deleted boven dan add.
-                            if (this.portemonnee.Count == 0)
-                            {
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("Je portemonnee is leeg, Wil je fiches Kopen J of N?");
-                ConsoleKeyInfo antwoord = Console.ReadKey();
-                while (antwoord.Key != ConsoleKey.J && antwoord.Key != ConsoleKey.N)
-                {
-                    Console.WriteLine("Graag type \"J\" of \"N\"");
-                    antwoord = Console.ReadKey();
-                }
-
-                if (antwoord.Key == ConsoleKey.J)
-                {
-                    int waarde = 0;
-                    string waardeAntwoord = Console.ReadLine();
-                    while (!int.TryParse(waardeAntwoord, out waarde))
-                    {
-                        Console.WriteLine("Graag geef een nummer!");
-                        waardeAntwoord = Console.ReadLine();
-                    }
-
-                    this.Koopfiches(waarde, dealer, fichesBak);
-                }
-            }
-
-            return fichesDeSpelerWilZetten;
         }
 
         /// <summary>
@@ -205,69 +166,22 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// De speler beslist wat wil hij doen.
         /// </summary>
-        /// <param name="tafel">Huidige tafel.</param>
-        /// <param name="wilDoen">Wat wil hij doen.</param>
-        /// <param name="dealer">De dealer.</param>
-        /// <param name="fiches">De class van de fiches.</param>
-        /// <param name="huidigeHand">Huidige hand.</param>
-        public void DeSpelerWilDoen(SpelSpullen.Tafel tafel, string wilDoen, Dealer dealer, Fiche fiches, Hand huidigeHand)
+        /// <param name="beslissing">Wat de speler wil.</param>
+        /// <returns>Wil de speler mee doen of niet.</returns>
+        public bool WilDoen(Beslissing beslissing)
         {
-            Hand hand1 = null;
-            /*foreach (Hand hand in this.Hands)
+            bool beslissen = false;
+            switch (beslissing)
             {
-                if (hand == huidigeHand)
-                {
-                    hand1 = hand;
-                }
+                case Beslissing.Verdubbelen:
+                    Console.WriteLine("Je hebt socre tussen 9 t/m 11 dus je mag verdubbelen. Wil ja verdubbelen J of N?");
+                    return this.CheckAntwoord();
+                case Beslissing.Gesplitst:
+                    Console.WriteLine("Je mag splitsen. Wil je dat doen?");
+                    return this.CheckAntwoord();
             }
-            */
-            switch (wilDoen)
-            {
-                // enum
-                case "koop":
-                    hand1.VoegKaartIn(dealer.GeefEenKaartTerug(hand1));
-                    break;
 
-                case "passen":
-                    // dealer.NaarVolgendeHand(tafel, this);
-                    break;
-
-                case "verdubbelen":
-                    // Hand newHand = new Hand();
-                    // Fiches fiches1 = null;
-                    /*this.Hands.Add(newHand);
-                    foreach (Hand hand in this.Hands)
-                    {
-                        if (hand == huidigeHand)
-                        {
-                            fiches1 = hand.FichesInHand(hand);
-                        }
-                    }
-                    */
-                    // newHand.VoegEenFichesIn(fiches1);
-                    // dealer.GeefEenKaart(newHand);
-                    break;
-
-                case "Splitsen":
-                    /*Hand splitsenHand = new Hand();
-                    Fiches splitsenFiches = null;
-                    this.Hands.Add(splitsenHand);
-                    foreach (Hand hand in this.Hands)
-                    {
-                        if (hand == huidigeHand)
-                        {
-                            splitsenFiches = hand.FichesInHand(hand);
-                        }
-                    }
-
-                    splitsenHand.VoegEenFichesIn(splitsenFiches);
-                    dealer.GeefEenKaart(splitsenHand);
-                    */
-                    break;
-
-                default:
-                    break;
-            }
+            return beslissen;
         }
 
         /// <summary>
@@ -309,6 +223,24 @@ namespace HenE.GameBlackJack
             }
             */
             return null;
+        }
+
+        private bool CheckAntwoord()
+        {
+            ConsoleKeyInfo antwoord;
+            antwoord = Console.ReadKey();
+            while (antwoord.Key != ConsoleKey.J && antwoord.Key != ConsoleKey.N)
+            {
+                Console.WriteLine("Type graag J of N!");
+                antwoord = Console.ReadKey();
+            }
+
+            if (antwoord.Key == ConsoleKey.J)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
