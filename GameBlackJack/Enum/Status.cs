@@ -20,13 +20,23 @@ namespace HenE.GameBlackJack.Enum
         Gestart,
 
         /// <summary>
-        /// als je gepasset.
+        /// De hand is wachten.
         /// </summary>
         OnHold,
 
         /// <summary>
-        /// De speler wil stopen.
+        /// De hand is gestopt.
         /// </summary>
         Gestopt,
+
+        /// <summary>
+        /// Als de hand boven dan 21 score heeft.
+        /// </summary>
+        IsDood,
+
+        /// <summary>
+        /// Als de hand bezig is.
+        /// </summary>
+        InSpel,
     }
 }

@@ -7,17 +7,17 @@ namespace HenE.GameBlackJack.Enum
     /// <summary>
     /// Hier staat de beslissingen die de speler wil gebruiken.
     /// </summary>
-    public enum Beslissing
+    public enum Actie
     {
         /// <summary>
         /// Als de speler zou Koppen.
         /// </summary>
-        Gekocht,
+        Kopen,
 
         /// <summary>
         /// Als de speler zou passen.
         /// </summary>
-        Gepast,
+        Passen,
 
         /// <summary>
         /// Als de speler zou verdubbelen.
@@ -27,6 +27,6 @@ namespace HenE.GameBlackJack.Enum
         /// <summary>
         /// Als de speler de hand zou splitsen.
         /// </summary>
-        Gesplitst,
+        Splitsen,
     }
 }

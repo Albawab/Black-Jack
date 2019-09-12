@@ -28,7 +28,7 @@ namespace HenE.GameBlackJack
             }
 
             this.Persoon = persoon;
-
+            this.Inzet = new Fiches();
             this.Status = HandStatussen.NogNietGestart;
         }
 
@@ -57,7 +57,7 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// Gets or sets De fiches die in de hand zijn.
         /// </summary>
-        private Fiches Fiches { get; set; }
+        public Fiches Inzet { get; set; }
 
         /// <summary>
         /// Geef de huidige speler terug.
@@ -87,12 +87,17 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
-        /// De andere kaart in de hand.
+        /// Geeft de andere kaart in de hand terug.
         /// </summary>
         /// <param name="huidigeKaart">Huidige kaart.</param>
         /// <returns>Andere kaart.</returns>
         public Kaart AndereKaart(Kaart huidigeKaart)
         {
+            if (this.kaarten.Count != 2)
+            {
+                return null;
+            }
+
             foreach (Kaart kaart in this.kaarten)
             {
                 if (huidigeKaart != kaart)
@@ -102,6 +107,15 @@ namespace HenE.GameBlackJack
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Verandert de status van de hand.
+        /// </summary>
+        /// <param name="status">Nieuwe status.</param>
+        public void ZetStatus( HandStatussen status)
+        {
+            this.Status = status;
         }
     }
 }

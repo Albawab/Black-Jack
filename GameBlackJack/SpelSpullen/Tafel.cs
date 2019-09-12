@@ -21,10 +21,14 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// <param name="aantalPlekken">Hoe veel plekken aan de tafel .</param>
         /// <param name="fiches">Waar de fiches staat.</param>
         /// <param name="stapelKaarten">Waar de kaarten staat.</param>
-        private Tafel(int aantalPlekken, Fiches fiches, StapelKaarten stapelKaarten)
+        /// <param name="maximaleInZet">Bepaalt de max inzet voor deze tafel.</param>
+        /// <param name="minimaleInZet">Bepaalt de min inzet voor deze tafel.</param>
+        private Tafel(int aantalPlekken, Fiches fiches, StapelKaarten stapelKaarten, int maximaleInZet, int minimaleInZet)
         {
             this.StapelKaarten = stapelKaarten;
             this.Fiches = fiches;
+            this.MaximaleInZet = maximaleInZet;
+            this.MinimalenZet = minimaleInZet;
             this.plekken = new Plek[aantalPlekken];
 
             for (int i = 0; i < this.plekken.Length; i++)
@@ -62,25 +66,12 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// <summary>
         /// Gets or sets minimale bedrag wat op deze tafel ingezet moet worden.
         /// </summary>
-        private int MinimalnZet { get; set; }
+        private int MinimalenZet { get; set; }
 
         /// <summary>
         /// Gets or sets minimale bedrag wat op deze tafel ingezet moet worden.
         /// </summary>
         private int MaximaleInZet { get; set; }
-
-        /*
-        /// <summary>
-        /// Add een hand aan de dealer.
-        /// </summary>
-        /// <param name="dealer">Huidige dealer.</param>
-        /// <param name="spel">Huidig spel.</param>
-        public void VoegDealerIn(Dealer dealer, Spel spel)
-        {
-            Hand hand = new Hand(dealer);
-            spel.VoegEenHandIn(hand);
-        }
-        */
 
             /// <summary>
             /// Maak een nieuwe tafel.
@@ -89,7 +80,7 @@ namespace HenE.GameBlackJack.SpelSpullen
             /// <returns>De nieuwe tafel.</returns>
         public static Tafel CreateBlackJackTafel(Fiches fiches)
         {
-            Tafel tafel = new Tafel(6, fiches, StapelKaartenFactory.CreateBlackJackKaarten(2));
+            Tafel tafel = new Tafel(6, fiches, StapelKaartenFactory.CreateBlackJackKaarten(2), 5, 100);
             return tafel;
         }
 
@@ -175,9 +166,9 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// </summary>
         /// <param name="spelerWilzetten">De waarde die de speler wil zetten.</param>
         /// <returns>true of false.</returns>
-        public bool BepaalOfHetBedragTussenTweeGrens(int spelerWilzetten)
+        public bool BepaaltOfDeWaardetussenMaxInzetEnMinInzet(int spelerWilzetten)
         {
-            if (this.MinimalnZet != spelerWilzetten && this.MaximaleInZet != spelerWilzetten)
+            if (this.MinimalenZet < spelerWilzetten && this.MaximaleInZet > spelerWilzetten)
             {
                 return false;
             }
@@ -202,25 +193,5 @@ namespace HenE.GameBlackJack.SpelSpullen
 
             return bezetPlek;
         }
-
-        /*
-        /// <summary>
-        /// Check of de plek beschikbaar is.
-        /// </summary>
-        /// <returns>De plek als vrij is.</returns>
-        private Plek VrijPlek()
-        {
-            foreach (Plek plek in this.plekken)
-            {
-                if (plek.VrijBlek)
-                {
-                    return plek;
-                    break;
-                }
-            }
-
-            return null;
-        }
-        */
     }
 }

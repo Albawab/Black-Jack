@@ -102,6 +102,66 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
+        /// De speler zet een fiche in bij de hand in.
+        /// </summary>
+        /// <param name="hand">De hand van de speler.</param>
+        /// <param name="waarde">De waarde.</param>
+        public void ZetFichesBijHandIn(Hand hand, int waarde)
+        {
+            if (this.fiches.ReadOnlyFiches.Count == 0)
+            {
+                // todo controleren of ik het wel in de hand heb?
+                foreach (Fiche fiche in this.fiches.ReadOnlyFiches)
+                {
+                    if (fiche.Waarde == waarde)
+                    {
+                        hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(waarde, 10, false));
+                    }
+                    else
+                    {
+                        Console.WriteLine("Je hebt geen fiche die de zelfde waarde heeft. Wil je een fiche kopen J of N?");
+                        if (this.CheckAntwoord())
+                        {
+                            this.Fiches.GeefMeFischesTerWaardeVan(waarde, 10, false);
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Als de speler heeft geen fiches meer.
+        /// Vraag hem of hij wil Kopen.
+        /// </summary>
+        public void HeeftSpelerNogFiches()
+        {
+            if (this.fiches.ReadOnlyFiches.Count == 0)
+            {
+                Console.WriteLine("Je heeft geen fiches. Wil je fiches kopen J of N?");
+                if (this.CheckAntwoord())
+                {
+                    this.Fiches.GeefMeFischesTerWaardeVan(50, 10, false);
+                }
+            }
+        }
+
+        public void PakFichesVanDeHand(Hand hand, int waarde)
+        {
+            // todo controleren of ik het wel in de hand heb?
+            this.Fiches.Add(hand.Inzet.GeefMeFischesTerWaardeVan(waarde, 10, false));
+        }
+
+        /// <summary>
+        /// De waarde die de speler wil zetten.
+        /// </summary>
+        /// <returns>De waarde.</returns>
+        public int FicheWaardeDeSpelerWilZetten()
+        {
+            Console.WriteLine("Wat voor waarde wil je zet in?");
+            return 10;
+        }
+
+        /// <summary>
         /// Zoek in de portemonnee voor een fiche.
         /// </summary>
         /// <param name="gekozen">Wat de speler heeft gekozen.</param>
@@ -127,61 +187,12 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
-        /// Geef de hande terug.
-        /// </summary>
-        /// <returns>De lijst van de handen.</returns>
-        public List<Hand> GeefHanden()
-        {
-            return this.handen;
-        }
-
-        /// <summary>
         /// Voeg een hand aan de lijst van de handen.
         /// </summary>
         /// <param name="hand">Nieuwe hand.</param>
         public void VoegEenHandIn(Hand hand)
         {
             this.handen.Add(hand);
-        }
-
-        /// <summary>
-        /// Controleer of de speler mag de waarde zetten.
-        /// </summary>
-        /// <param name="tafel">Huidige tafel.</param>
-        /// <param name="hand">Huidige hand.</param>
-        /// <param name="huidigeFiche">Huidige fiche.</param>
-        public void ZetFiches(SpelSpullen.Tafel tafel, Hand hand, Fiche huidigeFiche)
-        {
-            /*foreach (Fiches fiche in this.Portemonnee)
-            {
-                if (fiche == huidigeFiche)
-                {
-                    this.Portemonnee.Remove(fiche);
-
-                    hand.VoegEenFichesIn(fiche);
-                }
-            }*/
-        }
-
-        /// <summary>
-        /// De speler beslist wat wil hij doen.
-        /// </summary>
-        /// <param name="beslissing">Wat de speler wil.</param>
-        /// <returns>Wil de speler mee doen of niet.</returns>
-        public bool WilDoen(Beslissing beslissing)
-        {
-            bool beslissen = false;
-            switch (beslissing)
-            {
-                case Beslissing.Verdubbelen:
-                    Console.WriteLine("Je hebt socre tussen 9 t/m 11 dus je mag verdubbelen. Wil ja verdubbelen J of N?");
-                    return this.CheckAntwoord();
-                case Beslissing.Gesplitst:
-                    Console.WriteLine("Je mag splitsen. Wil je dat doen?");
-                    return this.CheckAntwoord();
-            }
-
-            return beslissen;
         }
 
         /// <summary>
@@ -225,7 +236,7 @@ namespace HenE.GameBlackJack
             return null;
         }
 
-        private bool CheckAntwoord()
+        public bool CheckAntwoord()
         {
             ConsoleKeyInfo antwoord;
             antwoord = Console.ReadKey();

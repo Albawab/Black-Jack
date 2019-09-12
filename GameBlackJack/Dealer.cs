@@ -4,8 +4,6 @@
 
 namespace HenE.GameBlackJack
 {
-    using HenE.GameBlackJack.Enum;
-    using HenE.GameBlackJack.Settings;
     using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
@@ -30,7 +28,6 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// Gets or Sets de hand van de dealer.
         /// </summary>
-        private Hand Hand { get; set; }
 
         /// <summary>
         /// Als de dealer verandert.
