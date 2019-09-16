@@ -4,9 +4,6 @@
 
 namespace HenE.GameBlackJack.Enum
 {
-    using System;
-    using System.Collections.Generic;
-
     /// <summary>
     /// De enum van de waarde van de kaart.
     /// </summary>

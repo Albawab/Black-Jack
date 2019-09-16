@@ -26,13 +26,9 @@ namespace HenE.GameBlackJack
         private Plek PlekAanTafel { get; set; }
 
         /// <summary>
-        /// Gets or Sets de hand van de dealer.
-        /// </summary>
-
-        /// <summary>
         /// Als de dealer verandert.
         /// </summary>
-        /// <param name="tafel">Huidige hand.</param>
+        /// <param name="tafel">Huidige tafel.</param>
         public void GaAanTafelZitten(Tafel tafel)
         {
             tafel.WijzigDealer(this);

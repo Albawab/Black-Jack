@@ -6,7 +6,6 @@ namespace HenE.GameBlackJack
 {
     using System;
     using System.Collections.Generic;
-    using HenE.GameBlackJack.Enum;
     using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
@@ -91,11 +90,15 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// De speler bepaalt wat hij wil kopen.
         /// </summary>
-        /// <param name="hetBedrag">De waarde van de fiches.</param>
-        /// <param name="dealer">Huidige dealer.</param>
-        /// <param name="fichesBak">Huidige fiches bak.</param>
-        public void Koopfiches(int hetBedrag, Dealer dealer, Fiches fichesBak)
+        /// <param name="tafel">Huidige tafel.</param>
+        public void Koopfiches(Tafel tafel)
         {
+            Console.WriteLine("Je heeft geen fiches. Wil je fiches kopen J of N?");
+            if (this.CheckAntwoord())
+            {
+                this.Fiches.Add(tafel.Fiches.GeefMeFischesTerWaardeVan(20, 10, true));
+            }
+
             // HelperFiches helperFiches = new HelperFiches();
             // Fiche createFiche = helperFiches.OmzettenWaardeDieDeSpelerwil_TotEenFiche(hetBedrag, fichesBak, dealer);
             // this.Fiches.Add(createFiche);
@@ -108,9 +111,8 @@ namespace HenE.GameBlackJack
         /// <param name="waarde">De waarde.</param>
         public void ZetFichesBijHandIn(Hand hand, int waarde)
         {
-            if (this.fiches.ReadOnlyFiches.Count == 0)
+            if (this.fiches.ReadOnlyFiches.Count != 0)
             {
-                // todo controleren of ik het wel in de hand heb?
                 foreach (Fiche fiche in this.fiches.ReadOnlyFiches)
                 {
                     if (fiche.Waarde == waarde)
@@ -133,23 +135,28 @@ namespace HenE.GameBlackJack
         /// Als de speler heeft geen fiches meer.
         /// Vraag hem of hij wil Kopen.
         /// </summary>
-        public void HeeftSpelerNogFiches()
+        /// <returns>Heeft de speler fiches of niet.</returns>
+        public bool HeeftSpelerNogFiches()
         {
-            if (this.fiches.ReadOnlyFiches.Count == 0)
+            if (this.Fiches.ReadOnlyFiches.Count == 0)
             {
-                Console.WriteLine("Je heeft geen fiches. Wil je fiches kopen J of N?");
-                if (this.CheckAntwoord())
-                {
-                    this.Fiches.GeefMeFischesTerWaardeVan(50, 10, false);
-                }
+                return false;
             }
+
+            return true;
         }
 
+        /*
+        /// <summary>
+        /// Neem De fiches vanuit de hand.
+        /// </summary>
+        /// <param name="hand">Huidige hand.</param>
+        /// <param name="waarde">De waarde van</param>
         public void PakFichesVanDeHand(Hand hand, int waarde)
         {
-            // todo controleren of ik het wel in de hand heb?
             this.Fiches.Add(hand.Inzet.GeefMeFischesTerWaardeVan(waarde, 10, false));
         }
+        */
 
         /// <summary>
         /// De waarde die de speler wil zetten.
@@ -236,6 +243,10 @@ namespace HenE.GameBlackJack
             return null;
         }
 
+        /// <summary>
+        /// Vrgaag de speler of hij wil iets doen of niet.
+        /// </summary>
+        /// <returns>Wil doen of niet.</returns>
         public bool CheckAntwoord()
         {
             ConsoleKeyInfo antwoord;

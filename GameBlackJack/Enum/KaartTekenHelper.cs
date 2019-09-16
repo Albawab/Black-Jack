@@ -14,7 +14,7 @@ namespace HenE.GameBlackJack.Enum
         /// <summary>
         /// Geen waarde.
         /// </summary>
-        IsDefined = 0,
+        IsNotDefined = 0,
 
         /// <summary>
         /// Het teken aas.
@@ -29,62 +29,62 @@ namespace HenE.GameBlackJack.Enum
         /// <summary>
         /// Het teken drie.
         /// </summary>
-        Drie,
+        Drie = 3,
 
         /// <summary>
         /// Het teken vier.
         /// </summary>
-        Vier,
+        Vier = 4,
 
         /// <summary>
         /// Het teken vijf.
         /// </summary>
-        Vijf,
+        Vijf = 5,
 
         /// <summary>
         /// Het teken zes.
         /// </summary>
-        Zes,
+        Zes = 6,
 
         /// <summary>
         /// Het teken zeven.
         /// </summary>
-        Zeven,
+        Zeven = 7,
 
         /// <summary>
         /// Het teken acht.
         /// </summary>
-        Acht,
+        Acht = 8,
 
         /// <summary>
         /// Het teken negen.
         /// </summary>
-        Negen,
+        Negen = 9,
 
         /// <summary>
         /// Het teken tien.
         /// </summary>
-        Tien,
+        Tien = 10,
 
         /// <summary>
         /// Het teken Boer.
         /// </summary>
-        Boer,
+        Boer = 11,
 
         /// <summary>
         /// Het teken vrouw.
         /// </summary>
-        Vrouw,
+        Vrouw = 12,
 
         /// <summary>
         /// Het teken heer.
         /// </summary>
-        Heer,
+        Heer = 13,
 
         /// <summary>
         /// Het teken Joker.
         /// </summary>
-        Joker,
+        Joker = 25,
     }
 
     /// <summary>

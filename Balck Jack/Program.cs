@@ -40,17 +40,26 @@ namespace Balck_Jack
 
             // spelers, komen binnen en kopen bij het cassiere fiches
             Speler spelerA = new Speler("Abdul");
+            Speler spelerB = new Speler("Piet");
 
             // koopt fiches vbij de cassiere
             spelerA.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(20, 10, true));
+            spelerB.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(20, 10, true));
 
             FichesConsolePrinter.PrintWaardeFiches(spelerA.Fiches);
             FichesConsolePrinter.PrintFiches(spelerA.Fiches);
+            FichesConsolePrinter.PrintWaardeFiches(spelerB.Fiches);
+            FichesConsolePrinter.PrintFiches(spelerB.Fiches);
+
             FichesConsolePrinter.PrintWaardeFiches(cassiereFiches);
 
-            if (spelerA.GaatAanTafelZitten(tafel, 1))
+            if (!spelerA.GaatAanTafelZitten(tafel, 1))
             {
-                // ok, ik zit
+                throw new ArgumentOutOfRangeException("Het plek is niet meer beschikbaar.");
+            }
+            else if (!spelerB.GaatAanTafelZitten(tafel, 2))
+            {
+                throw new ArgumentOutOfRangeException("Het plek is niet meer beschikbaar.");
             }
 
             BlackjackController blackJackController = new BlackjackController(tafel);

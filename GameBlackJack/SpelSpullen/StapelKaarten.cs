@@ -15,7 +15,6 @@ namespace HenE.GameBlackJack.SpelSpullen
     public class StapelKaarten
     {
         private readonly List<KaartTeken> mogelijkeKaartTekens;
-        private readonly List<KaartWaarde> kaartWaardes;
         private readonly int aantalPakken = 0;
 
         /// <summary>

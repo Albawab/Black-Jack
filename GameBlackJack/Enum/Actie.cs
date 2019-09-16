@@ -1,4 +1,4 @@
-﻿// <copyright file="Beslissing.cs" company="PlaceholderCompany">
+﻿// <copyright file="Actie.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 

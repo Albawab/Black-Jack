@@ -73,11 +73,11 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// </summary>
         private int MaximaleInZet { get; set; }
 
-            /// <summary>
-            /// Maak een nieuwe tafel.
-            /// </summary>
-            /// <param name="fiches">De fiches die aan de tafel zijn.</param>
-            /// <returns>De nieuwe tafel.</returns>
+        /// <summary>
+        /// Maak een nieuwe tafel.
+        /// </summary>
+        /// <param name="fiches">De fiches die aan de tafel zijn.</param>
+        /// <returns>De nieuwe tafel.</returns>
         public static Tafel CreateBlackJackTafel(Fiches fiches)
         {
             Tafel tafel = new Tafel(6, fiches, StapelKaartenFactory.CreateBlackJackKaarten(2), 5, 100);

@@ -75,7 +75,7 @@ namespace HenE.GameBlackJack
         public void AddKaart(Kaart kaart)
         {
             this.kaarten.Add(kaart);
-            this.Status = HandStatussen.Gestart;
+            this.Status = HandStatussen.InSpel;
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace HenE.GameBlackJack
         /// Verandert de status van de hand.
         /// </summary>
         /// <param name="status">Nieuwe status.</param>
-        public void ZetStatus( HandStatussen status)
+        public void ChangeStatus(HandStatussen status)
         {
             this.Status = status;
         }

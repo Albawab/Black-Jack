@@ -1,4 +1,4 @@
-﻿// <copyright file="Kaartenhelper.cs" company="PlaceholderCompany">
+﻿// <copyright file="KaartenExtensions.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 

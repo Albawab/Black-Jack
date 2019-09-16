@@ -15,14 +15,14 @@ namespace HenE.GameBlackJack.Enum
         NogNietGestart,
 
         /// <summary>
-        /// Als de speler gestart.
-        /// </summary>
-        Gestart,
-
-        /// <summary>
         /// De hand is wachten.
         /// </summary>
         OnHold,
+
+        /// <summary>
+        /// Als de speler heeft 21 punten.
+        /// </summary>
+        BlackJeck,
 
         /// <summary>
         /// De hand is gestopt.
@@ -38,5 +38,20 @@ namespace HenE.GameBlackJack.Enum
         /// Als de hand bezig is.
         /// </summary>
         InSpel,
+
+        /// <summary>
+        /// Als de hand gepassed wordt.
+        /// </summary>
+        Gepassed,
+
+        /// <summary>
+        /// Als de hand wil verdubbelen.
+        /// </summary>
+        Versubbelen,
+
+        /// <summary>
+        /// Als de speler is gewonnen.
+        /// </summary>
+        Winnaar,
     }
 }
