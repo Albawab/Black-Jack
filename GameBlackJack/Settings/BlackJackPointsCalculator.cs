@@ -52,6 +52,11 @@ namespace HenE.GameBlackJack.Settings
                 }
             }
 
+            if (waarde > 21)
+            {
+                Console.WriteLine();
+            }
+
             return waarde;
         }
 

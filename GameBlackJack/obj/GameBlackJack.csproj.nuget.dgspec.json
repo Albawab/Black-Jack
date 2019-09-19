@@ -51,6 +51,10 @@
               "target": "Package",
               "version": "[2.4.1, )"
             },
+            "Not": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",

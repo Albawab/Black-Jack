@@ -14,14 +14,10 @@ namespace HenE.GameBlackJack
     public class Speler : Persoon
     {
         /// <summary>
-        /// Hier staan de handen van de spelers.
-        /// </summary>
-        private readonly List<Hand> handen = new List<Hand>();
-
-        /// <summary>
         /// Hoeveel fiches de speler heeft.
         /// </summary>
         private readonly Fiches fiches = new Fiches();
+        private readonly List<Hand> handen = new List<Hand>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Speler"/> class.
@@ -40,7 +36,13 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// Gets de hand van de speler.
         /// </summary>
-        public Hand Hand { get; private set; }
+        public List<Hand> Hand
+        {
+            get
+            {
+                return this.handen;
+            }
+        }
 
         /// <summary>
         /// Gets de fiches die met de speler zijn.
@@ -98,36 +100,51 @@ namespace HenE.GameBlackJack
             {
                 this.Fiches.Add(tafel.Fiches.GeefMeFischesTerWaardeVan(20, 10, true));
             }
-
-            // HelperFiches helperFiches = new HelperFiches();
-            // Fiche createFiche = helperFiches.OmzettenWaardeDieDeSpelerwil_TotEenFiche(hetBedrag, fichesBak, dealer);
-            // this.Fiches.Add(createFiche);
         }
 
         /// <summary>
         /// De speler zet een fiche in bij de hand in.
         /// </summary>
         /// <param name="hand">De hand van de speler.</param>
-        /// <param name="waarde">De waarde.</param>
+        /// <param name="waarde">De waarde die de speler wil bij de hand .</param>
         public void ZetFichesBijHandIn(Hand hand, int waarde)
         {
             if (this.fiches.ReadOnlyFiches.Count != 0)
             {
                 foreach (Fiche fiche in this.fiches.ReadOnlyFiches)
                 {
-                    if (fiche.Waarde == waarde)
-                    {
-                        hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(waarde, 10, false));
-                    }
-                    else
+                    while (!this.HeeftDitBedragInFichesbak(waarde))
                     {
                         Console.WriteLine("Je hebt geen fiche die de zelfde waarde heeft. Wil je een fiche kopen J of N?");
                         if (this.CheckAntwoord())
                         {
-                            this.Fiches.GeefMeFischesTerWaardeVan(waarde, 10, false);
+                            this.Fiches.GeefMeFischesTerWaardeVan(20, 10, false);
                         }
                     }
+
+                    hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(waarde, 10, false));
                 }
+            }
+        }
+
+        /// <summary>
+        /// De speler zet een fiche in bij de hand in.
+        /// </summary>
+        /// <param name="hand">De hand van de speler.</param>
+        public void ZetFichesBijHandIn(Hand hand)
+        {
+            if (this.fiches.ReadOnlyFiches.Count != 0)
+            {
+                    while (!this.HeeftDitBedragInFichesbak(hand.Inzet.WaardeVanDeFiches))
+                    {
+                        Console.WriteLine("Je hebt geen fiche die de zelfde waarde heeft. Wil je een fiche kopen J of N?");
+                        if (this.CheckAntwoord())
+                        {
+                            this.Fiches.GeefMeFischesTerWaardeVan(20, 10, false);
+                        }
+                    }
+
+                    hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(this.Fiches.WaardeVanDeFiches, 10, false));
             }
         }
 
@@ -146,18 +163,6 @@ namespace HenE.GameBlackJack
             return true;
         }
 
-        /*
-        /// <summary>
-        /// Neem De fiches vanuit de hand.
-        /// </summary>
-        /// <param name="hand">Huidige hand.</param>
-        /// <param name="waarde">De waarde van</param>
-        public void PakFichesVanDeHand(Hand hand, int waarde)
-        {
-            this.Fiches.Add(hand.Inzet.GeefMeFischesTerWaardeVan(waarde, 10, false));
-        }
-        */
-
         /// <summary>
         /// De waarde die de speler wil zetten.
         /// </summary>
@@ -169,78 +174,12 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
-        /// Zoek in de portemonnee voor een fiche.
-        /// </summary>
-        /// <param name="gekozen">Wat de speler heeft gekozen.</param>
-        /// <param name="spel">Dit Spel.</param>
-        public void FichesZetten(List<int> gekozen, Spel spel)
-        {
-            /*List<Fiche> itemGekozen = new List<Fiche>();
-            foreach (int item in gekozen)
-            {
-                Fiche fiche = this.portemonnee[item - 1];
-                Hand hand = new Hand(this);
-                spel.VoegEenHandIn(hand);
-                this.handen.Add(hand);
-                hand.VoegEenFichesIn(fiche);
-                itemGekozen.Add(fiche);
-            }
-
-            foreach (Fiche fiche1 in itemGekozen)
-            {
-                this.portemonnee.Remove(fiche1);
-            }
-            */
-        }
-
-        /// <summary>
         /// Voeg een hand aan de lijst van de handen.
         /// </summary>
         /// <param name="hand">Nieuwe hand.</param>
         public void VoegEenHandIn(Hand hand)
         {
             this.handen.Add(hand);
-        }
-
-        /// <summary>
-        /// Voeg de neuwe waarde van de fiches aan de Portemonnee van de speler.
-        /// Als de speler winnaar is.
-        /// </summary>
-        /// <param name="fiches">De waarde van de fiches.</param>
-        public void VerzamelenDeFiches(Fiche fiches)
-        {
-            // this.Portemonnee.Add(fiches);
-        }
-
-        /// <summary>
-        /// Voeg de neuwe waarde van de fiches aan de Portemonnee van de speler.
-        /// Als de speler verliezer is.
-        /// </summary>
-        public void VerlizenDefiches()
-        {
-        }
-
-        /// <summary>
-        /// Als de speler wil stoppen.
-        /// </summary>
-        /// <param name="huidigeHand">De hand van de speler.</param>
-        public void SluitDeHand(Hand huidigeHand)
-        {
-            // this.Hands.Remove(huidigeHand);
-        }
-
-        /// <summary>
-        /// Neem de hands van de speler.
-        /// </summary>
-        /// <returns>Deze hand.</returns>
-        public Hand HandVanDeSpeler()
-        {
-            /*foreach (Hand hand in this.Hands)
-            {
-                return hand;
-            }
-            */
-            return null;
         }
 
         /// <summary>
@@ -258,6 +197,21 @@ namespace HenE.GameBlackJack
             }
 
             if (antwoord.Key == ConsoleKey.J)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Vraag of de speler dat bedrag inde fichesbak heeft.
+        /// </summary>
+        /// <param name="bedrag">Bedrag die bij de hand moet zijn.</param>
+        /// <returns>Check of heet dat bedrag of niet.</returns>
+        private bool HeeftDitBedragInFichesbak(int bedrag)
+        {
+            if (bedrag <= this.fiches.WaardeVanDeFiches)
             {
                 return true;
             }

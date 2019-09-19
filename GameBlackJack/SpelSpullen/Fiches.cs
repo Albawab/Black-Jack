@@ -187,7 +187,20 @@ namespace HenE.GameBlackJack.SpelSpullen
             return this.GeefMeFischesTerWaardeVan(waardeInEuros, 20, false);
         }
 
-        private void Remove(Fiche fiche)
+        /// <summary>
+        /// Zet een fiche in de fiches bak in.
+        /// </summary>
+        /// <param name="fiche">De fiche die ingezet wordt.</param>
+        public void AddFicheAanFichesBak(Fiche fiche)
+        {
+            this.fiches.Add(fiche);
+        }
+
+        /// <summary>
+        /// Verwijder een fiche vanuit de fichebak.
+        /// </summary>
+        /// <param name="fiche">De fiche die wordt verwijderen.</param>
+        public void Remove(Fiche fiche)
         {
             this.fiches.Remove(fiche);
         }

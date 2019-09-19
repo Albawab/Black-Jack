@@ -47,11 +47,21 @@ namespace HenE.GameBlackJack.Enum
         /// <summary>
         /// Als de hand wil verdubbelen.
         /// </summary>
-        Versubbelen,
+        Verdubbelen,
 
         /// <summary>
         /// Als de speler is gewonnen.
         /// </summary>
-        Winnaar,
+        Gewonnen,
+
+        /// <summary>
+        /// Als de speler heeft verloren.
+        /// </summary>
+        Verloren,
+
+        /// <summary>
+        /// Als het gespit wordt.
+        /// </summary>
+        Gesplitst,
     }
 }

@@ -39,15 +39,22 @@ namespace Balck_Jack
             dealer.GaAanTafelZitten(tafel);
 
             // spelers, komen binnen en kopen bij het cassiere fiches
-            Speler spelerA = new Speler("Abdul");
+            Console.WriteLine("Leuk je komt Black Jack spelen.");
+            Console.WriteLine("Wilt je me je naam vertelen?");
+            string naamSpelerA = Console.ReadLine();
+            Speler spelerA = new Speler(naamSpelerA);
             Speler spelerB = new Speler("Piet");
 
             // koopt fiches vbij de cassiere
             spelerA.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(20, 10, true));
             spelerB.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(20, 10, true));
 
+            Console.WriteLine();
+            Console.WriteLine(spelerA.Naam + "Je hebt gekocht");
             FichesConsolePrinter.PrintWaardeFiches(spelerA.Fiches);
             FichesConsolePrinter.PrintFiches(spelerA.Fiches);
+            Console.WriteLine();
+            Console.WriteLine(spelerB.Naam + "Je hebt gekocht");
             FichesConsolePrinter.PrintWaardeFiches(spelerB.Fiches);
             FichesConsolePrinter.PrintFiches(spelerB.Fiches);
 
