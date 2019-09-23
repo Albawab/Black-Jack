@@ -45,7 +45,7 @@ namespace HenE.GameBlackJack
             // todo copy lijst teruggeven
             get
             {
-                return this.kaarten;
+               return this.kaarten;
             }
         }
 
@@ -84,6 +84,9 @@ namespace HenE.GameBlackJack
         public void Close()
         {
             this.Status = HandStatussen.Gestopt;
+
+            // en gooi alle kaarten weg.
+            this.kaarten.Clear();
         }
 
         /// <summary>
@@ -107,6 +110,33 @@ namespace HenE.GameBlackJack
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Splits de hand.
+        /// </summary>
+        /// <returns>De hand die wordt gesplitst.</returns>
+        public Hand Splits()
+        {
+            // todo, wat zijn de voorwaarden om te splitsen?
+            // kaarten moeten gelijk zijn
+            // kaarten moeten een even aantal zijn (== twee).
+
+            // welke controle moet ik doen
+            Hand nieuweHand = new Hand(this.Persoon);
+
+            while (nieuweHand.kaarten.Count != this.Kaarten.Count)
+            {
+                nieuweHand.kaarten.Add(this.Kaarten[0]);
+                this.Kaarten.RemoveAt(0);
+            }
+
+            return nieuweHand;
+
+            // wat betekent dit?
+            // dat ik een nieuwe hand moet maken
+
+            // en dat ik de kaarten van deze hand moet delen en verplaatsen naar de nieuwe hand
         }
 
         /// <summary>

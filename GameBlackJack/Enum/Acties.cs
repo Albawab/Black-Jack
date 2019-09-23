@@ -1,4 +1,4 @@
-﻿// <copyright file="Actie.cs" company="PlaceholderCompany">
+﻿// <copyright file="Acties.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -7,7 +7,7 @@ namespace HenE.GameBlackJack.Enum
     /// <summary>
     /// Hier staat de beslissingen die de speler wil gebruiken.
     /// </summary>
-    public enum Actie
+    public enum Acties
     {
         /// <summary>
         /// Als de speler zou Koppen.

@@ -17,7 +17,6 @@ namespace HenE.GameBlackJack
         /// Hoeveel fiches de speler heeft.
         /// </summary>
         private readonly Fiches fiches = new Fiches();
-        private readonly List<Hand> handen = new List<Hand>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Speler"/> class.
@@ -32,17 +31,6 @@ namespace HenE.GameBlackJack
         /// Gets Waar de speler wil zitten.
         /// </summary>
         public Tafel HuidigeTafel { get; private set; }
-
-        /// <summary>
-        /// Gets de hand van de speler.
-        /// </summary>
-        public List<Hand> Hand
-        {
-            get
-            {
-                return this.handen;
-            }
-        }
 
         /// <summary>
         /// Gets de fiches die met de speler zijn.
@@ -75,7 +63,7 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
-        /// Als de speler heeft de tafe verlaten.
+        /// Als de speler heeft de tafel verlaten.
         /// </summary>
         /// <returns>Heeft de speler de tafel verlaten of niet.</returns>
         public bool VerlaatTafel()
@@ -135,16 +123,16 @@ namespace HenE.GameBlackJack
         {
             if (this.fiches.ReadOnlyFiches.Count != 0)
             {
-                    while (!this.HeeftDitBedragInFichesbak(hand.Inzet.WaardeVanDeFiches))
+                while (!this.HeeftDitBedragInFichesbak(hand.Inzet.WaardeVanDeFiches))
+                {
+                    Console.WriteLine("Je hebt geen fiche die de zelfde waarde heeft. Wil je een fiche kopen J of N?");
+                    if (this.CheckAntwoord())
                     {
-                        Console.WriteLine("Je hebt geen fiche die de zelfde waarde heeft. Wil je een fiche kopen J of N?");
-                        if (this.CheckAntwoord())
-                        {
-                            this.Fiches.GeefMeFischesTerWaardeVan(20, 10, false);
-                        }
+                        this.Fiches.GeefMeFischesTerWaardeVan(20, 10, false);
                     }
+                }
 
-                    hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(this.Fiches.WaardeVanDeFiches, 10, false));
+                hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(this.Fiches.WaardeVanDeFiches, 10, false));
             }
         }
 
@@ -171,15 +159,6 @@ namespace HenE.GameBlackJack
         {
             Console.WriteLine("Wat voor waarde wil je zet in?");
             return 10;
-        }
-
-        /// <summary>
-        /// Voeg een hand aan de lijst van de handen.
-        /// </summary>
-        /// <param name="hand">Nieuwe hand.</param>
-        public void VoegEenHandIn(Hand hand)
-        {
-            this.handen.Add(hand);
         }
 
         /// <summary>

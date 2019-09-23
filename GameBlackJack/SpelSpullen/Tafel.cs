@@ -54,6 +54,23 @@ namespace HenE.GameBlackJack.SpelSpullen
         }
 
         /// <summary>
+        /// Gets hier staat de speler die willen spelen.
+        /// </summary>
+        public List<Speler> Spelers
+        {
+            get
+            {
+                List<Speler> spelers = new List<Speler>();
+                for (int index = 0; index == this.plekken.Length; index++)
+                {
+                    spelers.Add(this.plekken[index - 1].Speler);
+                }
+
+                return spelers;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets De fiches.
         /// </summary>
         public Fiches Fiches { get; set; }
@@ -129,18 +146,13 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// <returns>Of de plaats beschikbaar is of niet.</returns>
         public bool SpelerNeemtPlaats(Speler speler, uint positie)
         {
-            if (speler == null)
-            {
-                throw new ArgumentNullException("Speler mag niet null zijn.");
-            }
-
             if (this.ZitErEenSpelerOpDezePlek(positie))
             {
                 // er zit al een speler op die plek
                 return false;
             }
 
-            this.plekken[positie - 1].Speler = speler;
+            this.plekken[positie - 1].Speler = speler ?? throw new ArgumentNullException("Speler mag niet null zijn.");
 
             return true;
         }

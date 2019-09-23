@@ -39,7 +39,7 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="hand">Huidige hand.</param>
         /// <returns>De waarde in de hand.</returns>
-        public int BeoordeelHand(Hand hand)
+        public int WaardevanDeHand(Hand hand)
         {
             int deWaardeInHand = 0;
             foreach (Kaart kaart in hand.Kaarten)
