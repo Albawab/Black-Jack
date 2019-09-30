@@ -6,6 +6,7 @@ namespace HenE.GameBlackJack
 {
     using System;
     using System.Collections.Generic;
+    using HenE.GameBlackJack.Enum;
     using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
@@ -17,6 +18,7 @@ namespace HenE.GameBlackJack
         /// Hoeveel fiches de speler heeft.
         /// </summary>
         private readonly Fiches fiches = new Fiches();
+        private readonly ActiesHelper actiesHelper = new ActiesHelper();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Speler"/> class.
@@ -63,6 +65,36 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
+        /// Vraag de speler wat hij wil doen.
+        /// </summary>
+        /// <param name="mogelijkActies">Lijst van de acties die de speler mag van uit het mag kiezen is.</param>
+        /// <param name="huidigeHand">De huidige hand.</param>
+        /// <returns>De actie die de speler heeft gekozen.</returns>
+        public Acties AskActie(List<Acties> mogelijkActies, Hand huidigeHand)
+        {
+            // keuze aan de klant laten
+            for (int index = 0; index < mogelijkActies.Count; index++)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"{index.ToString()} {this.ActieTotStrign(mogelijkActies[index])}");
+            }
+
+            // De actie die de speler wil doen.
+            int deActie = 0;
+            string deSpelerwilDoen = string.Empty;
+            Console.WriteLine("Kies maar een van de acties! Je mag alleen nummer gebruiken.");
+            deSpelerwilDoen = Console.ReadLine();
+            while (!int.TryParse(deSpelerwilDoen, out deActie) || deActie > mogelijkActies.Count)
+            {
+                Console.WriteLine("Je hebt geen nummer ingevoegd of een nummer die boven niet bestaat. Voeg maar een nummer in.");
+                deSpelerwilDoen = Console.ReadLine();
+            }
+
+            Acties actie = mogelijkActies[deActie];
+            return actie;
+        }
+
+        /// <summary>
         /// Als de speler heeft de tafel verlaten.
         /// </summary>
         /// <returns>Heeft de speler de tafel verlaten of niet.</returns>
@@ -80,13 +112,12 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// De speler bepaalt wat hij wil kopen.
         /// </summary>
-        /// <param name="tafel">Huidige tafel.</param>
-        public void Koopfiches(Tafel tafel)
+        public void Koopfiches()
         {
             Console.WriteLine("Je heeft geen fiches. Wil je fiches kopen J of N?");
             if (this.CheckAntwoord())
             {
-                this.Fiches.Add(tafel.Fiches.GeefMeFischesTerWaardeVan(20, 10, true));
+                this.Fiches.Add(this.HuidigeTafel.Fiches.GeefMeFischesTerWaardeVan(20, 10, true));
             }
         }
 
@@ -111,6 +142,7 @@ namespace HenE.GameBlackJack
                     }
 
                     hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(waarde, 10, false));
+                    break;
                 }
             }
         }
@@ -132,7 +164,7 @@ namespace HenE.GameBlackJack
                     }
                 }
 
-                hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(this.Fiches.WaardeVanDeFiches, 10, false));
+                hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(20, 2, false));
             }
         }
 
@@ -158,7 +190,7 @@ namespace HenE.GameBlackJack
         public int FicheWaardeDeSpelerWilZetten()
         {
             Console.WriteLine("Wat voor waarde wil je zet in?");
-            return 10;
+            return 20;
         }
 
         /// <summary>
@@ -196,6 +228,16 @@ namespace HenE.GameBlackJack
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Zet de actie tot string.
+        /// </summary>
+        /// <param name="acties">De actie die wordt omgezet.</param>
+        /// <returns>De actie als string.</returns>
+        private string ActieTotStrign(Acties acties)
+        {
+            return this.actiesHelper.ZetEnumTotStringOm(acties);
         }
     }
 }

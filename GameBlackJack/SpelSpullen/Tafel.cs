@@ -61,9 +61,12 @@ namespace HenE.GameBlackJack.SpelSpullen
             get
             {
                 List<Speler> spelers = new List<Speler>();
-                for (int index = 0; index == this.plekken.Length; index++)
+                for (int index = 0; index <= this.plekken.Length - 1; index++)
                 {
-                    spelers.Add(this.plekken[index - 1].Speler);
+                    if (this.plekken[index].Speler != null)
+                    {
+                        spelers.Add(this.plekken[index].Speler);
+                    }
                 }
 
                 return spelers;

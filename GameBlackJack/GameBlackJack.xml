@@ -21,48 +21,22 @@
             </summary>
             <returns>Klaar of nog niet.</returns>
         </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.GeefIedereHandEenEersteKaart(HenE.GameBlackJack.Hand)">
+        <member name="M:HenE.GameBlackJack.BlackjackController.StartRonde">
             <summary>
-            dit kan alleen de eerste keer.
+            Staart een rondje.
             </summary>
         </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.GeefDeHandEenKaart(HenE.GameBlackJack.Hand)">
+        <member name="M:HenE.GameBlackJack.BlackjackController.ControleerHand(HenE.GameBlackJack.Hand)">
             <summary>
-            Geef een kaart aan de hand.
-            </summary>
-            <param name="hand">Huidige habd.</param>
-        </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.ControleerHanden">
-            <summary>
-            Geef een kaart aan de hand en vraagt de speler om een fiche bij de hand inzetten wil.
-            Check of de hand Black jeck.
-            Controleer wat de hand heeft.
-            </summary>
-        </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.VoerActiesVanDeSpeleruit(HenE.GameBlackJack.Hand,HenE.GameBlackJack.Enum.Actie)">
-            <summary>
-            Doet wat de speler wil doen.
+            Bepaal wat de speler mag doen.En welke actie mag returen.
             </summary>
             <param name="hand">De hand van de speler.</param>
-            <param name="actie">Wat de speler wil doen.</param>
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.VerdubbelenHand(HenE.GameBlackJack.Hand)">
             <summary>
             Verdubblen de hand.Fiches bij de hand zetten.
             </summary>
             <param name="hand">Huidige hand.</param>
-        </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.SplitHand(HenE.GameBlackJack.Hand)">
-            <summary>
-            Geef een nieuwe hand met kaarten en fiches.
-            </summary>
-            <param name="hand">Huidige hand.</param>
-        </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.BepaalActiesDieEenSpelerMagDoenOpEenHand(HenE.GameBlackJack.Hand)">
-            <summary>
-            Bepaal wat de speler mag doen.
-            </summary>
-            <param name="hand">De hand van de speler.</param>
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.KeerUit(HenE.GameBlackJack.Hand,System.Double)">
             <summary>
@@ -78,16 +52,18 @@
             <param name="hand">Huidige hand.</param>
             <returns>Hoeveel keer moet aan de speler moet betalen.</returns>
         </member>
+        <member name="M:HenE.GameBlackJack.BlackjackController.AskActie(System.Collections.Generic.List{HenE.GameBlackJack.Enum.Acties},HenE.GameBlackJack.Hand)">
+            <summary>
+            Vraag de speler wat hij wil doen.
+            </summary>
+            <param name="mogelijkActies">Lijst van de acties die de speler mag van uit het mag kiezen is.</param>
+            <param name="huidigeHand">De huidige hand.</param>
+        </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.CloseHand(HenE.GameBlackJack.Hand)">
             <summary>
             Als de hand klaar is dan doe hij dicht.
             </summary>
             <param name="hand">De hand die klaar is.</param>
-        </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.KaartenVerdelen(HenE.GameBlackJack.Hand)">
-            <summary>
-            Verdeel de kaarten bij de hand.
-            </summary>
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.MagDeSpelerKopen(HenE.GameBlackJack.Hand)">
             <summary>
@@ -102,12 +78,6 @@
             </summary>
             <param name="hand">Huidige hand.</param>
             <returns>Mag de speler passen of niet.</returns>
-        </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.PassenDeHand(HenE.GameBlackJack.Hand)">
-            <summary>
-            Als de speler wil passen.Dan changed de status van de hand.
-            </summary>
-            <param name="hand">Huidige hand.</param>
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.MoetDeDealerKopen(HenE.GameBlackJack.Hand)">
             <summary>
@@ -179,46 +149,16 @@
             <param name="hand">Huidige hand.</param>
             <param name="waardeVanDeDealerHand">De waarde van de hand van de dealer.</param>
         </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.Splitsen(HenE.GameBlackJack.Hand)">
-            <summary>
-            Gaat de hand splitsen.
-            </summary>
-            <param name="hand">De hand die gesplitst worde.</param>
-        </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.Verdubbelen(HenE.GameBlackJack.Hand)">
-            <summary>
-            Verdubbel de hand.
-            </summary>
-            <param name="hand">De hand die verdubbelt wordt.</param>
-        </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.Kopen(HenE.GameBlackJack.Hand)">
-            <summary>
-            Vraag of de speler wil kopen.
-            </summary>
-            <param name="hand">De hand die een kaart wil kopen.</param>
-        </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.BehandelDeSpeler(HenE.GameBlackJack.Hand,HenE.GameBlackJack.Speler)">
-            <summary>
-            Geef een kaart aan de speler.
-            </summary>
-            <param name="hand">De hand van de speler.</param>
-            <param name="speler">Huidige speler.</param>
-        </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.HandelKaarten">
-            <summary>
-            Verdeelt de kaarten tussen de spelers.
-            </summary>
-        </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.BepaalWaarElkeSpelerGaatZitten">
             <summary>
             Geef elke persoon een plek.
             </summary>
         </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.GeefElkeSpelerEenHand(HenE.GameBlackJack.Speler)">
+        <member name="M:HenE.GameBlackJack.BlackjackController.IsJusteWaarde(System.Int32)">
             <summary>
-            Geef elke speler een hand. En die hand geef een nieuwe situatie.
+            Check of de fiches mag inzitten of de speler moet opnieuw te evalueren.
             </summary>
-            <param name="speler">De speler die een nieuwe hand krijgt.</param>
+            <param name="ficheWaarde">De waarde van de fiches.</param>
         </member>
         <member name="T:HenE.GameBlackJack.Dealer">
             <summary>
@@ -242,37 +182,54 @@
             </summary>
             <param name="tafel">Huidige tafel.</param>
         </member>
-        <member name="M:HenE.GameBlackJack.Dealer.BeoordeelHand(HenE.GameBlackJack.Hand)">
+        <member name="M:HenE.GameBlackJack.Dealer.WaardevanDeHand(HenE.GameBlackJack.Hand)">
             <summary>
             Kijk wat elke hand heeft.
             </summary>
             <param name="hand">Huidige hand.</param>
             <returns>De waarde in de hand.</returns>
         </member>
-        <member name="T:HenE.GameBlackJack.Enum.Actie">
+        <member name="T:HenE.GameBlackJack.Enum.Acties">
             <summary>
             Hier staat de beslissingen die de speler wil gebruiken.
             </summary>
         </member>
-        <member name="F:HenE.GameBlackJack.Enum.Actie.Kopen">
+        <member name="F:HenE.GameBlackJack.Enum.Acties.IsDefined">
+            <summary>
+            Geen actie.
+            </summary>
+        </member>
+        <member name="F:HenE.GameBlackJack.Enum.Acties.Kopen">
             <summary>
             Als de speler zou Koppen.
             </summary>
         </member>
-        <member name="F:HenE.GameBlackJack.Enum.Actie.Passen">
+        <member name="F:HenE.GameBlackJack.Enum.Acties.Passen">
             <summary>
             Als de speler zou passen.
             </summary>
         </member>
-        <member name="F:HenE.GameBlackJack.Enum.Actie.Verdubbelen">
+        <member name="F:HenE.GameBlackJack.Enum.Acties.Verdubbelen">
             <summary>
             Als de speler zou verdubbelen.
             </summary>
         </member>
-        <member name="F:HenE.GameBlackJack.Enum.Actie.Splitsen">
+        <member name="F:HenE.GameBlackJack.Enum.Acties.Splitsen">
             <summary>
             Als de speler de hand zou splitsen.
             </summary>
+        </member>
+        <member name="T:HenE.GameBlackJack.Enum.ActiesHelper">
+            <summary>
+            Ga de enum acties helpen.
+            </summary>
+        </member>
+        <member name="M:HenE.GameBlackJack.Enum.ActiesHelper.ZetEnumTotStringOm(HenE.GameBlackJack.Enum.Acties)">
+            <summary>
+            Geef de enum als string terug.
+            </summary>
+            <param name="actie">De acties.</param>
+            <returns>Actie als string.</returns>
         </member>
         <member name="T:HenE.GameBlackJack.Enum.FichesKleur">
             <summary>
@@ -671,12 +628,23 @@
             Als de hand klaar is, veraandert de status van de hand.
             </summary>
         </member>
-        <member name="M:HenE.GameBlackJack.Hand.AndereKaart(HenE.GameBlackJack.Kaart)">
+        <member name="M:HenE.GameBlackJack.Hand.Splits">
             <summary>
-            Geeft de andere kaart in de hand terug.
+            Splits de hand.
             </summary>
-            <param name="huidigeKaart">Huidige kaart.</param>
-            <returns>Andere kaart.</returns>
+            <returns>De hand die wordt gesplitst.</returns>
+        </member>
+        <member name="M:HenE.GameBlackJack.Hand.GeefFichesBijHand">
+            <summary>
+            Heef fiches bij de hand van de speler.
+            </summary>
+        </member>
+        <member name="M:HenE.GameBlackJack.Hand.GeefFichesBijHand(HenE.GameBlackJack.Hand)">
+            <summary>
+            Zoek op in hand die wordt gesplits voor de fiches.
+            Geef de nieuwe hand de zelfde fiches.
+            </summary>
+            <param name="handWordtGesplits">De hand die gesplits wordt.</param>
         </member>
         <member name="M:HenE.GameBlackJack.Hand.ChangeStatus(HenE.GameBlackJack.Enum.HandStatussen)">
             <summary>
@@ -838,16 +806,140 @@
             Behandel het spel.
             </summary>
         </member>
-        <member name="P:HenE.GameBlackJack.Spel.Handen">
+        <member name="F:HenE.GameBlackJack.Spel.spelers">
             <summary>
-            Gets de handen van de spelers en de dealer.
+            De lijst van de spelers die gaan spelen.
             </summary>
         </member>
-        <member name="M:HenE.GameBlackJack.Spel.VoegEenHandIn(HenE.GameBlackJack.Hand)">
+        <member name="P:HenE.GameBlackJack.Spel.HuidigeHand">
             <summary>
-            Start het spel.
+             Gets geeft de huidige hand van het spel.
             </summary>
-            <param name="hand">Huidige hand.</param>
+        </member>
+        <member name="F:HenE.GameBlackJack.Spel.speler">
+            <summary>
+            Huidige speler.
+            </summary>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:HenE.GameBlackJack.Spel"/> class.
+            </summary>
+        </member>
+        <member name="P:HenE.GameBlackJack.Spel.Handen">
+            <summary>
+            Gets de handen.
+            </summary>
+            <remarks>Geeft een collectie met unieke handen terug.</remarks>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.GaNaarDeVolgendeSpeelbareHand">
+            <summary>
+            set de huidige hand naar de volgende speelbare hand, als er nog geen hand is gezet, dan de eerste pakken.
+            als ik de laatste ben, weer terug naar het begin.
+            </summary>
+            <returns>de huidige hand of null indien niet gevonden.</returns>
+        </member>
+        <member name="P:HenE.GameBlackJack.Spel.EersteHandDieNogNietGespeeldIs">
+            <summary>
+            Geeft de eerste hand terug waarvan de status inspel is.
+            </summary>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.VoegEenHandToe(HenE.GameBlackJack.Hand)">
+            <summary>
+            Voegt een hand toe aan de collectie.
+            </summary>
+            <param name="hand">De hand die toegevoegd moet worden.</param>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.VoegEenHandIn(System.Int32,HenE.GameBlackJack.Hand)">
+            <summary>
+            Voegt een hand in in de collectie.
+            </summary>
+            <param name="positie">de plaats waar de hand ingevoegd moet worden.</param>
+            <param name="hand">De hand die ingevoegd moet worden.</param>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.SpelerToevoegen(HenE.GameBlackJack.Speler)">
+            <summary>
+            Voeg een speler aan het spel toe.
+            </summary>
+            <param name="spelerDieWilDeelnemenAanHetSpel">De speler die wordt ingevoegd.</param>
+            <returns>De hand van de speler.</returns>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.DealerToevoegen(HenE.GameBlackJack.Dealer)">
+            <summary>
+            Voeg een dealer aan het spel toe.
+            </summary>
+            <param name="dealer">De dealer die wordt toegevoegd.</param>
+            <returns>De hand van de dealer.</returns>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.VraagSpelerOmFichesTeZetten(HenE.GameBlackJack.Hand)">
+            <summary>
+            Vraag de speler om een fiche te zetten bij de hand.
+            </summary>
+            <param name="hand">De hand van de speler.</param>
+            <returns>De waarde van de fiches die wordt gezetten.</returns>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.SplitsHand(HenE.GameBlackJack.Hand)">
+            <summary>
+            Splits de hand.
+            geef kaarten . en ook geef ficehs aan de hand .
+            De fiches zijn gelijk op de fiches die bij de hand die wordet gesplist.
+            De Kaarten zijn gelijk op de Kaarten die bij de hand die wordet gesplist.
+            </summary>
+            <param name="handDieGesplitstMoetWorden">De hand die wordt gesplitst.</param>
+            <returns>De hand.</returns>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.Start(HenE.GameBlackJack.Dealer,System.Collections.Generic.List{HenE.GameBlackJack.Speler})">
+            <summary>
+            Maak de lei schoon.
+            </summary>
+            <param name="dealer">De Dealer.</param>
+            <param name="spelers">De spelers die willen spelen.</param>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.VoerActieVanDeSpeleruit(HenE.GameBlackJack.Hand,HenE.GameBlackJack.Enum.Acties)">
+            <summary>
+            Doet wat de speler wil doen.
+            </summary>
+            <param name="hand">De hand van de speler.</param>
+            <param name="actie">Wat de speler wil doen.</param>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.ProcessActie(HenE.GameBlackJack.Hand,HenE.GameBlackJack.Enum.Acties)">
+            <summary>
+            Doet wat de speler wil doen.
+            </summary>
+            <param name="hand">De hand van de speler.</param>
+            <param name="acties">De lijst van de acties die de speler mag doen.</param>
+            <param name="magKaartDelen">Vraag of mag de hand een kaart krijgen.</param>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.GeefDeHandEenKaart(HenE.GameBlackJack.Hand,HenE.GameBlackJack.SpelSpullen.StapelKaarten)">
+            <summary>
+            Geef een kaart aan de hand.
+            </summary>
+            <param name="hand">Huidige habd.</param>
+            <param name="stapelKaarten">De stapel waarin leggen de kaarten.</param>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.GeefIedereHandEersteKaart(HenE.GameBlackJack.SpelSpullen.StapelKaarten)">
+            <summary>
+            dit kan alleen de eerste keer.
+            </summary>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.GeefIedereHandTweedeKaart(HenE.GameBlackJack.SpelSpullen.StapelKaarten)">
+            <summary>
+            Geef elke hand van de speler een kaart.
+            </summary>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.Verdubbelen(HenE.GameBlackJack.Hand)">
+            <summary>
+            Verdubbel de hand.
+            </summary>
+            <param name="hand">De hand die verdubbelt wordt.</param>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.VoerActieUit(HenE.GameBlackJack.Hand,HenE.GameBlackJack.Enum.Acties)">
+            <summary>
+            Voer de actie die de speler heeft gekozen uit.
+            </summary>
+            <param name="hand">De huidige hand.</param>
+            <param name="deActie">De actie die de speler wil doen.</param>
+            <param name="magKaartDelen">Of de speler mag nog een nieuwe kaart nemen.</param>
         </member>
         <member name="T:HenE.GameBlackJack.Speler">
             <summary>
@@ -870,11 +962,6 @@
             Gets Waar de speler wil zitten.
             </summary>
         </member>
-        <member name="P:HenE.GameBlackJack.Speler.Hand">
-            <summary>
-            Gets de hand van de speler.
-            </summary>
-        </member>
         <member name="P:HenE.GameBlackJack.Speler.Fiches">
             <summary>
             Gets de fiches die met de speler zijn.
@@ -888,17 +975,24 @@
             <param name="positie">De nummer van de plek.</param>
             <returns>of mag zitten of niet.</returns>
         </member>
+        <member name="M:HenE.GameBlackJack.Speler.AskActie(System.Collections.Generic.List{HenE.GameBlackJack.Enum.Acties},HenE.GameBlackJack.Hand)">
+            <summary>
+            Vraag de speler wat hij wil doen.
+            </summary>
+            <param name="mogelijkActies">Lijst van de acties die de speler mag van uit het mag kiezen is.</param>
+            <param name="huidigeHand">De huidige hand.</param>
+            <returns>De actie die de speler heeft gekozen.</returns>
+        </member>
         <member name="M:HenE.GameBlackJack.Speler.VerlaatTafel">
             <summary>
-            Als de speler heeft de tafe verlaten.
+            Als de speler heeft de tafel verlaten.
             </summary>
             <returns>Heeft de speler de tafel verlaten of niet.</returns>
         </member>
-        <member name="M:HenE.GameBlackJack.Speler.Koopfiches(HenE.GameBlackJack.SpelSpullen.Tafel)">
+        <member name="M:HenE.GameBlackJack.Speler.Koopfiches">
             <summary>
             De speler bepaalt wat hij wil kopen.
             </summary>
-            <param name="tafel">Huidige tafel.</param>
         </member>
         <member name="M:HenE.GameBlackJack.Speler.ZetFichesBijHandIn(HenE.GameBlackJack.Hand,System.Int32)">
             <summary>
@@ -926,19 +1020,6 @@
             </summary>
             <returns>De waarde.</returns>
         </member>
-        <member name="M:HenE.GameBlackJack.Speler.VoegEenHandIn(HenE.GameBlackJack.Hand,System.Int32)">
-            <summary>
-            Voeg een hand aan de lijst van de handen.
-            </summary>
-            <param name="hand">Nieuwe hand.</param>
-            <param name="handPlek">Waar de zet de hand in de array.</param>
-        </member>
-        <member name="M:HenE.GameBlackJack.Speler.VoegEenHandIn(HenE.GameBlackJack.Hand)">
-            <summary>
-            Voeg een hand aan de lijst van de handen.
-            </summary>
-            <param name="hand">Nieuwe hand.</param>
-        </member>
         <member name="M:HenE.GameBlackJack.Speler.CheckAntwoord">
             <summary>
             Vrgaag de speler of hij wil iets doen of niet.
@@ -951,6 +1032,13 @@
             </summary>
             <param name="bedrag">Bedrag die bij de hand moet zijn.</param>
             <returns>Check of heet dat bedrag of niet.</returns>
+        </member>
+        <member name="M:HenE.GameBlackJack.Speler.ActieTotStrign(HenE.GameBlackJack.Enum.Acties)">
+            <summary>
+            Zet de actie tot string.
+            </summary>
+            <param name="acties">De actie die wordt omgezet.</param>
+            <returns>De actie als string.</returns>
         </member>
         <member name="T:HenE.GameBlackJack.SpelSpullen.Fiches">
             <summary>
@@ -1098,6 +1186,11 @@
         <member name="P:HenE.GameBlackJack.SpelSpullen.Tafel.Plekken">
             <summary>
             Gets de plekken met de spelers die aan de tafel zijn.
+            </summary>
+        </member>
+        <member name="P:HenE.GameBlackJack.SpelSpullen.Tafel.Spelers">
+            <summary>
+            Gets hier staat de speler die willen spelen.
             </summary>
         </member>
         <member name="P:HenE.GameBlackJack.SpelSpullen.Tafel.Fiches">

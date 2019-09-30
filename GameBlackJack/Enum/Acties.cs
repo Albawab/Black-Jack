@@ -10,6 +10,11 @@ namespace HenE.GameBlackJack.Enum
     public enum Acties
     {
         /// <summary>
+        /// Geen actie.
+        /// </summary>
+        IsDefined,
+
+        /// <summary>
         /// Als de speler zou Koppen.
         /// </summary>
         Kopen,

@@ -89,7 +89,7 @@ namespace HenE.GameBlackJack
             this.kaarten.Clear();
         }
 
-        /// <summary>
+/*        /// <summary>
         /// Geeft de andere kaart in de hand terug.
         /// </summary>
         /// <param name="huidigeKaart">Huidige kaart.</param>
@@ -111,6 +111,7 @@ namespace HenE.GameBlackJack
 
             return null;
         }
+*/
 
         /// <summary>
         /// Splits de hand.
@@ -119,24 +120,54 @@ namespace HenE.GameBlackJack
         public Hand Splits()
         {
             // todo, wat zijn de voorwaarden om te splitsen?
-            // kaarten moeten gelijk zijn
-            // kaarten moeten een even aantal zijn (== twee).
-
-            // welke controle moet ik doen
-            Hand nieuweHand = new Hand(this.Persoon);
-
-            while (nieuweHand.kaarten.Count != this.Kaarten.Count)
+            if (this.kaarten.Count == 2)
             {
-                nieuweHand.kaarten.Add(this.Kaarten[0]);
-                this.Kaarten.RemoveAt(0);
+                if (true/*this.kaarten[0] == this.kaarten[1]*/)
+                {
+                    // kaarten moeten gelijk zijn
+                    // kaarten moeten een even aantal zijn (== twee).
+                    // welke controle moet ik doen
+                    Hand nieuweHand = new Hand(this.Persoon);
+
+                    for (int index = 0; index < this.kaarten.Count; index++)
+                    {
+                        nieuweHand.kaarten.Add(this.Kaarten[index]);
+                    }
+
+                    return nieuweHand;
+                }
             }
 
-            return nieuweHand;
+            return null;
 
             // wat betekent dit?
             // dat ik een nieuwe hand moet maken
 
             // en dat ik de kaarten van deze hand moet delen en verplaatsen naar de nieuwe hand
+        }
+
+        /// <summary>
+        /// Heef fiches bij de hand van de speler.
+        /// </summary>
+        public void GeefFichesBijHand()
+        {
+            foreach (Fiche fiche in this.Inzet.ReadOnlyFiches)
+            {
+                this.HuidigeSpeler().ZetFichesBijHandIn(this, this.Inzet.WaardeVanDeFiches);
+            }
+        }
+
+        /// <summary>
+        /// Zoek op in hand die wordt gesplits voor de fiches.
+        /// Geef de nieuwe hand de zelfde fiches.
+        /// </summary>
+        /// <param name="handWordtGesplits">De hand die gesplits wordt.</param>
+        public void GeefFichesBijHand(Hand handWordtGesplits)
+        {
+            foreach (Fiche fiche in handWordtGesplits.Inzet.ReadOnlyFiches)
+            {
+                this.HuidigeSpeler().ZetFichesBijHandIn(this, fiche.Waarde);
+            }
         }
 
         /// <summary>

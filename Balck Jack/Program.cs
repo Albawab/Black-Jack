@@ -45,8 +45,8 @@ namespace Balck_Jack
             Speler spelerB = new Speler("Piet");
 
             // koopt fiches vbij de cassiere
-            spelerA.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(20, 10, true));
-            spelerB.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(20, 10, true));
+            spelerA.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(90, 20, true));
+            spelerB.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(90, 20, true));
 
             Console.WriteLine();
             Console.WriteLine(spelerA.Naam + "Je hebt gekocht");
