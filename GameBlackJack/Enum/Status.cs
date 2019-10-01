@@ -30,6 +30,11 @@ namespace HenE.GameBlackJack.Enum
         Gestopt,
 
         /// <summary>
+        /// de hand heeft gekocht.
+        /// </summary>
+        Gekochtocht,
+
+        /// <summary>
         /// Als de hand boven dan 21 score heeft.
         /// </summary>
         IsDood,

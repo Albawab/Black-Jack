@@ -16,12 +16,10 @@ namespace HenE.GameBlackJack
     /// </summary>
     public class BlackjackController
     {
-        private readonly ICalculatePoints pointsCalculator = new BlackJackPointsCalculator();
         private readonly BlackJackPointsCalculator blackJackPointsCalculator = new BlackJackPointsCalculator();
         private readonly Tafel tafel;
         private readonly KaartenExtensions kaartenHelper = new KaartenExtensions();
         private readonly Spel spel = new Spel();
-        private Speler speler = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BlackjackController"/> class.
@@ -49,7 +47,7 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
-        /// Staart een rondje.
+        /// Start een rondje.
         /// </summary>
         private void StartRonde()
         {
@@ -59,48 +57,115 @@ namespace HenE.GameBlackJack
             }
 
             this.BepaalWaarElkeSpelerGaatZitten();
-
-            this.spel.Start(this.tafel.Dealer, this.tafel.Spelers);
-            this.spel.GeefIedereHandEersteKaart(this.tafel.StapelKaarten);
-            this.spel.GeefIedereHandTweedeKaart(this.tafel.StapelKaarten);
+            this.spel.InitialiseerHetSpel(this.tafel.Dealer, this.tafel.Spelers);
+            this.Beginnen();
 
             while (this.spel.GaNaarDeVolgendeSpeelbareHand() != null)
-            {
+            {.
                 Hand huidigeHand = this.spel.HuidigeHand;
-                List<Acties> mogelijkActies = this.ControleerHand(huidigeHand);
-
-                if (mogelijkActies.Count == 0)
+                if (huidigeHand.Status != HandStatussen.BlackJeck)
                 {
-                    // dan kan ik niks en ga ik naar de volgende hand. Bijv, omdat de hand is gesloten
-                    Console.WriteLine($"{huidigeHand.HuidigeSpeler().Naam} je mag geen actie doen, dan word je gestopt.");
-                    continue;
-                }
-
-                this.spel.GaNaarDeVolgendeSpeelbareHand();
-                while (mogelijkActies.Count > 0)
-                {
-                    if (mogelijkActies.Count == 1)
+                    List<Acties> mogelijkActies = this.ControleerHand(huidigeHand);
+                    if (huidigeHand.Persoon != this.tafel.Dealer)
                     {
-                        this.spel.ProcessActie(this.spel.HuidigeHand, mogelijkActies[0]);
-                    }
-                    else
-                    {
-                        // er zijn meerdere acties mogelijk, vraag aan de speler wat hij/zij wil
-                        Acties gekozenActie = this.AskActie(mogelijkActies, this.spel.HuidigeHand);
-                        this.spel.ProcessActie(this.spel.HuidigeHand, gekozenActie);
-                    }
+                        if (mogelijkActies.Count == 0)
+                        {
+                            // dan kan ik niks en ga ik naar de volgende hand. Bijv, omdat de hand is gesloten
+                            Console.WriteLine($"{huidigeHand.HuidigeSpeler().Naam} je mag geen actie doen, dan word je gestopt.");
+                            continue;
+                        }
 
-                    // zijn  er nog acties mogelijk>?
-                    mogelijkActies = this.ControleerHand(huidigeHand);
+                        while (mogelijkActies.Count > 0 && huidigeHand.Status != HandStatussen.Gepassed && huidigeHand.Status != HandStatussen.IsDood)
+                        {
+                            if (mogelijkActies.Count == 1)
+                            {
+                                this.ProcessActie(this.spel.HuidigeHand, mogelijkActies[0]);
+                            }
+                            else
+                            {
+                                // er zijn meerdere acties mogelijk, vraag aan de speler wat hij/zij wil
+                                Acties gekozenActie = this.AskActie(mogelijkActies, this.spel.HuidigeHand);
+                                this.ProcessActie(this.spel.HuidigeHand, gekozenActie);
+                            }
+
+                            mogelijkActies = this.ControleerHand(huidigeHand);
+                        }
+                    }
                 }
-
-/*                else
+                else
                 {
                     this.BehandelDeDealer(huidigeHand);
-                }*/
+                }
+            }
 
-                    // wat zijn de mogelijkheden?
-                //huidigeHand = this.spel.NextHand;
+            this.BeeindHetSpel(this.spel.Handen);
+        }
+
+        /// <summary>
+        /// Doet wat de speler wil doen.
+        /// </summary>
+        /// <param name="hand">De hand van de speler.</param>
+        /// <param name="actie">De actie die de speler heeft gekozen.</param>
+        private void ProcessActie(Hand hand, Acties actie)
+        {
+            this.VoerActieUit(hand, actie);
+            if (hand.IsDood(this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten)))
+            {
+                hand.ChangeStatus(HandStatussen.IsDood);
+            }
+        }
+
+        /// <summary>
+        /// De eerste prossesn van het spel voor dat het spel start.
+        /// Vraag de speler om fiches bij de hand te inzitten.
+        /// Geef elke hand eerste kaart.Ook geeft allen de spelers tweede kaart.
+        /// Dus de dealer krijgt een kaart.
+        /// </summary>
+        private void Beginnen()
+        {
+            foreach (Speler speler in this.tafel.Spelers)
+            {
+                if (speler != null)
+                {
+                    int ficheWaarde = speler.FicheWaardeDeSpelerWilZetten();
+                    while (!this.tafel.BepaaltOfDeWaardetussenMaxInzetEnMinInzet(ficheWaarde))
+                    {
+                        Console.WriteLine("Een onjuiste waarde.");
+                        ficheWaarde = speler.FicheWaardeDeSpelerWilZetten();
+                    }
+
+                    this.VraagOmfichesBijDeHandTeInZetten(speler);
+                }
+            }
+
+            this.spel.GeefIedereHandEersteKaart(this.tafel.StapelKaarten);
+            this.spel.GeefIedereHandTweedeKaart(this.tafel.StapelKaarten);
+        }
+
+        /// <summary>
+        /// Voer de actie die de speler heeft gekozen uit.
+        /// </summary>
+        /// <param name="hand">De huidige hand.</param>
+        /// <param name="deActie">De actie die de speler wil doen.</param>
+        private void VoerActieUit(Hand hand, Acties deActie)
+        {
+            switch (deActie)
+            {
+                case Acties.Splitsen:
+                    this.spel.SplitsHand(hand);
+                    hand.ChangeStatus(HandStatussen.Gesplitst);
+                    break;
+                case Acties.Verdubbelen:
+                    this.spel.Verdubbelen(hand, this.tafel.StapelKaarten);
+                    hand.ChangeStatus(HandStatussen.Verdubbelen);
+                    break;
+                case Acties.Kopen:
+                    this.spel.Kopen(hand, this.tafel.StapelKaarten);
+                    hand.ChangeStatus(HandStatussen.Gekochtocht);
+                    break;
+                case Acties.Passen:
+                    hand.ChangeStatus(HandStatussen.Gepassed);
+                    break;
             }
         }
 
@@ -138,24 +203,6 @@ namespace HenE.GameBlackJack
 
             return acties;
         }
-
-        /// <summary>
-        /// Verdubblen de hand.Fiches bij de hand zetten.
-        /// </summary>
-        /// <param name="hand">Huidige hand.</param>
-        private void VerdubbelenHand(Hand hand)
-        {
-            this.speler.ZetFichesBijHandIn(hand);
-        }
-
-/*        private void BeoordeelHand(Hand hand)
-        {
-            if (this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten) > 21)
-            {
-                hand.ChangeStatus(HandStatussen.IsDood);
-                this.CloseHand(hand);
-            }
-        }*/
 
         /// <summary>
         /// Beaal aan de Hand.
@@ -203,7 +250,28 @@ namespace HenE.GameBlackJack
         /// <param name="huidigeHand">De huidige hand.</param>
         private Acties AskActie(List<Acties> mogelijkActies, Hand huidigeHand)
         {
-            return huidigeHand.HuidigeSpeler().AskActie(mogelijkActies, huidigeHand);
+            return huidigeHand.HuidigeSpeler().AskActie(mogelijkActies);
+        }
+
+        /// <summary>
+        /// Vraag de speler om fiches bij de hand in zetten.
+        /// </summary>
+        /// <param name="speler">De lijst van de spelers die zijn in het spelr bezig.</param>
+        private int VraagOmfichesBijDeHandTeInZetten(Speler speler)
+        {
+            int waarde = 0;
+            foreach (Hand hand in this.spel.Handen)
+            {
+                if (hand.Persoon == speler)
+                {
+                    speler.ZetFichesBijHandIn(hand);
+                    Console.WriteLine();
+                    Console.WriteLine($"{hand.Persoon.Naam} je heeft {waarde} als waarde bij je hand.");
+                    waarde = hand.Inzet.WaardeVanDeFiches;
+                }
+            }
+
+            return waarde;
         }
 
         /// <summary>
@@ -225,7 +293,7 @@ namespace HenE.GameBlackJack
             }
             else
             {
-                this.VerzameelDeFiches(hand); // ==========================> verlies
+                this.VerzameelDeFiches(hand);
             }
 
             hand.Close();
@@ -236,30 +304,14 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="hand">Huidige hand.</param>
         /// <returns>Of de speler kan kopen of niet.</returns>
-        private bool MagDeSpelerKopen(Hand hand)
-        {
-            if (hand.Status == HandStatussen.InSpel)
-            {
-                return true;
-            }
-
-            return false;
-        }
+        private bool MagDeSpelerKopen(Hand hand) => this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten) <= 21 && hand.Status != HandStatussen.Gepassed;
 
         /// <summary>
         /// controleert of de speler mag passen.
         /// </summary>
         /// <param name="hand">Huidige hand.</param>
         /// <returns>Mag de speler passen of niet.</returns>
-        private bool MagDeSpelerPassen(Hand hand)
-        {
-            if (hand.Status == HandStatussen.InSpel)
-            {
-                return true;
-            }
-
-            return false;
-        }
+        private bool MagDeSpelerPassen(Hand hand) => this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten) <= 21 && hand.Status != HandStatussen.BlackJeck;
 
         /// <summary>
         /// Controleer of de dealer mag kopen.
@@ -276,20 +328,14 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="hand">De hand van de dealer.</param>
         /// <returns> mag passen of niet.</returns>
-        private bool MoetDeDealerPassen(Hand hand)
-        {
-            return this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten) >= 17 && this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten) <= 21;
-        }
+        private bool MoetDeDealerPassen(Hand hand) => this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten) >= 17 && this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten) <= 21;
 
         /// <summary>
         /// Check als de dealer meer dan 21 punten heeft dan maak de situatie van de hand Dood.
         /// </summary>
         /// <param name="hand">De hand van de dealer.</param>
         /// <returns>Heeft de dealer meer dan 21 punten of niet.</returns>
-        private bool IsDealerDood(Hand hand)
-        {
-            return this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten) > 21;
-        }
+        private bool IsDealerDood(Hand hand) => this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten) > 21;
 
         /// <summary>
         /// Controleer aan de hand van de dealer.
@@ -435,22 +481,9 @@ namespace HenE.GameBlackJack
                 {
                     Console.WriteLine();
                     int plek = i + 1;
-                    Console.WriteLine(" Je gaat op de plek " + plek + " aan de tafel zitten");
+                    Console.WriteLine($"{this.tafel.Plekken[i].Speler.Naam} Je gaat op de plek  {plek} aan de tafel zitten");
                 }
             }
         }
-
-        /// <summary>
-        /// Check of de fiches mag inzitten of de speler moet opnieuw te evalueren.
-        /// </summary>
-        /// <param name="ficheWaarde">De waarde van de fiches.</param>
-        private void IsJusteWaarde(int ficheWaarde)
-        {
-            while (!this.tafel.BepaaltOfDeWaardetussenMaxInzetEnMinInzet(ficheWaarde))
-            {
-                Console.WriteLine("Een onjuiste waarde.");
-                ficheWaarde = this.speler.FicheWaardeDeSpelerWilZetten();
-            }
-        }
-     }
+    }
 }

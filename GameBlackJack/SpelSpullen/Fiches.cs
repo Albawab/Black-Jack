@@ -17,7 +17,7 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// <summary>
         /// De fiches die in de fichesBak zitten.
         /// </summary>
-        private List<Fiche> fiches = new List<Fiche>();
+        private readonly List<Fiche> fiches = new List<Fiche>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Fiches"/> class.

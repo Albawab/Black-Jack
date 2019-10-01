@@ -5,7 +5,7 @@
 namespace HenE.GameBlackJack
 {
     /// <summary>
-    /// De class van de persoon.
+    /// De persoon die aan de tafel gaat zitten met de naam.
     /// </summary>
     public abstract class Persoon
     {

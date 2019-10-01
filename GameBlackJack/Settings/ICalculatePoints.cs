@@ -7,7 +7,7 @@ namespace HenE.GameBlackJack.Settings
     using System.Collections.Generic;
 
     /// <summary>
-    /// Deze om punten te verzamelen.
+    /// interface met een method die de score van de kaarten gaat rekenen.
     /// </summary>
     public interface ICalculatePoints
     {

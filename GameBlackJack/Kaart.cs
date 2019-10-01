@@ -7,7 +7,8 @@ namespace HenE.GameBlackJack
     using HenE.GameBlackJack.Enum;
 
     /// <summary>
-    /// De kals van de kaarten.
+    /// Bepaalt de eigenschap van de kaart.
+    /// De kleur en de teken met de waarde van elke kaart.
     /// </summary>
     public class Kaart
     {

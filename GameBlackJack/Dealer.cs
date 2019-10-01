@@ -7,7 +7,7 @@ namespace HenE.GameBlackJack
     using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
-    /// Hier controleert de dealer het spel.
+    /// De dealer die het spel controleert.
     /// </summary>
     public class Dealer : Persoon
     {
@@ -19,11 +19,6 @@ namespace HenE.GameBlackJack
             : base(naam)
         {
         }
-
-        /// <summary>
-        /// Gets or Sets De plek waar de dealer zit aan de tafel.
-        /// </summary>
-        private Plek PlekAanTafel { get; set; }
 
         /// <summary>
         /// Als de dealer verandert.

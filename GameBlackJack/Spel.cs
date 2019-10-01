@@ -14,31 +14,24 @@ namespace HenE.GameBlackJack
     /// </summary>
     public class Spel
     {
-        private readonly ActiesHelper actiesHelper = new ActiesHelper();
-
         /// <summary>
         /// De lijst van de spelers die gaan spelen.
         /// </summary>
-        private List<Speler> spelers = new List<Speler>();
-
-        /// <summary>
-        ///  Gets geeft de huidige hand van het spel.
-        /// </summary>
-        public Hand HuidigeHand { get; private set; }
-
-        /// <summary>
-        /// Huidige speler.
-        /// </summary>
-        private Speler speler = null;
+        private readonly List<Speler> spelers = new List<Speler>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Spel"/> class.
         /// </summary>
         public Spel()
         {
-            HuidigeHand = null;
+            this.HuidigeHand = null;
             this.Handen = new List<Hand>();
         }
+
+        /// <summary>
+        ///  Gets geeft de huidige hand van het spel.
+        /// </summary>
+        public Hand HuidigeHand { get; private set; }
 
         /// <summary>
         /// Gets de handen.
@@ -80,36 +73,11 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
-        /// Geeft de eerste hand terug waarvan de status inspel is.
-        /// </summary>
-        public Hand EersteHandDieNogNietGespeeldIs
-        {
-            get
-            {
-                int index = 0;
-
-                // geef de eerste hand terug waarvan de status inspel is
-                while (index < this.Handen.Count)
-                {
-                    if (this.Handen[index].Status == HandStatussen.InSpel)
-                    {
-                        return this.Handen[index];
-                    }
-
-                    index++;
-                }
-
-                return null;
-            }
-        }
-
-        /// <summary>
         /// Voegt een hand toe aan de collectie.
         /// </summary>
         /// <param name="hand">De hand die toegevoegd moet worden.</param>
         public void VoegEenHandToe(Hand hand)
         {
-            // TODO welke controle moet ik hier doen?
             // null check
             if (hand == null)
             {
@@ -190,26 +158,6 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
-        /// Vraag de speler om een fiche te zetten bij de hand.
-        /// </summary>
-        /// <param name="hand">De hand van de speler.</param>
-        /// <returns>De waarde van de fiches die wordt gezetten.</returns>
-        public int VraagSpelerOmFichesTeZetten(Hand hand)
-        {
-            if (hand == null)
-            {
-                throw new ArgumentNullException("Er zijn geen hand.");
-            }
-
-            Speler speler = hand.HuidigeSpeler();
-            int ficheWaarde = speler.FicheWaardeDeSpelerWilZetten();
-            speler.ZetFichesBijHandIn(hand, ficheWaarde);
-            Console.WriteLine();
-            Console.WriteLine($"{speler.Naam} Je zet bij je hand {hand.Inzet.WaardeVanDeFiches} in.");
-            return ficheWaarde;
-        }
-
-        /// <summary>
         /// Splits de hand.
         /// geef kaarten . en ook geef ficehs aan de hand .
         /// De fiches zijn gelijk op de fiches die bij de hand die wordet gesplist.
@@ -242,7 +190,7 @@ namespace HenE.GameBlackJack
                 }
             }
 
-            nieuweHand.GeefFichesBijHand(handDieGesplitstMoetWorden);
+            nieuweHand.GeefFichesBijHandDieWordtGesplits(handDieGesplitstMoetWorden);
             return nieuweHand;
         }
 
@@ -251,7 +199,7 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="dealer">De Dealer.</param>
         /// <param name="spelers">De spelers die willen spelen.</param>
-        public void Start(Dealer dealer, List<Speler> spelers)
+        public void InitialiseerHetSpel(Dealer dealer, List<Speler> spelers)
         {
             // wat willen we dan doen.
             // in ieder geval beginnen met een schone lei.
@@ -268,46 +216,6 @@ namespace HenE.GameBlackJack
 
             // we beginnenn een nieuw spel, dus even weer resetten.
             this.HuidigeHand = null;
-
-        }
-
-        /// <summary>
-        /// Doet wat de speler wil doen.
-        /// </summary>
-        /// <param name="hand">De hand van de speler.</param>
-        /// <param name="actie">Wat de speler wil doen.</param>
-        public void VoerActieVanDeSpeleruit(Hand hand, Acties actie)
-        {
-            if (actie == null)
-            {
-                throw new ArgumentNullException("Actie moet niet null zijn.");
-            }
-
-            this.speler = hand.HuidigeSpeler();
-            switch (actie)
-            {
-                case Acties.Splitsen:
-                    this.SplitsHand(hand);
-                    break;
-                case Acties.Verdubbelen:
-                    this.Verdubbelen(hand);
-
-                    break;
-                case Acties.Kopen:
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Doet wat de speler wil doen.
-        /// </summary>
-        /// <param name="hand">De hand van de speler.</param>
-        /// <param name="acties">De lijst van de acties die de speler mag doen.</param>
-        /// <param name="magKaartDelen">Vraag of mag de hand een kaart krijgen.</param>
-        public void ProcessActie(Hand hand, Acties actie)
-        {
-            Console.Write($"{hand.HuidigeSpeler().Naam} je mag");
-            this.VoerActieUit(hand, actie);
         }
 
         /// <summary>
@@ -335,6 +243,7 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// dit kan alleen de eerste keer.
         /// </summary>
+        /// <param name="stapelKaarten">De sptapel kaarten van het spel.</param>
         public void GeefIedereHandEersteKaart(StapelKaarten stapelKaarten)
         {
             foreach (Hand hand in this.Handen)
@@ -346,6 +255,7 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// Geef elke hand van de speler een kaart.
         /// </summary>
+        /// <param name="stapelKaarten">De stapel van de kaarten.</param>
         public void GeefIedereHandTweedeKaart(StapelKaarten stapelKaarten)
         {
             foreach (Hand hand in this.Handen)
@@ -357,58 +267,12 @@ namespace HenE.GameBlackJack
             }
         }
 
-        /*     /// <summary>
-             /// Gaat de hand splitsen.
-             /// </summary>
-             /// <param name="hand">De hand die gesplitst worde.</param>
-             private void Splitsen(Hand hand)
-             {
-                 Console.WriteLine(hand.HuidigeSpeler().Naam + " : Je mag splitsen. Wil je dat doen J of N?");
-                 if (this.speler.CheckAntwoord())
-                 {
-                     if (!this.speler.HeeftSpelerNogFiches())
-                     {
-                         this.speler.Koopfiches(this.tafel);
-                     }
-
-                     this.SplitHand(hand);
-                 }
-             }
-        /// <summary>
-                /// Geef een nieuwe hand met kaarten en fiches.
-                /// </summary>
-                /// <param name="hand">Huidige hand.</param>
-                private void SplitHand(Hand hand)
-                {
-                    Hand nieuweHand = new Hand(hand.Persoon);
-                    this.VoegEenHandIn(this.huidigeIndex + 1, nieuweHand);
-                    this.NeemKaartVanHand(hand);
-                }*/
-
-        /*        /// <summary>
-                /// Vraag of de speler wil kopen.
-                /// </summary>
-                /// <param name="hand">De hand die een kaart wil kopen.</param>
-                private void Kopen(Hand hand)
-                {
-                    Console.WriteLine(hand.HuidigeSpeler().Naam + " : Je mag Een kaart Kopen. Wil ja dat doen J of N?");
-                    if (this.speler.CheckAntwoord())
-                    {
-                        this.GeefDeHandEenKaart(hand);
-                        this.BeoordeelHand(hand);
-                    }
-                    else
-                    {
-                        this.PassenDeHand(hand);
-                    }
-                }
-        */
-
         /// <summary>
         /// Verdubbel de hand.
         /// </summary>
         /// <param name="hand">De hand die verdubbelt wordt.</param>
-        private void Verdubbelen(Hand hand)
+        /// <param name="stapelKaarten">De stapel kaarten van het spel.</param>
+        public void Verdubbelen(Hand hand, StapelKaarten stapelKaarten)
         {
             /*            Console.WriteLine(hand.HuidigeSpeler().Naam + " : Je mag je inzet Verdubbelen. Wil ja dat doen J of N?");
                         if (this.speler.CheckAntwoord())
@@ -421,39 +285,17 @@ namespace HenE.GameBlackJack
                             hand.VerdubbelenHand();
                         }*/
             hand.GeefFichesBijHand();
-        }
-
-        public void Close()
-        {
-            // oke, roepe close tegen alle handen
-            // geen idee iof de hand als gesloten is, maar dat boiet mij niet
-            // ik doe gewoon mijn ding
-            // todo
+            this.GeefDeHandEenKaart(hand, stapelKaarten);
         }
 
         /// <summary>
-        /// Voer de actie die de speler heeft gekozen uit.
+        /// Geef een kaart uit.
         /// </summary>
-        /// <param name="hand">De huidige hand.</param>
-        /// <param name="deActie">De actie die de speler wil doen.</param>
-        /// <param name="magKaartDelen">Of de speler mag nog een nieuwe kaart nemen.</param>
-        private void VoerActieUit(Hand hand, Acties deActie)
+        /// <param name="hand">De hand die een kaart krijgt.</param>
+        /// <param name="stapelKaarten">De stapel kaarten van het sperl.</param>
+        public void Kopen(Hand hand, StapelKaarten stapelKaarten)
         {
-            this.speler = hand.HuidigeSpeler();
-            switch (deActie)
-            {
-                case Acties.Splitsen:
-                    this.SplitsHand(hand);
-                    break;
-                case Acties.Verdubbelen:
-                    this.Verdubbelen(hand);
-
-                    break;
-                case Acties.Kopen:
-                    break;
-                case Acties.Passen:
-                    break;
-            }
+            this.GeefDeHandEenKaart(hand, stapelKaarten);
         }
     }
 }

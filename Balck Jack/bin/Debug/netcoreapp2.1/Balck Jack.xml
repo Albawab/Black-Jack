@@ -6,7 +6,7 @@
     <members>
         <member name="T:HenEBalck_Jack.Helpers.FichesConsolePrinter">
             <summary>
-            class om de fiches in de console te rpinten.
+            class om de fiches in de console te printen.
             </summary>
         </member>
         <member name="M:HenEBalck_Jack.Helpers.FichesConsolePrinter.PrintFiches(HenE.GameBlackJack.SpelSpullen.Fiches)">

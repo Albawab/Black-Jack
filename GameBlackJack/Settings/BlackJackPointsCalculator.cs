@@ -10,7 +10,8 @@ namespace HenE.GameBlackJack.Settings
     using HenE.GameBlackJack.Enum;
 
     /// <summary>
-    /// Gaat op het spel controleren .
+    /// Bepaal de waarde van de Aas.
+    /// Reken de score van de kaarten die in de hand zijn.
     /// </summary>
     public class BlackJackPointsCalculator : ICalculatePoints
     {
@@ -80,8 +81,6 @@ namespace HenE.GameBlackJack.Settings
         private int BepaalAasWaarde(int waardeVanDeAndereKaarten)
         {
             int result = 11;
-
-            // todo als ik meer dan 1 aas heb, dan moet ik misschien vanaf het begin anders rekenen
 
             // is de waarde van de hand meer dan 21?
             if (waardeVanDeAndereKaarten + 11 > BlackJackScore)

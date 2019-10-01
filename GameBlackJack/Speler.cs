@@ -11,6 +11,7 @@ namespace HenE.GameBlackJack
 
     /// <summary>
     /// Slaan de gegevens van de speler op.
+    /// bepaal de actie die de speler wil doen.Koop fiches ook zet fiches bij de hand in.
     /// </summary>
     public class Speler : Persoon
     {
@@ -68,9 +69,8 @@ namespace HenE.GameBlackJack
         /// Vraag de speler wat hij wil doen.
         /// </summary>
         /// <param name="mogelijkActies">Lijst van de acties die de speler mag van uit het mag kiezen is.</param>
-        /// <param name="huidigeHand">De huidige hand.</param>
         /// <returns>De actie die de speler heeft gekozen.</returns>
-        public Acties AskActie(List<Acties> mogelijkActies, Hand huidigeHand)
+        public Acties AskActie(List<Acties> mogelijkActies)
         {
             // keuze aan de klant laten
             for (int index = 0; index < mogelijkActies.Count; index++)
@@ -91,6 +91,7 @@ namespace HenE.GameBlackJack
             }
 
             Acties actie = mogelijkActies[deActie];
+            mogelijkActies.Remove(mogelijkActies[deActie]);
             return actie;
         }
 
@@ -153,6 +154,8 @@ namespace HenE.GameBlackJack
         /// <param name="hand">De hand van de speler.</param>
         public void ZetFichesBijHandIn(Hand hand)
         {
+            Console.WriteLine();
+            Console.WriteLine("Je mag nu fiches inzetten.");
             if (this.fiches.ReadOnlyFiches.Count != 0)
             {
                 while (!this.HeeftDitBedragInFichesbak(hand.Inzet.WaardeVanDeFiches))
@@ -189,7 +192,7 @@ namespace HenE.GameBlackJack
         /// <returns>De waarde.</returns>
         public int FicheWaardeDeSpelerWilZetten()
         {
-            Console.WriteLine("Wat voor waarde wil je zet in?");
+            Console.WriteLine("Wat voor waarde wil je inzetten?");
             return 20;
         }
 
@@ -220,15 +223,7 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="bedrag">Bedrag die bij de hand moet zijn.</param>
         /// <returns>Check of heet dat bedrag of niet.</returns>
-        private bool HeeftDitBedragInFichesbak(int bedrag)
-        {
-            if (bedrag <= this.fiches.WaardeVanDeFiches)
-            {
-                return true;
-            }
-
-            return false;
-        }
+        private bool HeeftDitBedragInFichesbak(int bedrag) => bedrag <= this.fiches.WaardeVanDeFiches;
 
         /// <summary>
         /// Zet de actie tot string.

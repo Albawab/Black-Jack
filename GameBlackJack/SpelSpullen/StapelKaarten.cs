@@ -10,7 +10,8 @@ namespace HenE.GameBlackJack.SpelSpullen
     using HenE.GameBlackJack.Enum;
 
     /// <summary>
-    /// De klas van de stapel kaarten.
+    /// De kaarten van het spel die we nodig hebben voor het spel.
+    /// Staat de kaarten.
     /// </summary>
     public class StapelKaarten
     {

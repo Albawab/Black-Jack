@@ -5,12 +5,11 @@
 namespace HenEBalck_Jack.Helpers
 {
     using System;
-    using System.Collections.Generic;
     using HenE.GameBlackJack;
     using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
-    /// class om de fiches in de console te rpinten.
+    /// class om de fiches in de console te printen.
     /// </summary>
     public static class FichesConsolePrinter /*: ICanPrintFiches*/
     {

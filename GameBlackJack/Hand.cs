@@ -10,10 +10,13 @@ namespace HenE.GameBlackJack
     using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
-    /// De klas van de hand.
+    /// Heeft de kaarten en de fiches van de speler en ook heeft eigen situatie.
     /// </summary>
     public class Hand
     {
+        /// <summary>
+        /// Een lijst van kaarten die bij de hand zijn.
+        /// </summary>
         private readonly List<Kaart> kaarten = new List<Kaart>();
 
         /// <summary>
@@ -87,31 +90,8 @@ namespace HenE.GameBlackJack
 
             // en gooi alle kaarten weg.
             this.kaarten.Clear();
+            this.ChangeStatus(HandStatussen.NogNietGestart);
         }
-
-/*        /// <summary>
-        /// Geeft de andere kaart in de hand terug.
-        /// </summary>
-        /// <param name="huidigeKaart">Huidige kaart.</param>
-        /// <returns>Andere kaart.</returns>
-        public Kaart AndereKaart(Kaart huidigeKaart)
-        {
-            if (this.kaarten.Count != 2)
-            {
-                return null;
-            }
-
-            foreach (Kaart kaart in this.kaarten)
-            {
-                if (huidigeKaart != kaart)
-                {
-                    return kaart;
-                }
-            }
-
-            return null;
-        }
-*/
 
         /// <summary>
         /// Splits de hand.
@@ -162,13 +142,20 @@ namespace HenE.GameBlackJack
         /// Geef de nieuwe hand de zelfde fiches.
         /// </summary>
         /// <param name="handWordtGesplits">De hand die gesplits wordt.</param>
-        public void GeefFichesBijHand(Hand handWordtGesplits)
+        public void GeefFichesBijHandDieWordtGesplits(Hand handWordtGesplits)
         {
             foreach (Fiche fiche in handWordtGesplits.Inzet.ReadOnlyFiches)
             {
                 this.HuidigeSpeler().ZetFichesBijHandIn(this, fiche.Waarde);
             }
         }
+
+        /// <summary>
+        /// Check of de hand heeft meer dan 21 score.
+        /// </summary>
+        /// <param name="waardeVanKaarten">De waarde die bij de hand is.</param>
+        /// <returns>Meer dan 21 score of minder.</returns>
+        public bool IsDood(int waardeVanKaarten) => waardeVanKaarten > 21;
 
         /// <summary>
         /// Verandert de status van de hand.
