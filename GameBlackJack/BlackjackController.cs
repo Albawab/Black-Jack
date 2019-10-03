@@ -61,8 +61,13 @@ namespace HenE.GameBlackJack
             this.Beginnen();
 
             while (this.spel.GaNaarDeVolgendeSpeelbareHand() != null)
-            {.
+            {
                 Hand huidigeHand = this.spel.HuidigeHand;
+                if (this.IsBlackJack(huidigeHand))
+                {
+                    this.HandelBlackJack(huidigeHand);
+                }
+
                 if (huidigeHand.Status != HandStatussen.BlackJeck)
                 {
                     List<Acties> mogelijkActies = this.ControleerHand(huidigeHand);
@@ -91,10 +96,11 @@ namespace HenE.GameBlackJack
                             mogelijkActies = this.ControleerHand(huidigeHand);
                         }
                     }
-                }
-                else
-                {
-                    this.BehandelDeDealer(huidigeHand);
+                    else
+                    {
+                        // start behandelen met de dealer.
+                        this.BehandelDeDealer(huidigeHand);
+                    }
                 }
             }
 
@@ -213,7 +219,9 @@ namespace HenE.GameBlackJack
         {
             if (wordtBetaal == 1.5)
             {
-                int moetBetalenAanHand = hand.Inzet.WaardeVanDeFiches * (int)1.5;
+                float betaal = hand.Inzet.WaardeVanDeFiches * 1.5f;
+
+                int moetBetalenAanHand = (int)betaal;
                 this.FichesVerdienen(hand, moetBetalenAanHand);
             }
             else if (wordtBetaal == 1.0)
@@ -484,6 +492,36 @@ namespace HenE.GameBlackJack
                     Console.WriteLine($"{this.tafel.Plekken[i].Speler.Naam} Je gaat op de plek  {plek} aan de tafel zitten");
                 }
             }
+        }
+
+        /// <summary>
+        /// Check of de hand Black jack is, dus moet de hand 21 score hebben.
+        /// </summary>
+        /// <param name="hand">Een hand.</param>
+        /// <returns>Of de hand Black Jack of niet.</returns>
+        private bool IsBlackJack(Hand hand)
+        {
+            if (hand == null)
+            {
+                throw new ArgumentNullException("Er zijn geen hand staat.");
+            }
+
+            if (this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten) == 21)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Als de hand Black Jack dan change de status van de hand en close de hand.
+        /// </summary>
+        /// <param name="hand">De hand die Balck Jack wordt.</param>
+        private void HandelBlackJack(Hand hand)
+        {
+            hand.ChangeStatus(HandStatussen.BlackJeck);
+            this.CloseHand(hand);
         }
     }
 }

@@ -176,6 +176,19 @@
             Geef elke persoon een plek.
             </summary>
         </member>
+        <member name="M:HenE.GameBlackJack.BlackjackController.IsBlackJack(HenE.GameBlackJack.Hand)">
+            <summary>
+            Check of de hand Black jack is, dus moet de hand 21 score hebben.
+            </summary>
+            <param name="hand">Een hand.</param>
+            <returns>Of de hand Black Jack of niet.</returns>
+        </member>
+        <member name="M:HenE.GameBlackJack.BlackjackController.HandelBlackJack(HenE.GameBlackJack.Hand)">
+            <summary>
+            Als de hand Black Jack dan change de status van de hand en close de hand.
+            </summary>
+            <param name="hand">De hand die Balck Jack wordt.</param>
+        </member>
         <member name="T:HenE.GameBlackJack.Dealer">
             <summary>
             De dealer die het spel controleert.

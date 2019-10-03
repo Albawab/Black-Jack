@@ -90,7 +90,7 @@ namespace HenE.GameBlackJack
 
             // en gooi alle kaarten weg.
             this.kaarten.Clear();
-            this.ChangeStatus(HandStatussen.NogNietGestart);
+            this.ChangeStatus(HandStatussen.Gestopt);
         }
 
         /// <summary>

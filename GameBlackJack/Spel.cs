@@ -7,6 +7,7 @@ namespace HenE.GameBlackJack
     using System;
     using System.Collections.Generic;
     using HenE.GameBlackJack.Enum;
+    using HenE.GameBlackJack.Settings;
     using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
@@ -18,6 +19,7 @@ namespace HenE.GameBlackJack
         /// De lijst van de spelers die gaan spelen.
         /// </summary>
         private readonly List<Speler> spelers = new List<Speler>();
+        private readonly BlackJackPointsCalculator blackJackPointsCalculator = new BlackJackPointsCalculator();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Spel"/> class.
@@ -238,6 +240,9 @@ namespace HenE.GameBlackJack
             Console.WriteLine($"{hand.Persoon.Naam} Je krijgt een kaart {kaart.Kleur} van {kaart.Teken}.");
             hand.AddKaart(kaart);
             Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"{hand.Persoon.Naam} Je hebt {this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten)} points bij je hand.");
+            Console.ResetColor();
         }
 
         /// <summary>
