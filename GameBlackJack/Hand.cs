@@ -131,9 +131,10 @@ namespace HenE.GameBlackJack
         /// </summary>
         public void GeefFichesBijHand()
         {
+            Console.WriteLine($"Je moet fiches van {this.Inzet.WaardeVanDeFiches} inzeten.");
             foreach (Fiche fiche in this.Inzet.ReadOnlyFiches)
             {
-                this.HuidigeSpeler().ZetFichesBijHandIn(this, this.Inzet.WaardeVanDeFiches);
+                this.HuidigeSpeler().ZetFichesBijHandIn(this, fiche.Waarde);
             }
         }
 

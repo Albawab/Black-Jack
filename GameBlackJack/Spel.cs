@@ -6,9 +6,11 @@ namespace HenE.GameBlackJack
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading;
     using HenE.GameBlackJack.Enum;
     using HenE.GameBlackJack.Settings;
     using HenE.GameBlackJack.SpelSpullen;
+    using HenEBalck_Jack;
 
     /// <summary>
     /// Behandel het spel.
@@ -239,10 +241,19 @@ namespace HenE.GameBlackJack
             Console.WriteLine();
             Console.WriteLine($"{hand.Persoon.Naam} Je krijgt een kaart {kaart.Kleur} van {kaart.Teken}.");
             hand.AddKaart(kaart);
+            Console.WriteLine($"{hand.Persoon.Naam}: Nu heb je kaarten bij je hand:");
+            foreach (Kaart kaart1 in hand.Kaarten)
+            {
+                ColorConsole.WriteLine(ConsoleColor.Yellow, $"{kaart1.Kleur} van {kaart1.Teken}");
+                Console.ResetColor();
+            }
+
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"{hand.Persoon.Naam} Je hebt {this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten)} points bij je hand.");
+            Console.WriteLine($"{hand.Persoon.Naam} Je hebt {this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten)} punten bij je hand.");
             Console.ResetColor();
+            Console.WriteLine("------------------------------------------------------------------>");
+            Thread.Sleep(2000);
         }
 
         /// <summary>
@@ -290,6 +301,7 @@ namespace HenE.GameBlackJack
                             hand.VerdubbelenHand();
                         }*/
             hand.GeefFichesBijHand();
+            Thread.Sleep(3000);
             this.GeefDeHandEenKaart(hand, stapelKaarten);
         }
 
@@ -301,6 +313,33 @@ namespace HenE.GameBlackJack
         public void Kopen(Hand hand, StapelKaarten stapelKaarten)
         {
             this.GeefDeHandEenKaart(hand, stapelKaarten);
+        }
+
+        public List<Hand> HeeftDeSpelerMeerDanEenHand(Hand hudigeHand)
+        {
+            List<Hand> handenVanEenSpeler = new List<Hand>();
+            foreach (Hand hand in this.Handen)
+            {
+                if (hudigeHand.HuidigeSpeler() == hand.HuidigeSpeler())
+                {
+                    handenVanEenSpeler.Add(hand);
+                    if (handenVanEenSpeler.Count == 2)
+                    {
+                        return handenVanEenSpeler;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public void PrintMessage(Hand hand)
+        {
+            Console.Write("Je hebt nu bij je hand ");
+            foreach (Kaart kaart in hand.Kaarten)
+            {
+                Console.WriteLine($"{kaart.Kleur} van {kaart.Teken}");
+            }
         }
     }
 }

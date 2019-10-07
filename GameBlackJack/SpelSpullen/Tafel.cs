@@ -100,7 +100,7 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// <returns>De nieuwe tafel.</returns>
         public static Tafel CreateBlackJackTafel(Fiches fiches)
         {
-            Tafel tafel = new Tafel(6, fiches, StapelKaartenFactory.CreateBlackJackKaarten(2), 5, 100);
+            Tafel tafel = new Tafel(6, fiches, StapelKaartenFactory.CreateBlackJackKaarten(2), 100, 5);
             return tafel;
         }
 
@@ -185,10 +185,10 @@ namespace HenE.GameBlackJack.SpelSpullen
         {
             if (this.MinimalenZet < spelerWilzetten && this.MaximaleInZet > spelerWilzetten)
             {
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
         }
 
         /// <summary>

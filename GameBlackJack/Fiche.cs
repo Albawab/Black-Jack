@@ -50,7 +50,7 @@ namespace HenE.GameBlackJack
             /// <param name="kleur">De kleur van een fiche.</param>
             /// <param name="waarde">De waarde van een fiche.</param>
             /// <param name="copy">true of false.</param>
-            /// <returns>De fiches.</returns>
+            /// <returns>Nieuwe fiche.</returns>
             public static Fiche CreateFiche(FichesKleur kleur, int waarde, bool copy = false)
             {
                 return new Fiche(kleur, waarde);

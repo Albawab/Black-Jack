@@ -30,7 +30,7 @@
             <summary>
             Doet wat de speler wil doen.
             </summary>
-            <param name="hand">De hand van de speler.</param>
+            <param name="huidigeHand">De hand van de speler.</param>
             <param name="actie">De actie die de speler heeft gekozen.</param>
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.Beginnen">
@@ -75,11 +75,12 @@
             <param name="mogelijkActies">Lijst van de acties die de speler mag van uit het mag kiezen is.</param>
             <param name="huidigeHand">De huidige hand.</param>
         </member>
-        <member name="M:HenE.GameBlackJack.BlackjackController.VraagOmfichesBijDeHandTeInZetten(HenE.GameBlackJack.Speler)">
+        <member name="M:HenE.GameBlackJack.BlackjackController.VraagOmfichesBijDeHandTeInZetten(HenE.GameBlackJack.Speler,System.Int32)">
             <summary>
             Vraag de speler om fiches bij de hand in zetten.
             </summary>
             <param name="speler">De lijst van de spelers die zijn in het spelr bezig.</param>
+            <param name="waarde">De waarde van een fiche.</param>
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.CloseHand(HenE.GameBlackJack.Hand)">
             <summary>
@@ -89,28 +90,28 @@
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.MagDeSpelerKopen(HenE.GameBlackJack.Hand)">
             <summary>
-            Controleert of de speler mag kopen.
+            Check of de speler mag kopen.
             </summary>
             <param name="hand">Huidige hand.</param>
             <returns>Of de speler kan kopen of niet.</returns>
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.MagDeSpelerPassen(HenE.GameBlackJack.Hand)">
             <summary>
-            controleert of de speler mag passen.
+            Check of de speler mag passen.
             </summary>
             <param name="hand">Huidige hand.</param>
             <returns>Mag de speler passen of niet.</returns>
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.MoetDeDealerKopen(HenE.GameBlackJack.Hand)">
             <summary>
-            Controleer of de dealer mag kopen.
+            Check of de dealer mag kopen.
             </summary>
             <param name="hand">De hand van de dealer.</param>
             <returns>Mag de dealer kopen of mag niet.</returns>
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.MoetDeDealerPassen(HenE.GameBlackJack.Hand)">
             <summary>
-            Controleer of de dealer moet passen.
+            Check of de dealer moet passen.
             </summary>
             <param name="hand">De hand van de dealer.</param>
             <returns> mag passen of niet.</returns>
@@ -130,7 +131,7 @@
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.BeeindHetSpel(System.Collections.Generic.List{HenE.GameBlackJack.Hand})">
             <summary>
-            Controleer de punten.
+            Check de punten.
             Geef de winnaar fiches.
             Neem van de losser fiches.
             beeind het spel.
@@ -499,7 +500,7 @@
             <param name="kleur">De kleur van een fiche.</param>
             <param name="waarde">De waarde van een fiche.</param>
             <param name="copy">true of false.</param>
-            <returns>De fiches.</returns>
+            <returns>Nieuwe fiche.</returns>
         </member>
         <member name="M:HenE.GameBlackJack.Fiche.#ctor(HenE.GameBlackJack.Enum.FichesKleur,System.Int32)">
             <summary>
@@ -910,10 +911,11 @@
             </summary>
             <returns>Heeft de speler fiches of niet.</returns>
         </member>
-        <member name="M:HenE.GameBlackJack.Speler.FicheWaardeDeSpelerWilZetten">
+        <member name="M:HenE.GameBlackJack.Speler.FicheWaardeDeSpelerWilZetten(HenE.GameBlackJack.Speler)">
             <summary>
             De waarde die de speler wil zetten.
             </summary>
+            <param name="speler">Een Speler.</param>
             <returns>De waarde.</returns>
         </member>
         <member name="M:HenE.GameBlackJack.Speler.CheckAntwoord">
@@ -1158,6 +1160,18 @@
             De plek die bezet is op de tafel.
             </summary>
             <returns>De plek als list.</returns>
+        </member>
+        <member name="T:HenEBalck_Jack.ColorConsole">
+            <summary>
+            Geef de text een keleur.
+            </summary>
+        </member>
+        <member name="M:HenEBalck_Jack.ColorConsole.WriteLine(System.ConsoleColor,System.String)">
+            <summary>
+            Change de kleur van een text.
+            </summary>
+            <param name="color">De kleur die gaat passen.</param>
+            <param name="message">De message die de kleur wordt veranderd.</param>
         </member>
     </members>
 </doc>

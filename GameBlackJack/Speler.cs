@@ -8,6 +8,7 @@ namespace HenE.GameBlackJack
     using System.Collections.Generic;
     using HenE.GameBlackJack.Enum;
     using HenE.GameBlackJack.SpelSpullen;
+    using HenEBalck_Jack;
 
     /// <summary>
     /// Slaan de gegevens van de speler op.
@@ -72,6 +73,9 @@ namespace HenE.GameBlackJack
         /// <returns>De actie die de speler heeft gekozen.</returns>
         public Acties AskActie(List<Acties> mogelijkActies)
         {
+            Console.WriteLine();
+            Console.WriteLine($"{this.Naam} Kies maar een van de acties die hieronder staat! Je mag alleen nummer gebruiken.");
+
             // keuze aan de klant laten
             for (int index = 0; index < mogelijkActies.Count; index++)
             {
@@ -82,7 +86,7 @@ namespace HenE.GameBlackJack
             // De actie die de speler wil doen.
             int deActie = 0;
             string deSpelerwilDoen = string.Empty;
-            Console.WriteLine("Kies maar een van de acties! Je mag alleen nummer gebruiken.");
+
             deSpelerwilDoen = Console.ReadLine();
             while (!int.TryParse(deSpelerwilDoen, out deActie) || deActie > mogelijkActies.Count)
             {
@@ -142,7 +146,7 @@ namespace HenE.GameBlackJack
                         }
                     }
 
-                    hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(waarde, 10, false));
+                    hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(waarde, 1, false));
                     break;
                 }
             }
@@ -154,8 +158,6 @@ namespace HenE.GameBlackJack
         /// <param name="hand">De hand van de speler.</param>
         public void ZetFichesBijHandIn(Hand hand)
         {
-            Console.WriteLine();
-            Console.WriteLine("Je mag nu fiches inzetten.");
             if (this.fiches.ReadOnlyFiches.Count != 0)
             {
                 while (!this.HeeftDitBedragInFichesbak(hand.Inzet.WaardeVanDeFiches))
@@ -167,7 +169,7 @@ namespace HenE.GameBlackJack
                     }
                 }
 
-                hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(20, 2, false));
+                hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(20, 1, false));
             }
         }
 
@@ -189,11 +191,21 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// De waarde die de speler wil zetten.
         /// </summary>
+        /// <param name="speler">Een Speler.</param>
         /// <returns>De waarde.</returns>
-        public int FicheWaardeDeSpelerWilZetten()
+        public int FicheWaardeDeSpelerWilZetten(Speler speler)
         {
-            Console.WriteLine("Wat voor waarde wil je inzetten?");
-            return 20;
+            Console.WriteLine();
+            Console.WriteLine($"{speler.Naam} Wat voor waarde wil je inzetten?");
+            string input = Console.ReadLine();
+            int waarde = 0;
+            while (!int.TryParse(input, out waarde))
+            {
+                ColorConsole.WriteLine(ConsoleColor.Yellow, "Type maar een nummer!");
+                input = Console.ReadLine();
+            }
+
+            return waarde;
         }
 
         /// <summary>

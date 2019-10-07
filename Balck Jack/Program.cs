@@ -35,7 +35,7 @@ namespace Balck_Jack
 
             // dealer
             // dealer aanmaken en toewijzen aan een tafel
-            Dealer dealer = new Dealer("Kees");
+            Dealer dealer = new Dealer("Dealer");
             dealer.GaAanTafelZitten(tafel);
 
             // spelers, komen binnen en kopen bij het cassiere fiches
@@ -81,6 +81,7 @@ namespace Balck_Jack
             BlackjackController blackJackController = new BlackjackController(tafel);
 
             blackJackController.Start();
+            Console.ReadLine();
         }
     }
 }

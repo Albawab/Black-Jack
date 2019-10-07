@@ -1,0 +1,9 @@
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\WinFormsApp.exe.config
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\WinFormsApp.exe
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\WinFormsApp.pdb
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\WinFormsApp.csprojAssemblyReference.cache
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\WinFormsApp.Properties.Resources.resources
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\WinFormsApp.csproj.GenerateResource.cache
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\WinFormsApp.csproj.CoreCompileInputs.cache
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\WinFormsApp.exe
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\WinFormsApp.pdb
