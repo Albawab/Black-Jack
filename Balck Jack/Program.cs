@@ -45,14 +45,14 @@ namespace Balck_Jack
             Console.ResetColor();
             Console.WriteLine("Leuk je komt Black Jack spelen. Wilt je me je naam vertelen?");
             string naamSpelerA = Console.ReadLine();
-            Speler spelerA = new Speler(naamSpelerA);
+            Speler spelerA = new Speler(naamSpelerA, null);
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Speler: B");
             Console.ResetColor();
             Console.WriteLine("Leuk je komt Black Jack spelen. Wilt je me je naam vertelen?");
             string naamSpelerB = Console.ReadLine();
-            Speler spelerB = new Speler(naamSpelerB);
+            Speler spelerB = new Speler(naamSpelerB, null);
 
             // koopt fiches vbij de cassiere
             spelerA.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(90, 20, true));

@@ -7,6 +7,7 @@ namespace HenE.GameBlackJack
     using System;
     using System.Collections.Generic;
     using HenE.GameBlackJack.Enum;
+    using HenE.GameBlackJack.Interface;
     using HenE.GameBlackJack.SpelSpullen;
     using HenEBalck_Jack;
 
@@ -21,14 +22,17 @@ namespace HenE.GameBlackJack
         /// </summary>
         private readonly Fiches fiches = new Fiches();
         private readonly ActiesHelper actiesHelper = new ActiesHelper();
+        private readonly ICommunicate communicator;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Speler"/> class.
         /// </summary>
         /// <param name="naam"> De naam van de speler.</param>
-        public Speler(string naam)
+        /// <param name="communicate">De commuicator.</param>
+        public Speler(string naam, ICommunicate communicate)
             : base(naam)
         {
+            this.communicator = communicate;
         }
 
         /// <summary>
@@ -196,8 +200,7 @@ namespace HenE.GameBlackJack
         public int FicheWaardeDeSpelerWilZetten(Speler speler)
         {
             Console.WriteLine();
-            Console.WriteLine($"{speler.Naam} Wat voor waarde wil je inzetten?");
-            string input = Console.ReadLine();
+            string input = this.communicator.Ask($"{speler.Naam} Wat voor waarde wil je inzetten?");
             int waarde = 0;
             while (!int.TryParse(input, out waarde))
             {

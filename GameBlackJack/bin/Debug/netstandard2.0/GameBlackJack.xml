@@ -604,6 +604,25 @@
             </summary>
             <param name="status">Nieuwe status.</param>
         </member>
+        <member name="T:HenE.GameBlackJack.Interface.ICommunicate">
+            <summary>
+            Maak contact between de speler en dealer met de controller van het spel.
+            </summary>
+        </member>
+        <member name="M:HenE.GameBlackJack.Interface.ICommunicate.Ask(System.String)">
+            <summary>
+            Een vraag stgellen.
+            Een antwoord krijgen.
+            </summary>
+            <param name="message">De tekst van de vraag.</param>
+            <returns>Het antwoord die wordt terug gestuurd.</returns>
+        </member>
+        <member name="M:HenE.GameBlackJack.Interface.ICommunicate.Tell(System.String)">
+            <summary>
+            geef informatie over iets gebeurt.
+            </summary>
+            <param name="message">De info.</param>
+        </member>
         <member name="T:HenE.GameBlackJack.Kaart">
             <summary>
             Bepaalt de eigenschap van de kaart.
@@ -849,11 +868,12 @@
             Hoeveel fiches de speler heeft.
             </summary>
         </member>
-        <member name="M:HenE.GameBlackJack.Speler.#ctor(System.String)">
+        <member name="M:HenE.GameBlackJack.Speler.#ctor(System.String,HenE.GameBlackJack.Interface.ICommunicate)">
             <summary>
             Initializes a new instance of the <see cref="T:HenE.GameBlackJack.Speler"/> class.
             </summary>
             <param name="naam"> De naam van de speler.</param>
+            <param name="communicate">De commuicator.</param>
         </member>
         <member name="P:HenE.GameBlackJack.Speler.HuidigeTafel">
             <summary>
