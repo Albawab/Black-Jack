@@ -12,7 +12,7 @@ namespace HenE.GameBlackJack
     /// <summary>
     /// Heeft de kaarten en de fiches van de speler en ook heeft eigen situatie.
     /// </summary>
-    public class Hand
+    abstract public class Hand
     {
         /// <summary>
         /// Een lijst van kaarten die bij de hand zijn.
@@ -22,23 +22,10 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// Initializes a new instance of the <see cref="Hand"/> class.
         /// </summary>
-        /// <param name="persoon">Huidige persoon.</param>
-        public Hand(Persoon persoon)
+        protected Hand()
         {
-            if (persoon is null)
-            {
-                throw new ArgumentNullException("Persoon mag niet leeg zijn.");
-            }
-
-            this.Persoon = persoon;
-            this.Inzet = new Fiches();
             this.Status = HandStatussen.NogNietGestart;
         }
-
-        /// <summary>
-        /// Gets de spelers.
-        /// </summary>
-        public Persoon Persoon { get; private set; }
 
         /// <summary>
         /// Gets de kaarten.
@@ -48,7 +35,7 @@ namespace HenE.GameBlackJack
             // todo copy lijst teruggeven
             get
             {
-               return this.kaarten;
+                return this.kaarten;
             }
         }
 
@@ -57,19 +44,7 @@ namespace HenE.GameBlackJack
         /// </summary>
         public HandStatussen Status { get; private set; }
 
-        /// <summary>
-        /// Gets or sets De fiches die in de hand zijn.
-        /// </summary>
-        public Fiches Inzet { get; set; }
-
-        /// <summary>
-        /// Geef de huidige speler terug.
-        /// </summary>
-        /// <returns>Huidige speler.</returns>
-        public Speler HuidigeSpeler()
-        {
-            return this.Persoon as Speler;
-        }
+        public abstract bool IsDealerHand { get; }
 
         /// <summary>
         /// Add een kaart aan de hand.
@@ -91,64 +66,6 @@ namespace HenE.GameBlackJack
             // en gooi alle kaarten weg.
             this.kaarten.Clear();
             this.ChangeStatus(HandStatussen.Gestopt);
-        }
-
-        /// <summary>
-        /// Splits de hand.
-        /// </summary>
-        /// <returns>De hand die wordt gesplitst.</returns>
-        public Hand Splits()
-        {
-            // todo, wat zijn de voorwaarden om te splitsen?
-            if (this.kaarten.Count == 2)
-            {
-                if (true/*this.kaarten[0] == this.kaarten[1]*/)
-                {
-                    // kaarten moeten gelijk zijn
-                    // kaarten moeten een even aantal zijn (== twee).
-                    // welke controle moet ik doen
-                    Hand nieuweHand = new Hand(this.Persoon);
-
-                    for (int index = 0; index < this.kaarten.Count; index++)
-                    {
-                        nieuweHand.kaarten.Add(this.Kaarten[index]);
-                    }
-
-                    return nieuweHand;
-                }
-            }
-
-            return null;
-
-            // wat betekent dit?
-            // dat ik een nieuwe hand moet maken
-
-            // en dat ik de kaarten van deze hand moet delen en verplaatsen naar de nieuwe hand
-        }
-
-        /// <summary>
-        /// Heef fiches bij de hand van de speler.
-        /// </summary>
-        public void GeefFichesBijHand()
-        {
-            Console.WriteLine($"Je moet fiches van {this.Inzet.WaardeVanDeFiches} inzeten.");
-            foreach (Fiche fiche in this.Inzet.ReadOnlyFiches)
-            {
-                this.HuidigeSpeler().ZetFichesBijHandIn(this, fiche.Waarde);
-            }
-        }
-
-        /// <summary>
-        /// Zoek op in hand die wordt gesplits voor de fiches.
-        /// Geef de nieuwe hand de zelfde fiches.
-        /// </summary>
-        /// <param name="handWordtGesplits">De hand die gesplits wordt.</param>
-        public void GeefFichesBijHandDieWordtGesplits(Hand handWordtGesplits)
-        {
-            foreach (Fiche fiche in handWordtGesplits.Inzet.ReadOnlyFiches)
-            {
-                this.HuidigeSpeler().ZetFichesBijHandIn(this, fiche.Waarde);
-            }
         }
 
         /// <summary>

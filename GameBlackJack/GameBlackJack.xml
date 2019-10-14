@@ -609,7 +609,7 @@
             Maak contact between de speler en dealer met de controller van het spel.
             </summary>
         </member>
-        <member name="M:HenE.GameBlackJack.Interface.ICommunicate.Ask(System.String)">
+        <member name="M:HenE.GameBlackJack.Interface.ICommunicate.Ask(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Enum.Vragen,System.String)">
             <summary>
             Een vraag stgellen.
             Een antwoord krijgen.
@@ -617,7 +617,7 @@
             <param name="message">De tekst van de vraag.</param>
             <returns>Het antwoord die wordt terug gestuurd.</returns>
         </member>
-        <member name="M:HenE.GameBlackJack.Interface.ICommunicate.Tell(System.String)">
+        <member name="M:HenE.GameBlackJack.Interface.ICommunicate.Tell(HenE.GameBlackJack.Speler,System.String)">
             <summary>
             geef informatie over iets gebeurt.
             </summary>
@@ -1180,18 +1180,6 @@
             De plek die bezet is op de tafel.
             </summary>
             <returns>De plek als list.</returns>
-        </member>
-        <member name="T:HenEBalck_Jack.ColorConsole">
-            <summary>
-            Geef de text een keleur.
-            </summary>
-        </member>
-        <member name="M:HenEBalck_Jack.ColorConsole.WriteLine(System.ConsoleColor,System.String)">
-            <summary>
-            Change de kleur van een text.
-            </summary>
-            <param name="color">De kleur die gaat passen.</param>
-            <param name="message">De message die de kleur wordt veranderd.</param>
         </member>
     </members>
 </doc>

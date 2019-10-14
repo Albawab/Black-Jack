@@ -42,8 +42,12 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// <returns>Kaart.</returns>
         public Kaart NeemEenKaart()
         {
-            Kaart kaart;
-            kaart = this.Kaarten.First();
+            if (this.Kaarten.Count == 0)
+            {
+                return null;
+            }
+
+            Kaart kaart = this.Kaarten.First();
             this.Kaarten.Remove(kaart);
             return kaart;
         }
@@ -96,7 +100,8 @@ namespace HenE.GameBlackJack.SpelSpullen
 
         private void RandomShuffleDeckOnce()
         {
-            for (int i = 0; i < this.Kaarten.Count; i++)
+            // beginnen bij 1, zodat als we maar 1 kaart hebben, we niet gaan swappen
+            for (int i = 1; i < this.Kaarten.Count; i++)
             {
                 // maak een mnieuwe plek voor de kaart en swap de kaarten dan;
                 this.SwapKaart(i, this.GetRandomIndex(0, this.Kaarten.Count));
@@ -114,6 +119,7 @@ namespace HenE.GameBlackJack.SpelSpullen
 
         private int GetRandomIndex(int minNumber, int maxNumber)
         {
+            //todo dat minnummer >=0 en amxnumber > minnumber
             return new Random().Next(minNumber, maxNumber);
         }
 

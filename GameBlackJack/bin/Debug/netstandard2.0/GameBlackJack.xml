@@ -609,7 +609,7 @@
             Maak contact between de speler en dealer met de controller van het spel.
             </summary>
         </member>
-        <member name="M:HenE.GameBlackJack.Interface.ICommunicate.Ask(System.String)">
+        <member name="M:HenE.GameBlackJack.Interface.ICommunicate.Ask(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Enum.Vragen,System.String)">
             <summary>
             Een vraag stgellen.
             Een antwoord krijgen.
@@ -617,7 +617,7 @@
             <param name="message">De tekst van de vraag.</param>
             <returns>Het antwoord die wordt terug gestuurd.</returns>
         </member>
-        <member name="M:HenE.GameBlackJack.Interface.ICommunicate.Tell(System.String)">
+        <member name="M:HenE.GameBlackJack.Interface.ICommunicate.Tell(HenE.GameBlackJack.Speler,System.String)">
             <summary>
             geef informatie over iets gebeurt.
             </summary>

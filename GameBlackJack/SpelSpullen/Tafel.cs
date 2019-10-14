@@ -86,12 +86,12 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// <summary>
         /// Gets or sets minimale bedrag wat op deze tafel ingezet moet worden.
         /// </summary>
-        private int MinimalenZet { get; set; }
+        public int MinimalenZet { get; private set; }
 
         /// <summary>
         /// Gets or sets minimale bedrag wat op deze tafel ingezet moet worden.
         /// </summary>
-        private int MaximaleInZet { get; set; }
+        public int MaximaleInZet { get; private set; }
 
         /// <summary>
         /// Maak een nieuwe tafel.
@@ -183,6 +183,7 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// <returns>true of false.</returns>
         public bool BepaaltOfDeWaardetussenMaxInzetEnMinInzet(int spelerWilzetten)
         {
+            //ToDo throw in argument. 
             if (this.MinimalenZet < spelerWilzetten && this.MaximaleInZet > spelerWilzetten)
             {
                 return true;

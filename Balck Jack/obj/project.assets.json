@@ -362,6 +362,16 @@
           }
         }
       },
+      "BlackJackResources/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/BlackJackResources.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BlackJackResources.dll": {}
+        }
+      },
       "GameBlackJack/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -1143,6 +1153,11 @@
         "version.txt"
       ]
     },
+    "BlackJackResources/1.0.0": {
+      "type": "project",
+      "path": "../BlackJackResources/BlackJackResources.csproj",
+      "msbuildProject": "../BlackJackResources/BlackJackResources.csproj"
+    },
     "GameBlackJack/1.0.0": {
       "type": "project",
       "path": "../GameBlackJack/GameBlackJack.csproj",
@@ -1151,6 +1166,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "BlackJackResources >= 1.0.0",
       "GameBlackJack >= 1.0.0",
       "Microsoft.NETCore.App >= 2.1.0",
       "StyleCop.Analyzers >= 1.1.118"
@@ -1186,6 +1202,9 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
+            "C:\\Users\\Abdul\\Desktop\\Balck Jack\\BlackJackResources\\BlackJackResources.csproj": {
+              "projectPath": "C:\\Users\\Abdul\\Desktop\\Balck Jack\\BlackJackResources\\BlackJackResources.csproj"
+            },
             "C:\\Users\\Abdul\\Desktop\\Balck Jack\\GameBlackJack\\GameBlackJack.csproj": {
               "projectPath": "C:\\Users\\Abdul\\Desktop\\Balck Jack\\GameBlackJack\\GameBlackJack.csproj"
             }

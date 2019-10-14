@@ -44,11 +44,9 @@
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.richTextBox3 = new System.Windows.Forms.RichTextBox();
             this.richTextBox4 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox6 = new System.Windows.Forms.RichTextBox();
             this.Start = new System.Windows.Forms.Button();
             this.richTextBox5 = new System.Windows.Forms.RichTextBox();
-            this.antwoord = new JTextBox2.JTextBox();
-            this.vraag = new System.Windows.Forms.TextBox();
+            this.richTextBox6 = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.adodcArray1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.adodcArray2)).BeginInit();
             this.SuspendLayout();
@@ -58,7 +56,7 @@
             this.speler5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.speler5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.speler5.ForeColor = System.Drawing.SystemColors.Info;
-            this.speler5.Location = new System.Drawing.Point(20, 446);
+            this.speler5.Location = new System.Drawing.Point(852, 463);
             this.speler5.Name = "speler5";
             this.speler5.Size = new System.Drawing.Size(128, 29);
             this.speler5.TabIndex = 0;
@@ -70,7 +68,7 @@
             this.speler4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.speler4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.speler4.ForeColor = System.Drawing.SystemColors.Info;
-            this.speler4.Location = new System.Drawing.Point(218, 509);
+            this.speler4.Location = new System.Drawing.Point(658, 526);
             this.speler4.Name = "speler4";
             this.speler4.Size = new System.Drawing.Size(128, 29);
             this.speler4.TabIndex = 6;
@@ -94,7 +92,7 @@
             this.speler2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.speler2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.speler2.ForeColor = System.Drawing.SystemColors.Info;
-            this.speler2.Location = new System.Drawing.Point(645, 509);
+            this.speler2.Location = new System.Drawing.Point(219, 526);
             this.speler2.Name = "speler2";
             this.speler2.Size = new System.Drawing.Size(128, 29);
             this.speler2.TabIndex = 8;
@@ -106,7 +104,7 @@
             this.speler1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
             this.speler1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.speler1.ForeColor = System.Drawing.SystemColors.Info;
-            this.speler1.Location = new System.Drawing.Point(858, 446);
+            this.speler1.Location = new System.Drawing.Point(13, 463);
             this.speler1.Name = "speler1";
             this.speler1.Size = new System.Drawing.Size(128, 29);
             this.speler1.TabIndex = 9;
@@ -163,7 +161,7 @@
             // 
             this.Hand1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(3)))), ((int)(((byte)(0)))));
             this.Hand1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Hand1.Location = new System.Drawing.Point(858, 326);
+            this.Hand1.Location = new System.Drawing.Point(13, 343);
             this.Hand1.Name = "Hand1";
             this.Hand1.Size = new System.Drawing.Size(128, 114);
             this.Hand1.TabIndex = 13;
@@ -173,7 +171,7 @@
             // 
             this.richTextBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(3)))), ((int)(((byte)(0)))));
             this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox2.Location = new System.Drawing.Point(645, 398);
+            this.richTextBox2.Location = new System.Drawing.Point(219, 415);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(128, 105);
             this.richTextBox2.TabIndex = 14;
@@ -193,19 +191,11 @@
             // 
             this.richTextBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(3)))), ((int)(((byte)(0)))));
             this.richTextBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox4.Location = new System.Drawing.Point(218, 398);
+            this.richTextBox4.Location = new System.Drawing.Point(658, 415);
             this.richTextBox4.Name = "richTextBox4";
             this.richTextBox4.Size = new System.Drawing.Size(128, 105);
             this.richTextBox4.TabIndex = 16;
             this.richTextBox4.Text = "Hoi";
-            // 
-            // richTextBox6
-            // 
-            this.richTextBox6.Location = new System.Drawing.Point(449, 121);
-            this.richTextBox6.Name = "richTextBox6";
-            this.richTextBox6.Size = new System.Drawing.Size(128, 55);
-            this.richTextBox6.TabIndex = 18;
-            this.richTextBox6.Text = "Hoi";
             // 
             // Start
             // 
@@ -223,37 +213,20 @@
             // 
             this.richTextBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(3)))), ((int)(((byte)(0)))));
             this.richTextBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox5.Location = new System.Drawing.Point(20, 326);
+            this.richTextBox5.Location = new System.Drawing.Point(852, 343);
             this.richTextBox5.Name = "richTextBox5";
             this.richTextBox5.Size = new System.Drawing.Size(128, 114);
             this.richTextBox5.TabIndex = 20;
             this.richTextBox5.Text = "Hoi";
             // 
-            // antwoord
+            // richTextBox6
             // 
-            this.antwoord.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.antwoord.Font_Size = new System.Drawing.Font("Century Gothic", 11.25F);
-            this.antwoord.HintText = null;
-            this.antwoord.IsPassword = false;
-            this.antwoord.Location = new System.Drawing.Point(13, 121);
-            this.antwoord.Margin = new System.Windows.Forms.Padding(4);
-            this.antwoord.MaxLength = 32767;
-            this.antwoord.Name = "antwoord";
-            this.antwoord.OnFocusedColor = System.Drawing.Color.White;
-            this.antwoord.OnFocusedTextColor = System.Drawing.Color.Gray;
-            this.antwoord.ReadOnly = false;
-            this.antwoord.Right_To_Left = System.Windows.Forms.RightToLeft.No;
-            this.antwoord.Size = new System.Drawing.Size(309, 72);
-            this.antwoord.TabIndex = 21;
-            this.antwoord.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.antwoord.TextName = "";
-            // 
-            // vraag
-            // 
-            this.vraag.Location = new System.Drawing.Point(557, 12);
-            this.vraag.Name = "vraag";
-            this.vraag.Size = new System.Drawing.Size(309, 20);
-            this.vraag.TabIndex = 22;
+            this.richTextBox6.Location = new System.Drawing.Point(449, 121);
+            this.richTextBox6.Name = "richTextBox6";
+            this.richTextBox6.Size = new System.Drawing.Size(128, 55);
+            this.richTextBox6.TabIndex = 18;
+            this.richTextBox6.Text = "Hoi";
+            this.richTextBox6.Visible = false;
             // 
             // BlackJack
             // 
@@ -261,8 +234,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(3)))), ((int)(((byte)(0)))));
             this.ClientSize = new System.Drawing.Size(1003, 638);
-            this.Controls.Add(this.vraag);
-            this.Controls.Add(this.antwoord);
             this.Controls.Add(this.richTextBox5);
             this.Controls.Add(this.Start);
             this.Controls.Add(this.richTextBox6);
@@ -307,11 +278,9 @@
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.RichTextBox richTextBox3;
         private System.Windows.Forms.RichTextBox richTextBox4;
-        private System.Windows.Forms.RichTextBox richTextBox6;
         private System.Windows.Forms.Button Start;
         private System.Windows.Forms.RichTextBox richTextBox5;
-        private JTextBox2.JTextBox antwoord;
-        private System.Windows.Forms.TextBox vraag;
+        private System.Windows.Forms.RichTextBox richTextBox6;
     }
 }
 

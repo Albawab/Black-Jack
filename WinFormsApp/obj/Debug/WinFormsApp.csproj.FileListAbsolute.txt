@@ -20,3 +20,4 @@ C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\JTextBox.dll
 C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\JTextBox2.dll
 C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\FlatButton.dll
 C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\JThinButton.dll
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\HenE.WinFormsApp.Dialogs.DlgInzetten.resources

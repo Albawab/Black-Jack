@@ -8,9 +8,9 @@ namespace HenE.GameBlackJack
     using System.Collections.Generic;
     using System.Threading;
     using HenE.GameBlackJack.Enum;
+    using HenE.GameBlackJack.Interface;
     using HenE.GameBlackJack.Settings;
     using HenE.GameBlackJack.SpelSpullen;
-    using HenEBalck_Jack;
 
     /// <summary>
     /// Behandel het spel.
@@ -22,12 +22,13 @@ namespace HenE.GameBlackJack
         /// </summary>
         private readonly List<Speler> spelers = new List<Speler>();
         private readonly BlackJackPointsCalculator blackJackPointsCalculator = new BlackJackPointsCalculator();
-
+        private readonly ICommunicate communicator;
         /// <summary>
         /// Initializes a new instance of the <see cref="Spel"/> class.
         /// </summary>
-        public Spel()
+        public Spel(ICommunicate communicator)
         {
+            this.communicator = communicator;
             this.HuidigeHand = null;
             this.Handen = new List<Hand>();
         }
@@ -131,10 +132,10 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="spelerDieWilDeelnemenAanHetSpel">De speler die wordt ingevoegd.</param>
         /// <returns>De hand van de speler.</returns>
-        public Hand SpelerToevoegen(Speler spelerDieWilDeelnemenAanHetSpel)
+        public SpelerHand SpelerToevoegen(Speler spelerDieWilDeelnemenAanHetSpel)
         {
             // een hand wordt aangemaakt,
-            Hand hand = new Hand(spelerDieWilDeelnemenAanHetSpel);
+            SpelerHand hand = new SpelerHand(spelerDieWilDeelnemenAanHetSpel);
 
             // aan de collectie toegevoegd.
             this.spelers.Add(spelerDieWilDeelnemenAanHetSpel);
@@ -149,10 +150,10 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="dealer">De dealer die wordt toegevoegd.</param>
         /// <returns>De hand van de dealer.</returns>
-        public Hand DealerToevoegen(Dealer dealer)
+        public DealerHand DealerToevoegen(Dealer dealer)
         {
             // een hand wordt aangemaakt,
-            Hand hand = new Hand(dealer);
+            DealerHand hand = new DealerHand(dealer);
 
             // aan de collectie toegevoegd.
             this.VoegEenHandToe(hand);
@@ -223,86 +224,19 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
-        /// Geef een kaart aan de hand.
-        /// </summary>
-        /// <param name="hand">Huidige habd.</param>
-        /// <param name="stapelKaarten">De stapel waarin leggen de kaarten.</param>
-        public void GeefDeHandEenKaart(Hand hand, StapelKaarten stapelKaarten)
-        {
-            // controleer hand
-            if (hand == null)
-            {
-                throw new ArgumentNullException("Er is geen hand.");
-            }
-
-            Kaart kaart = stapelKaarten.NeemEenKaart();
-
-            // status van de hand
-            Console.WriteLine();
-            Console.WriteLine($"{hand.Persoon.Naam} Je krijgt een kaart {kaart.Kleur} van {kaart.Teken}.");
-            hand.AddKaart(kaart);
-            Console.WriteLine($"{hand.Persoon.Naam}: Nu heb je kaarten bij je hand:");
-            foreach (Kaart kaart1 in hand.Kaarten)
-            {
-                ColorConsole.WriteLine(ConsoleColor.Yellow, $"{kaart1.Kleur} van {kaart1.Teken}");
-                Console.ResetColor();
-            }
-
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"{hand.Persoon.Naam} Je hebt {this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten)} punten bij je hand.");
-            Console.ResetColor();
-            Console.WriteLine("------------------------------------------------------------------>");
-            Thread.Sleep(2000);
-        }
-
-        /// <summary>
-        /// dit kan alleen de eerste keer.
-        /// </summary>
-        /// <param name="stapelKaarten">De sptapel kaarten van het spel.</param>
-        public void GeefIedereHandEersteKaart(StapelKaarten stapelKaarten)
-        {
-            foreach (Hand hand in this.Handen)
-            {
-                this.GeefDeHandEenKaart(hand, stapelKaarten);
-            }
-        }
-
-        /// <summary>
-        /// Geef elke hand van de speler een kaart.
-        /// </summary>
-        /// <param name="stapelKaarten">De stapel van de kaarten.</param>
-        public void GeefIedereHandTweedeKaart(StapelKaarten stapelKaarten)
-        {
-            foreach (Hand hand in this.Handen)
-            {
-                if (hand.Persoon == hand.HuidigeSpeler())
-                {
-                    this.GeefDeHandEenKaart(hand, stapelKaarten);
-                }
-            }
-        }
-
-        /// <summary>
         /// Verdubbel de hand.
         /// </summary>
         /// <param name="hand">De hand die verdubbelt wordt.</param>
         /// <param name="stapelKaarten">De stapel kaarten van het spel.</param>
-        public void Verdubbelen(Hand hand, StapelKaarten stapelKaarten)
+        public bool Verdubbelen(SpelerHand hand, StapelKaarten stapelKaarten)
         {
-            /*            Console.WriteLine(hand.HuidigeSpeler().Naam + " : Je mag je inzet Verdubbelen. Wil ja dat doen J of N?");
-                        if (this.speler.CheckAntwoord())
-                        {
-                            if (!this.speler.HeeftSpelerNogFiches())
-                            {
-                                this.speler.Koopfiches();
-                            }
+            if (hand.GeefFichesBijHand())
+            {
+                // is eigenlijk Kopen
+                return this.Kopen(hand, stapelKaarten);
+            }
 
-                            hand.VerdubbelenHand();
-                        }*/
-            hand.GeefFichesBijHand();
-            Thread.Sleep(3000);
-            this.GeefDeHandEenKaart(hand, stapelKaarten);
+            return false;
         }
 
         /// <summary>
@@ -310,9 +244,15 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="hand">De hand die een kaart krijgt.</param>
         /// <param name="stapelKaarten">De stapel kaarten van het sperl.</param>
-        public void Kopen(Hand hand, StapelKaarten stapelKaarten)
+        public bool Kopen(Hand hand, StapelKaarten stapelKaarten)
         {
-            this.GeefDeHandEenKaart(hand, stapelKaarten);
+            Kaart kaart = stapelKaarten.NeemEenKaart();
+            if (kaart != null)
+            {
+                hand.AddKaart(kaart);
+                return true;
+            }
+            return false;
         }
 
         public List<Hand> HeeftDeSpelerMeerDanEenHand(Hand hudigeHand)
@@ -335,10 +275,31 @@ namespace HenE.GameBlackJack
 
         public void PrintMessage(Hand hand)
         {
-            Console.Write("Je hebt nu bij je hand ");
+            this.communicator.Tell(hand.HuidigeSpeler(), Meldingen.GeenActie, "Je hebt nu bij je hand ");
             foreach (Kaart kaart in hand.Kaarten)
             {
-                Console.WriteLine($"{kaart.Kleur} van {kaart.Teken}");
+                this.communicator.Tell(hand.HuidigeSpeler(), Meldingen.GeenActie, $"{kaart.Kleur} van {kaart.Teken}");
+            }
+        }
+
+        public List<Speler> Spelers
+        {
+            get
+            {
+                List<Speler> spelers = new List<Speler>();
+                foreach (Hand hand in this.Handen)
+                {
+                    if (!hand.IsDealerHand)
+                    {
+                        SpelerHand spelerhand = hand as SpelerHand;
+                        if (!spelers.Contains(spelerhand.Speler))
+                        {
+                            spelers.Add(spelerhand.Speler);
+                        }
+                    }
+                }
+
+                return spelers;
             }
         }
     }
