@@ -67,7 +67,7 @@ namespace WinFormsApp
         {
 
 
-           for (int index = 0; index < Tafel.Plekken.Length-1; index++)
+            for (int index = 0; index < Tafel.Plekken.Length - 1; index++)
             {
                 if (Tafel.Plekken[index].Speler != null)
                 {
@@ -92,7 +92,7 @@ namespace WinFormsApp
             Start.Visible = false;
             //Thread.Sleep(1000);
             Hand1.Visible = true;
-/*            blackjackController.Start();*/
+            /*            blackjackController.Start();*/
         }
 
         /// <summary>

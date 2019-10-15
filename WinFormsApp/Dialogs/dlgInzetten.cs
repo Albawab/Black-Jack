@@ -14,7 +14,7 @@ namespace HenE.WinFormsApp.Dialogs
     public partial class DlgInzetten : Form
     {
         private readonly Speler speler;
-        public DlgInzetten(Speler speler)        
+        public DlgInzetten(Speler speler)
         {
             this.speler = speler;
             InitializeComponent();

@@ -3,6 +3,7 @@
     public enum Vragen
     {
         Inzetten,
-        KiesActie
+        KiesActie,
+        FichesKopen
     }
 }

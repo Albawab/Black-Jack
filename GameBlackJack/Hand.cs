@@ -12,7 +12,7 @@ namespace HenE.GameBlackJack
     /// <summary>
     /// Heeft de kaarten en de fiches van de speler en ook heeft eigen situatie.
     /// </summary>
-    abstract public class Hand
+    public abstract class Hand
     {
         /// <summary>
         /// Een lijst van kaarten die bij de hand zijn.

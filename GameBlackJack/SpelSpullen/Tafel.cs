@@ -183,7 +183,11 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// <returns>true of false.</returns>
         public bool BepaaltOfDeWaardetussenMaxInzetEnMinInzet(int spelerWilzetten)
         {
-            //ToDo throw in argument. 
+            if (spelerWilzetten < 0)
+            {
+                throw new ArgumentNullException("De waarde mag niet mider dan null zijn.");
+            }
+
             if (this.MinimalenZet < spelerWilzetten && this.MaximaleInZet > spelerWilzetten)
             {
                 return true;

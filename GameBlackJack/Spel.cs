@@ -146,6 +146,15 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
+        /// Verwijdert een speler.
+        /// </summary>
+        /// <param name="speler">De speler die wordt verwijderd.</param>
+        public void SpelerVerwijderen(Speler speler)
+        {
+            this.spelers.Remove(speler);
+        }
+
+        /// <summary>
         /// Voeg een dealer aan het spel toe.
         /// </summary>
         /// <param name="dealer">De dealer die wordt toegevoegd.</param>
@@ -170,9 +179,9 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="handDieGesplitstMoetWorden">De hand die wordt gesplitst.</param>
         /// <returns>De hand.</returns>
-        public Hand SplitsHand(Hand handDieGesplitstMoetWorden)
+        public Hand SplitsHand(SpelerHand handDieGesplitstMoetWorden)
         {
-            Hand nieuweHand = null;
+            SpelerHand nieuweHand = null;
 
             // zoek de postitie va de handDieGesplitstMoetWorden
             for (int index = 0; index < this.Handen.Count; index++)
@@ -252,33 +261,34 @@ namespace HenE.GameBlackJack
                 hand.AddKaart(kaart);
                 return true;
             }
+
             return false;
         }
 
-        public List<Hand> HeeftDeSpelerMeerDanEenHand(Hand hudigeHand)
-        {
-            List<Hand> handenVanEenSpeler = new List<Hand>();
-            foreach (Hand hand in this.Handen)
-            {
-                if (hudigeHand.HuidigeSpeler() == hand.HuidigeSpeler())
-                {
-                    handenVanEenSpeler.Add(hand);
-                    if (handenVanEenSpeler.Count == 2)
-                    {
-                        return handenVanEenSpeler;
-                    }
-                }
-            }
+        /*       public List<Hand> HeeftDeSpelerMeerDanEenHand(Hand hudigeHand)
+               {
+                   List<Hand> handenVanEenSpeler = new List<Hand>();
+                   foreach (Hand hand in this.Handen)
+                   {
+                       if (hudigeHand.HuidigeSpeler() == hand.HuidigeSpeler())
+                       {
+                           handenVanEenSpeler.Add(hand);
+                           if (handenVanEenSpeler.Count == 2)
+                           {
+                               return handenVanEenSpeler;
+                           }
+                       }
+                   }
 
-            return null;
-        }
+                   return null;
+               }*/
 
-        public void PrintMessage(Hand hand)
+        public void PrintMessage(SpelerHand hand)
         {
-            this.communicator.Tell(hand.HuidigeSpeler(), Meldingen.GeenActie, "Je hebt nu bij je hand ");
+            this.communicator.TellHand(hand, Meldingen.KaartenVanDeHand);
             foreach (Kaart kaart in hand.Kaarten)
             {
-                this.communicator.Tell(hand.HuidigeSpeler(), Meldingen.GeenActie, $"{kaart.Kleur} van {kaart.Teken}");
+                this.communicator.TellHand(hand, Meldingen.KaartenVanDeHand);
             }
         }
 
@@ -301,6 +311,26 @@ namespace HenE.GameBlackJack
 
                 return spelers;
             }
+        }
+
+        /// <summary>
+        /// Hoeveel handen de speler heeft.
+        /// </summary>
+        /// <param name="spelerHand">De hand van de speler.</param>
+        /// <returns>De lijst van de handen van de speler.</returns>
+        public List<Hand> HandenVanDeSpeler(SpelerHand spelerHand)
+        {
+            List<Hand> handen = null;
+            foreach (Hand hand in this.Handen)
+            {
+                SpelerHand handspeler = hand as SpelerHand;
+                if (handspeler.Speler == spelerHand.Speler)
+                {
+                    handen.Add(hand);
+                }
+            }
+
+            return handen;
         }
     }
 }

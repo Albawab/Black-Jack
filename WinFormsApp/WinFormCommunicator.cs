@@ -1,6 +1,7 @@
 ﻿using HenE.GameBlackJack;
 using HenE.GameBlackJack.Enum;
 using HenE.GameBlackJack.Interface;
+using HenE.GameBlackJack.SpelSpullen;
 using HenE.WinFormsApp.Dialogs;
 using System;
 using System.Windows.Forms;
@@ -32,6 +33,36 @@ namespace HenE.WinFormsApp
             }
         }
 
+        public bool AskFichesInzetten(SpelerHand hand, int minWaarde)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AskFichesInzetten(SpelerHand hand, out int minWaarde)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AskFichesKopen(SpelerHand hand)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AskFichesKopen(SpelerHand hand, Vragen vragen)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AskWhichAction(SpelerHand hand)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool AskWhichAction(SpelerHand hand, Vragen vragen)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Geef een bericht of informatie aan de speler.
         /// </summary>
@@ -44,6 +75,16 @@ namespace HenE.WinFormsApp
                     MessageBox.Show(message, "", MessageBoxButtons.OK);
                     break;
             }
+        }
+
+        public void TellHand(SpelerHand hand, Meldingen melding)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TellPlayer(Speler speler, Meldingen melding)
+        {
+            throw new NotImplementedException();
         }
 
         protected string StelInzettenVraag(Speler speler, string info)

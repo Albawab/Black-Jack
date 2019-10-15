@@ -55,10 +55,13 @@ namespace HenE.GameBlackJack
         /// <returns>of mag zitten of niet.</returns>
         public bool GaatAanTafelZitten(Tafel tafel, uint positie)
         {
+            // geef de huidige tafel de value.
+            this.HuidigeTafel = tafel;
+
             // controleren of tafel niet null is
 
             // als je al ergens anders zat, moet je daar weg gaan
-            if (this.HuidigeTafel != null)
+            if (this.HuidigeTafel == null)
             {
                 this.VerlaatTafel();
             }
@@ -86,7 +89,7 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="hand">De hand van de speler.</param>
         /// <param name="waarde">De waarde die de speler wil bij de hand .</param>
-        public void ZetFichesBijHandIn(Hand hand, int waarde)
+        public void ZetFichesBijHandIn(SpelerHand hand, int waarde)
         {
             if (this.fiches.ReadOnlyFiches.Count != 0)
             {
@@ -110,7 +113,7 @@ namespace HenE.GameBlackJack
         /// De speler zet een fiche in bij de hand in.
         /// </summary>
         /// <param name="hand">De hand van de speler.</param>
-        public void ZetFichesBijHandIn(Hand hand)
+        public void ZetFichesBijHandIn(SpelerHand hand)
         {
             if (this.fiches.ReadOnlyFiches.Count != 0)
             {

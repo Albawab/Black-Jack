@@ -100,7 +100,7 @@ namespace HenE.GameBlackJack
         /// Geef de nieuwe hand de zelfde fiches.
         /// </summary>
         /// <param name="handWordtGesplits">De hand die gesplits wordt.</param>
-        public void GeefFichesBijHandDieWordtGesplits(Hand handWordtGesplits)
+        public void GeefFichesBijHandDieWordtGesplits(SpelerHand handWordtGesplits)
         {
             foreach (Fiche fiche in handWordtGesplits.Inzet.ReadOnlyFiches)
             {

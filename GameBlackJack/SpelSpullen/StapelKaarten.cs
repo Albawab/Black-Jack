@@ -119,7 +119,7 @@ namespace HenE.GameBlackJack.SpelSpullen
 
         private int GetRandomIndex(int minNumber, int maxNumber)
         {
-            //todo dat minnummer >=0 en amxnumber > minnumber
+            // todo dat minnummer >=0 en amxnumber > minnumber
             return new Random().Next(minNumber, maxNumber);
         }
 

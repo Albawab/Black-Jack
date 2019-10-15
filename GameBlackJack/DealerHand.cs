@@ -14,11 +14,10 @@ namespace HenE.GameBlackJack
     /// </summary>
     public class DealerHand : Hand
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DealerHand"/> class.
         /// </summary>
-        public DealerHand()
+        public DealerHand(Dealer dealer)
         {
         }
 
