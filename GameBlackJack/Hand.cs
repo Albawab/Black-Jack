@@ -44,6 +44,9 @@ namespace HenE.GameBlackJack
         /// </summary>
         public HandStatussen Status { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether gets De hand van de dealer.
+        /// </summary>
         public abstract bool IsDealerHand { get; }
 
         /// <summary>

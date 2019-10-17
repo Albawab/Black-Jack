@@ -26,6 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
+        [System.Obsolete]
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -270,7 +271,9 @@
         private System.Windows.Forms.TextBox speler2;
         private System.Windows.Forms.TextBox speler1;
         private System.Windows.Forms.TextBox dealer;
+        [System.Obsolete]
         private Microsoft.VisualBasic.Compatibility.VB6.ADODCArray adodcArray1;
+        [System.Obsolete]
         private Microsoft.VisualBasic.Compatibility.VB6.ADODCArray adodcArray2;
         private JImageButton.JImageButton jImageButton1;
         private JImageButton.JImageButton jImageButton2;

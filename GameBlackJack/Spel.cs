@@ -23,9 +23,11 @@ namespace HenE.GameBlackJack
         private readonly List<Speler> spelers = new List<Speler>();
         private readonly BlackJackPointsCalculator blackJackPointsCalculator = new BlackJackPointsCalculator();
         private readonly ICommunicate communicator;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Spel"/> class.
         /// </summary>
+        /// <param name="communicator">Communicator.</param>
         public Spel(ICommunicate communicator)
         {
             this.communicator = communicator;
@@ -43,6 +45,30 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <remarks>Geeft een collectie met unieke handen terug.</remarks>
         public List<Hand> Handen { get; private set; }
+
+        /// <summary>
+        /// Gets de spelers die aan het spel zijn.
+        /// </summary>
+        public List<Speler> Spelers
+        {
+            get
+            {
+                List<Speler> spelers = new List<Speler>();
+                foreach (Hand hand in this.Handen)
+                {
+                    if (!hand.IsDealerHand)
+                    {
+                        SpelerHand spelerhand = hand as SpelerHand;
+                        if (!spelers.Contains(spelerhand.Speler))
+                        {
+                            spelers.Add(spelerhand.Speler);
+                        }
+                    }
+                }
+
+                return spelers;
+            }
+        }
 
         /// <summary>
         /// set de huidige hand naar de volgende speelbare hand, als er nog geen hand is gezet, dan de eerste pakken.
@@ -139,6 +165,7 @@ namespace HenE.GameBlackJack
 
             // aan de collectie toegevoegd.
             this.spelers.Add(spelerDieWilDeelnemenAanHetSpel);
+
             this.VoegEenHandToe(hand);
 
             // en de hand wordt teruggegeven
@@ -237,6 +264,7 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="hand">De hand die verdubbelt wordt.</param>
         /// <param name="stapelKaarten">De stapel kaarten van het spel.</param>
+        /// <returns>Heeft de speler het verdubbelt of niet.</returns>
         public bool Verdubbelen(SpelerHand hand, StapelKaarten stapelKaarten)
         {
             if (hand.GeefFichesBijHand())
@@ -253,6 +281,7 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="hand">De hand die een kaart krijgt.</param>
         /// <param name="stapelKaarten">De stapel kaarten van het sperl.</param>
+        /// <returns>Heeft de speler gekocht of niet.</returns>
         public bool Kopen(Hand hand, StapelKaarten stapelKaarten)
         {
             Kaart kaart = stapelKaarten.NeemEenKaart();
@@ -282,36 +311,6 @@ namespace HenE.GameBlackJack
 
                    return null;
                }*/
-
-        public void PrintMessage(SpelerHand hand)
-        {
-            this.communicator.TellHand(hand, Meldingen.KaartenVanDeHand);
-            foreach (Kaart kaart in hand.Kaarten)
-            {
-                this.communicator.TellHand(hand, Meldingen.KaartenVanDeHand);
-            }
-        }
-
-        public List<Speler> Spelers
-        {
-            get
-            {
-                List<Speler> spelers = new List<Speler>();
-                foreach (Hand hand in this.Handen)
-                {
-                    if (!hand.IsDealerHand)
-                    {
-                        SpelerHand spelerhand = hand as SpelerHand;
-                        if (!spelers.Contains(spelerhand.Speler))
-                        {
-                            spelers.Add(spelerhand.Speler);
-                        }
-                    }
-                }
-
-                return spelers;
-            }
-        }
 
         /// <summary>
         /// Hoeveel handen de speler heeft.

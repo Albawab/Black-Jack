@@ -84,12 +84,12 @@ namespace HenE.GameBlackJack.SpelSpullen
         public StapelKaarten StapelKaarten { get; private set; }
 
         /// <summary>
-        /// Gets or sets minimale bedrag wat op deze tafel ingezet moet worden.
+        /// Gets minimale bedrag wat op deze tafel ingezet moet worden.
         /// </summary>
         public int MinimalenZet { get; private set; }
 
         /// <summary>
-        /// Gets or sets minimale bedrag wat op deze tafel ingezet moet worden.
+        /// Gets minimale bedrag wat op deze tafel ingezet moet worden.
         /// </summary>
         public int MaximaleInZet { get; private set; }
 

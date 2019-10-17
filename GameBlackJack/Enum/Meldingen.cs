@@ -1,4 +1,8 @@
-﻿namespace HenE.GameBlackJack.Enum
+﻿// <copyright file="Meldingen.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace HenE.GameBlackJack.Enum
 {
     using System;
     using System.Collections.Generic;
@@ -78,5 +82,10 @@
         /// Als de speler is gewonnen dan laat hem dat weten.
         /// </summary>
         Gewonnen,
+
+        /// <summary>
+        /// Actie die de speler heeft gedaan.
+        /// </summary>
+        ActieGekozen,
     }
 }

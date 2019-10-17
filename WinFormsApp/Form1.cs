@@ -21,6 +21,7 @@ namespace WinFormsApp
         private Tafel Tafel { get; set; }
         private BlackjackController blackjackController;
 
+        [Obsolete]
         public BlackJack()
         {
             InitializeComponent();

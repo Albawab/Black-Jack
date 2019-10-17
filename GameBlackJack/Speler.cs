@@ -25,7 +25,6 @@ namespace HenE.GameBlackJack
         /// Initializes a new instance of the <see cref="Speler"/> class.
         /// </summary>
         /// <param name="naam"> De naam van de speler.</param>
-        /// <param name="communicate">De commuicator.</param>
         public Speler(string naam)
             : base(naam)
         {

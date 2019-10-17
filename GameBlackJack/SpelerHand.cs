@@ -1,4 +1,4 @@
-﻿// <copyright file="Hand.cs" company="PlaceholderCompany">
+﻿// <copyright file="SpelerHand.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
@@ -15,10 +15,11 @@ namespace HenE.GameBlackJack
     public class SpelerHand : Hand
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Hand"/> class.
+        /// Initializes a new instance of the <see cref="SpelerHand"/> class.
         /// </summary>
-        /// <param name="persoon">Huidige persoon.</param>
-        public SpelerHand(Speler speler) : base()
+        /// <param name="speler">Huidige persoon.</param>
+        public SpelerHand(Speler speler)
+            : base()
         {
             if (speler is null)
             {
@@ -29,6 +30,9 @@ namespace HenE.GameBlackJack
             this.Inzet = new Fiches();
         }
 
+        /// <summary>
+        /// Gets a value indicating whether gets de hand van de dealer.
+        /// </summary>
         public override bool IsDealerHand
         {
             get
@@ -57,7 +61,7 @@ namespace HenE.GameBlackJack
             // todo, wat zijn de voorwaarden om te splitsen?
             if (this.Kaarten.Count == 2)
             {
-                if (this.Kaarten[0].Waarde == this.Kaarten[1].Waarde)
+                if (true/*this.Kaarten[0].Waarde == this.Kaarten[1].Waarde*/)
                 {
                     // kaarten moeten gelijk zijn
                     // kaarten moeten een even aantal zijn (== twee).

@@ -1,9 +1,9 @@
 ﻿using HenE.GameBlackJack;
 using HenE.GameBlackJack.Enum;
 using HenE.GameBlackJack.Interface;
-using HenE.GameBlackJack.SpelSpullen;
 using HenE.WinFormsApp.Dialogs;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace HenE.WinFormsApp
@@ -53,12 +53,12 @@ namespace HenE.WinFormsApp
             throw new NotImplementedException();
         }
 
-        public bool AskWhichAction(SpelerHand hand)
+        public bool AskFichesKopen(Speler speler, out int vragen)
         {
             throw new NotImplementedException();
         }
 
-        public bool AskWhichAction(SpelerHand hand, Vragen vragen)
+        public bool AskWhichAction(SpelerHand hand, List<Acties> acties)
         {
             throw new NotImplementedException();
         }
@@ -87,6 +87,11 @@ namespace HenE.WinFormsApp
             throw new NotImplementedException();
         }
 
+        public void TellPlayer(Speler speler, Meldingen melding, SpelerHand hand)
+        {
+            throw new NotImplementedException();
+        }
+
         protected string StelInzettenVraag(Speler speler, string info)
         {
             DlgInzetten dlg = new DlgInzetten(speler);
@@ -97,6 +102,11 @@ namespace HenE.WinFormsApp
             }
 
             return string.Empty;
+        }
+
+        int ICommunicate.AskWhichAction(SpelerHand hand, List<Acties> acties)
+        {
+            throw new NotImplementedException();
         }
     }
 }

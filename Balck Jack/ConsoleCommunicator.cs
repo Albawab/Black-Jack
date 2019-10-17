@@ -6,71 +6,19 @@ namespace HenEBalck_Jack
 {
     using System;
     using HenE.GameBlackJack;
-    using HenE.GameBlackJack.Enum;
-    using HenE.GameBlackJack.Interface;
-    using HenE.GameBlackJack.SpelSpullen;
 
-    public class ConsoleCommunicator : ICommunicate
+    /// <summary>
+    /// De console die gaat communicte tussen de speler en het spel doen.
+    /// </summary>
+    public partial class ConsoleCommunicatorBehandelen
     {
-
-        /// <summary>
-        /// geef informatie over iets gebeurt.
-        /// Wijs melding naar de juiste methode die de melding toont.
-        /// </summary>
-        /// <param name="hand">De hand die krijgt een melding.</param>
-        /// <param name="melding">De text van een melding.</param>
-        public void TellHand(SpelerHand hand, Meldingen melding)
-        {
-            switch (melding)
-            {
-                case Meldingen.ToonInzet:
-                    this.ToonInzet(hand);
-                    break;
-                case Meldingen.Verliezen:
-                    this.Verliezen(hand);
-                    break;
-                case Meldingen.KaartenVanDeHand:
-                    this.KaartenVanDeHand(hand);
-                    break;
-                case Meldingen.Fout:
-                    this.FoutMelding(hand);
-                    break;
-                case Meldingen.Hold:
-                    this.HoldHand(hand);
-                    break;
-                case Meldingen.Gewonnen:
-                    this.Gewonnen(hand);
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// geef informatie over iets gebeurt.
-        /// </summary>
-        /// <param name="speler">De speler die een melding krijgt. </param>
-        /// <param name="melding">De text van de melding.</param>
-        public void TellPlayer(Speler speler, Meldingen melding)
-        {
-            switch (melding)
-            {
-                case Meldingen.Verdienen:
-                    this.Verdienen(speler);
-                    break;
-                case Meldingen.OngeldigeInzet:
-                    this.OngeldigeInzet(speler);
-                    break;
-                case Meldingen.ToonInzet:
-                    this.ToonFiches(speler);
-                    break;
-            }
-        }
-
         /// <summary>
         /// Laat de speler zien de inzet van de hand.
         /// </summary>
         /// <param name="hand">Speler hand.</param>
         private void ToonInzet(SpelerHand hand)
         {
+            Console.WriteLine();
             Console.WriteLine("Uw inzet is {0}", hand.Inzet.WaardeVanDeFiches);
         }
 
@@ -80,7 +28,19 @@ namespace HenEBalck_Jack
         /// <param name="speler">Speler.</param>
         private void ToonFiches(Speler speler)
         {
-            Console.WriteLine("Uw inzet is {0}", speler.Fiches.WaardeVanDeFiches);
+            Console.WriteLine();
+            Console.WriteLine($"{speler.Naam} heeft {0} ingezet.", speler.Fiches.WaardeVanDeFiches);
+        }
+
+        /// <summary>
+        /// Laat de speler weet hoeveel fiches hij hij heeft.
+        /// </summary>
+        /// <param name="speler">Speler.</param>
+        /// <param name="hand">Hand van een speler.</param>
+        private void ToonFiches(Speler speler, SpelerHand hand)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"Let op {speler.Naam}, De speler {hand.Speler.Naam} heeft {hand.Inzet.WaardeVanDeFiches} ingezet.");
         }
 
         /// <summary>
@@ -89,7 +49,8 @@ namespace HenEBalck_Jack
         /// <param name="hand">De hand die wordt verliezen.</param>
         private void Verliezen(SpelerHand hand)
         {
-            Console.WriteLine($"Je hebt {hand.Inzet.WaardeVanDeFiches} verliezen.");
+            Console.WriteLine();
+            ColorConsole.WriteLine(ConsoleColor.Red, $"{hand.Speler.Naam} hebt {hand.Inzet.WaardeVanDeFiches} verliezen.");
         }
 
         /// <summary>
@@ -97,6 +58,7 @@ namespace HenEBalck_Jack
         /// </summary>
         private void Verdienen(Speler speler)
         {
+            Console.WriteLine();
             Console.WriteLine($"{speler.Naam}Je heeft ... verdient.");
         }
 
@@ -106,7 +68,29 @@ namespace HenEBalck_Jack
         /// <param name="hand">de hand van de speler.</param>
         private void KaartenVanDeHand(SpelerHand hand)
         {
-            Console.WriteLine($"{hand.Speler.Naam} je hebt nu ... punten bij je hand.");
+            Console.WriteLine();
+            Console.WriteLine($"{hand.Speler.Naam} je hebt nu {this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten)} punten bij je hand.");
+            Console.WriteLine($"{hand.Speler.Naam} Je hebt nu");
+            foreach (Kaart kaart in hand.Kaarten)
+            {
+                ColorConsole.WriteLine(ConsoleColor.Green, $" {kaart.Kleur} van {kaart.Teken}");
+            }
+        }
+
+        /// <summary>
+        /// Vertelt hoe veel kaarten bij de hand staan.
+        /// </summary>
+        /// <param name="speler">De speler die een meldje gekregen.</param>
+        /// <param name="hand">de hand van de speler.</param>
+        private void KaartenVanDeHand(Speler speler, SpelerHand hand)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"Let Op {speler.Naam}");
+            Console.WriteLine($"{hand.Speler.Naam} heeft nu");
+            foreach (Kaart kaart in hand.Kaarten)
+            {
+                ColorConsole.WriteLine(ConsoleColor.Green, $" {kaart.Kleur} van {kaart.Teken}");
+            }
         }
 
         /// <summary>
@@ -115,43 +99,20 @@ namespace HenEBalck_Jack
         /// <param name="hand">De hand van de speler.</param>
         private void FoutMelding(SpelerHand hand)
         {
-            Console.WriteLine("Je hebt geen nummer ingevoegd of een nummer die boven niet bestaat. Voeg maar een nummer in.");
+            Console.WriteLine();
+            Console.WriteLine("Je hebt een fout gehad.");
         }
 
         private void HoldHand(SpelerHand hand)
         {
-            Console.WriteLine($"{hand.Speler.Naam}Je mag wachten totdat het volgend rondje start want je heeft ... punten en de dealer heeft ...");
+            Console.WriteLine();
+            ColorConsole.WriteLine(ConsoleColor.Yellow, $"{hand.Speler.Naam} mag wachten totdat het volgend rondje start want je heeft {hand.Inzet.WaardeVanDeFiches} punten en de dealer heeft ...");
         }
 
         private void Gewonnen(SpelerHand hand)
         {
-            Console.WriteLine($"Wat leuk, {hand.Speler.Naam} Je bent gewonnen want je heeft ... punten en de dealer heeft ... ");
-        }
-
-        public bool AskWhichAction(SpelerHand hand, Vragen vragen)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Ask de speler om fiches voor de hand te inzetten.
-        /// </summary>
-        /// <param name="hand">De hand die een fiches krijgt.</param>
-        /// <param name="waarde">de waarde van de fiches.</param>
-        /// <returns>Is de speler wil inzetten of niet.</returns>
-        public bool AskFichesInzetten(SpelerHand hand, out int waarde)
-        {
-            int waardeDieDeSpelerWilInzetten = 0;
-            Console.WriteLine("Wat voor waarde wil je kopen?");
-            string answerWarde = Console.ReadLine();
-            while (!this.IsGeldigWaarde(answerWarde, out waardeDieDeSpelerWilInzetten))
-            {
-                Console.WriteLine("Type maar een nummer.");
-                answerWarde = Console.ReadLine();
-            }
-
-            waarde = waardeDieDeSpelerWilInzetten;
-            return true;
+            Console.WriteLine();
+            ColorConsole.WriteLine(ConsoleColor.Green, $"Wat leuk, {hand.Speler.Naam} bent gewonnen want je heeft {hand.Inzet.WaardeVanDeFiches} punten en de dealer heeft ... ");
         }
 
         /// <summary>
@@ -171,36 +132,19 @@ namespace HenEBalck_Jack
 
         private void OngeldigeInzet(Speler speler)
         {
-            Console.WriteLine($"{speler.Naam} Je mag andere inzetten kiezen. Je mag alleen tussen {speler.HuidigeTafel.MinimalenZet} en {speler.HuidigeTafel.MaximaleInZet}");
+            Console.WriteLine();
+            Console.WriteLine($"{speler.Naam} mag andere inzetten kiezen. Je mag alleen tussen {speler.HuidigeTafel.MinimalenZet} en {speler.HuidigeTafel.MaximaleInZet}");
         }
 
-        public bool AskFichesKopen(Speler speler, out int Waarde)
+        /// <summary>
+        /// Toont een melding over de actie die de speler heeft gekozen.
+        /// </summary>
+        /// <param name="hand">Huidige hand.</param>
+        /// <param name="actie">De actie die de speler heeft gekozen.</param>
+        private void ActieGekozen(SpelerHand hand, string actie)
         {
-            int waardeDieDeSpelerWilInzetten = 0;
-            Console.WriteLine("Wil je fiches kopen Y of N?");
-            string answer = Console.ReadLine().ToLower();
-            while (!this.IsAntwoordGoed(answer))
-            {
-                Console.WriteLine("Je mag alleen Y of N typen!");
-                answer = Console.ReadLine();
-            }
-
-            if (answer == "y")
-            {
-                Console.WriteLine("Wat voor waarde wil je kopen?");
-                string answerWarde = Console.ReadLine();
-                while (!this.IsGeldigWaarde(answerWarde, out waardeDieDeSpelerWilInzetten))
-                {
-                    Console.WriteLine("Type maar een nummer.");
-                    answerWarde = Console.ReadLine();
-                }
-
-                Waarde = waardeDieDeSpelerWilInzetten;
-                return true;
-            }
-
-            Waarde = waardeDieDeSpelerWilInzetten;
-            return false;
+            Console.WriteLine();
+            Console.WriteLine($"{hand.Speler.Naam} wil {actie}.");
         }
     }
 }
