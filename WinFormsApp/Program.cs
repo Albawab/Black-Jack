@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinFormsApp;
+using HenE.GameBlackJack;
+using static HenE.GameBlackJack.Fiche;
+using HenE.GameBlackJack.SpelSpullen;
 
-namespace WinFormsApp
+namespace HenE.WinFormsApp
 {
     static class Program
     {
@@ -16,7 +20,11 @@ namespace WinFormsApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+
+            Application.Run(new BlackJack());
+            Application.Exit();
+            Console.ReadLine();
         }
     }
 }

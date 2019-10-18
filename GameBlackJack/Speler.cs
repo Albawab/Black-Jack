@@ -7,8 +7,8 @@ namespace HenE.GameBlackJack
     using System;
     using System.Collections.Generic;
     using HenE.GameBlackJack.Enum;
+    using HenE.GameBlackJack.Interface;
     using HenE.GameBlackJack.SpelSpullen;
-    using HenEBalck_Jack;
 
     /// <summary>
     /// Slaan de gegevens van de speler op.
@@ -20,7 +20,6 @@ namespace HenE.GameBlackJack
         /// Hoeveel fiches de speler heeft.
         /// </summary>
         private readonly Fiches fiches = new Fiches();
-        private readonly ActiesHelper actiesHelper = new ActiesHelper();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Speler"/> class.
@@ -55,48 +54,18 @@ namespace HenE.GameBlackJack
         /// <returns>of mag zitten of niet.</returns>
         public bool GaatAanTafelZitten(Tafel tafel, uint positie)
         {
+            // geef de huidige tafel de value.
+            this.HuidigeTafel = tafel;
+
             // controleren of tafel niet null is
 
             // als je al ergens anders zat, moet je daar weg gaan
-            if (this.HuidigeTafel != null)
+            if (this.HuidigeTafel == null)
             {
                 this.VerlaatTafel();
             }
 
             return tafel.SpelerNeemtPlaats(this, positie);
-        }
-
-        /// <summary>
-        /// Vraag de speler wat hij wil doen.
-        /// </summary>
-        /// <param name="mogelijkActies">Lijst van de acties die de speler mag van uit het mag kiezen is.</param>
-        /// <returns>De actie die de speler heeft gekozen.</returns>
-        public Acties AskActie(List<Acties> mogelijkActies)
-        {
-            Console.WriteLine();
-            Console.WriteLine($"{this.Naam} Kies maar een van de acties die hieronder staat! Je mag alleen nummer gebruiken.");
-
-            // keuze aan de klant laten
-            for (int index = 0; index < mogelijkActies.Count; index++)
-            {
-                Console.WriteLine();
-                Console.WriteLine($"{index.ToString()} {this.ActieTotStrign(mogelijkActies[index])}");
-            }
-
-            // De actie die de speler wil doen.
-            int deActie = 0;
-            string deSpelerwilDoen = string.Empty;
-
-            deSpelerwilDoen = Console.ReadLine();
-            while (!int.TryParse(deSpelerwilDoen, out deActie) || deActie > mogelijkActies.Count)
-            {
-                Console.WriteLine("Je hebt geen nummer ingevoegd of een nummer die boven niet bestaat. Voeg maar een nummer in.");
-                deSpelerwilDoen = Console.ReadLine();
-            }
-
-            Acties actie = mogelijkActies[deActie];
-            mogelijkActies.Remove(mogelijkActies[deActie]);
-            return actie;
         }
 
         /// <summary>
@@ -115,36 +84,23 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
-        /// De speler bepaalt wat hij wil kopen.
-        /// </summary>
-        public void Koopfiches()
-        {
-            Console.WriteLine("Je heeft geen fiches. Wil je fiches kopen J of N?");
-            if (this.CheckAntwoord())
-            {
-                this.Fiches.Add(this.HuidigeTafel.Fiches.GeefMeFischesTerWaardeVan(20, 10, true));
-            }
-        }
-
-        /// <summary>
         /// De speler zet een fiche in bij de hand in.
         /// </summary>
         /// <param name="hand">De hand van de speler.</param>
         /// <param name="waarde">De waarde die de speler wil bij de hand .</param>
-        public void ZetFichesBijHandIn(Hand hand, int waarde)
+        public void ZetFichesBijHandIn(SpelerHand hand, int waarde)
         {
             if (this.fiches.ReadOnlyFiches.Count != 0)
             {
                 foreach (Fiche fiche in this.fiches.ReadOnlyFiches)
                 {
-                    while (!this.HeeftDitBedragInFichesbak(waarde))
-                    {
-                        Console.WriteLine("Je hebt geen fiche die de zelfde waarde heeft. Wil je een fiche kopen J of N?");
-                        if (this.CheckAntwoord())
-                        {
-                            this.Fiches.GeefMeFischesTerWaardeVan(20, 10, false);
-                        }
-                    }
+                    /*                   while (!this.HeeftDitBedragInFichesbak(waarde))
+                                       {
+                                           if (this.CheckAntwoord())
+                                           {
+                                               this.Fiches.GeefMeFischesTerWaardeVan(20, 10, false);
+                                           }
+                                       }*/
 
                     hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(waarde, 1, false));
                     break;
@@ -156,18 +112,17 @@ namespace HenE.GameBlackJack
         /// De speler zet een fiche in bij de hand in.
         /// </summary>
         /// <param name="hand">De hand van de speler.</param>
-        public void ZetFichesBijHandIn(Hand hand)
+        public void ZetFichesBijHandIn(SpelerHand hand)
         {
             if (this.fiches.ReadOnlyFiches.Count != 0)
             {
-                while (!this.HeeftDitBedragInFichesbak(hand.Inzet.WaardeVanDeFiches))
-                {
-                    Console.WriteLine("Je hebt geen fiche die de zelfde waarde heeft. Wil je een fiche kopen J of N?");
-                    if (this.CheckAntwoord())
-                    {
-                        this.Fiches.GeefMeFischesTerWaardeVan(20, 10, false);
-                    }
-                }
+                /*                while (!this.HeeftDitBedragInFichesbak(hand.Inzet.WaardeVanDeFiches))
+                                {
+                                                       if (this.CheckAntwoord())
+                                    {
+                                        this.Fiches.GeefMeFischesTerWaardeVan(20, 10, false);
+                                    }
+                                }*/
 
                 hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(20, 1, false));
             }
@@ -189,62 +144,10 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
-        /// De waarde die de speler wil zetten.
-        /// </summary>
-        /// <param name="speler">Een Speler.</param>
-        /// <returns>De waarde.</returns>
-        public int FicheWaardeDeSpelerWilZetten(Speler speler)
-        {
-            Console.WriteLine();
-            Console.WriteLine($"{speler.Naam} Wat voor waarde wil je inzetten?");
-            string input = Console.ReadLine();
-            int waarde = 0;
-            while (!int.TryParse(input, out waarde))
-            {
-                ColorConsole.WriteLine(ConsoleColor.Yellow, "Type maar een nummer!");
-                input = Console.ReadLine();
-            }
-
-            return waarde;
-        }
-
-        /// <summary>
-        /// Vrgaag de speler of hij wil iets doen of niet.
-        /// </summary>
-        /// <returns>Wil doen of niet.</returns>
-        public bool CheckAntwoord()
-        {
-            ConsoleKeyInfo antwoord;
-            antwoord = Console.ReadKey();
-            while (antwoord.Key != ConsoleKey.J && antwoord.Key != ConsoleKey.N)
-            {
-                Console.WriteLine("Type graag J of N!");
-                antwoord = Console.ReadKey();
-            }
-
-            if (antwoord.Key == ConsoleKey.J)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
         /// Vraag of de speler dat bedrag inde fichesbak heeft.
         /// </summary>
         /// <param name="bedrag">Bedrag die bij de hand moet zijn.</param>
         /// <returns>Check of heet dat bedrag of niet.</returns>
         private bool HeeftDitBedragInFichesbak(int bedrag) => bedrag <= this.fiches.WaardeVanDeFiches;
-
-        /// <summary>
-        /// Zet de actie tot string.
-        /// </summary>
-        /// <param name="acties">De actie die wordt omgezet.</param>
-        /// <returns>De actie als string.</returns>
-        private string ActieTotStrign(Acties acties)
-        {
-            return this.actiesHelper.ZetEnumTotStringOm(acties);
-        }
     }
 }

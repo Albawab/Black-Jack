@@ -14,7 +14,48 @@ namespace HenE.GameBlackJack
     /// </summary>
     public class Fiche
     {
+        /// <summary>
+        /// De waarde van de fiches.
+        /// </summary>
         private int waarde;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Fiche"/> class.
+        /// </summary>
+        /// <param name="ficheKleur">De kleur van een fiche.</param>
+        /// <param name="waarde">De waarde van het fiche veranderd niet.</param>
+        private Fiche(FichesKleur ficheKleur, int waarde)
+        {
+            this.Kleur = ficheKleur;
+            this.Waarde = waarde;
+        }
+
+        /// <summary>
+        /// Gets de kleur van een fiche.
+        /// </summary>
+        public FichesKleur Kleur { get; private set; }
+
+        /// <summary>
+        /// Gets de waarde in Euros van een fiche. Afgesproken is dat fiches alleen hele waardes kunnen hebben.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Als de waarde niet 1, 5, 10, 20, 50, 100 is wordt deze execptie gegooid.</exception>
+        public int Waarde
+        {
+            get
+            {
+                return this.waarde;
+            }
+
+            private set
+            {
+                if (!this.CheckWaarde(value))
+                {
+                    throw new ArgumentOutOfRangeException("De waarde van de fiche klopt niet.");
+                }
+
+                this.waarde = value;
+            }
+        }
 
         /// <summary>
         /// enige class die fiches kan aanmaken en uitgeven
@@ -58,43 +99,10 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Fiche"/> class.
+        /// Checkt de waarde van de fiches.
         /// </summary>
-        /// <param name="ficheKleur">De kleur van een fiche.</param>
-        /// <param name="waarde">De waarde van het fiche veranderd niet.</param>
-        private Fiche(FichesKleur ficheKleur, int waarde)
-        {
-            this.Kleur = ficheKleur;
-            this.Waarde = waarde;
-        }
-
-        /// <summary>
-        /// Gets de waarde in Euros van een fiche. Afgesproken is dat fiches alleen hele waardes kunnen hebben.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Als de waarde niet 1, 5, 10, 20, 50, 100 is wordt deze execptie gegooid.</exception>
-        public int Waarde
-        {
-            get
-            {
-                return this.waarde;
-            }
-
-            private set
-            {
-                if (!this.CheckWaarde(value))
-                {
-                    throw new ArgumentOutOfRangeException("De waarde van de fiche klopt niet.");
-                }
-
-                this.waarde = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets de kleur van een fiche.
-        /// </summary>
-        public FichesKleur Kleur { get; private set; }
-
+        /// <param name="waarde">De waarde van de fiches.</param>
+        /// <returns>Heeft gecheckt of niet.</returns>
         private bool CheckWaarde(int waarde)
         {
             if (waarde == 1 ||

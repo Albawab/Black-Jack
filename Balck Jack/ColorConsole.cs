@@ -1,4 +1,4 @@
-﻿// <copyright file="ChangeColor.cs" company="PlaceholderCompany">
+﻿// <copyright file="ColorConsole.cs" company="PlaceholderCompany">
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 

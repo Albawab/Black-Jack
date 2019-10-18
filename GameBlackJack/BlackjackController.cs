@@ -6,13 +6,11 @@ namespace HenE.GameBlackJack
 {
     using System;
     using System.Collections.Generic;
-    using System.Drawing;
-    using System.Threading;
     using HenE.GameBlackJack.Enum;
+    using HenE.GameBlackJack.Interface;
     using HenE.GameBlackJack.Kaarten;
     using HenE.GameBlackJack.Settings;
     using HenE.GameBlackJack.SpelSpullen;
-    using HenEBalck_Jack;
 
     /// <summary>
     /// Controller op het spel.Is het spelr gestart.Vraagt de dealer om iets te doen. vraagt ook de spelet om iets te doen.
@@ -22,14 +20,21 @@ namespace HenE.GameBlackJack
         private readonly BlackJackPointsCalculator blackJackPointsCalculator = new BlackJackPointsCalculator();
         private readonly Tafel tafel;
         private readonly KaartenExtensions kaartenHelper = new KaartenExtensions();
-        private readonly Spel spel = new Spel();
+        private readonly ICommunicate communicator = null;
+        private readonly ActiesHelper actiesHelper = new ActiesHelper();
+        private SpelerHand spelerHand = null;
+        private DealerHand dealerHand = null;
+        private Spel spel = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BlackjackController"/> class.
         /// </summary>
         /// <param name="tafel">Huidige tafel.</param>
-        public BlackjackController(Tafel tafel)
+        /// <param name="communicator">De communicator.</param>
+        public BlackjackController(Tafel tafel, ICommunicate communicator)
         {
+            this.communicator = communicator;
+            this.spel = new Spel(communicator);
             this.tafel = tafel;
         }
 
@@ -50,6 +55,58 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
+        /// Vraag de speler om fiches bij de hand in zetten.
+        /// </summary>
+        /// <param name="spelerhand">De hand van de speler.</param>
+        /// <param name="waarde">De waarde van een fiche.</param>
+        /// <returns>Fiches die de speler wil inzetten bij de hand.</returns>
+        public bool VraagAanSpelerInzetVoorEenHand(SpelerHand spelerhand, out int waarde)
+        {
+            if (!this.communicator.AskFichesInzetten(spelerhand, out waarde))
+            {
+                while (this.tafel.BepaaltOfDeWaardetussenMaxInzetEnMinInzet(waarde))
+                {
+                    // Vertel aan de speler het is geen juste waarde.
+                    this.communicator.TellPlayer(spelerhand.Speler, Meldingen.OngeldigeInzet);
+
+                    if (this.communicator.AskFichesInzetten(spelerhand, out waarde))
+                    {
+                        this.communicator.TellHand(this.spelerHand, Meldingen.ToonInzet, string.Empty);
+                    }
+
+                    // speler wil of kan niet inzetten
+                    return false;
+                }
+            }
+
+            if (waarde > this.tafel.MaximaleInZet || waarde < this.tafel.MinimalenZet)
+            {
+                // todo tell
+                this.communicator.TellHand(spelerhand, Meldingen.Fout, string.Empty);
+
+                // todo doen we een loop?
+                if (!this.communicator.AskFichesInzetten(spelerhand, out waarde))
+                {
+                    while (this.tafel.BepaaltOfDeWaardetussenMaxInzetEnMinInzet(waarde))
+                    {
+                        // Vertel aan de speler het is geen juste waarde.
+                        this.communicator.TellPlayer(spelerhand.Speler, Meldingen.OngeldigeInzet);
+
+                        if (this.communicator.AskFichesInzetten(spelerhand, out waarde))
+                        {
+                            this.communicator.TellHand(this.spelerHand, Meldingen.ToonInzet, string.Empty);
+                        }
+
+                        // speler wil of kan niet inzetten
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Start een rondje.
         /// </summary>
         private void StartRonde()
@@ -65,64 +122,49 @@ namespace HenE.GameBlackJack
 
             while (this.spel.GaNaarDeVolgendeSpeelbareHand() != null)
             {
-                Hand huidigeHand = this.spel.HuidigeHand;
-                if (this.IsBlackJack(huidigeHand))
+                Hand spelerHand = this.spel.HuidigeHand;
+                this.spelerHand = spelerHand as SpelerHand;
+                if (this.IsBlackJack(spelerHand))
                 {
-                    ColorConsole.WriteLine(ConsoleColor.Red, $"{huidigeHand.Persoon.Naam} Je hebt 21 punten dus je bent de Blck Jack.");
-                    Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    this.HandelBlackJack(huidigeHand);
+                    this.HandelBlackJack(this.spelerHand);
                 }
 
-                if (huidigeHand.Status != HandStatussen.BlackJeck)
+                if (spelerHand.Status != HandStatussen.BlackJeck)
                 {
-                    List<Acties> mogelijkActies = this.ControleerHand(huidigeHand);
-                    if (huidigeHand.Persoon != this.tafel.Dealer)
+                    List<Acties> mogelijkActies = this.ControleerHand(spelerHand);
+                    if (!spelerHand.IsDealerHand)
                     {
                         if (mogelijkActies.Count == 0)
                         {
                             // dan kan ik niks en ga ik naar de volgende hand. Bijv, omdat de hand is gesloten
-                            Console.WriteLine($"{huidigeHand.HuidigeSpeler().Naam} je mag geen actie doen, dan word je gestopt.");
+                            this.communicator.TellHand(this.spelerHand, Meldingen.GeenActie, string.Empty);
                             continue;
                         }
 
-                        while ((mogelijkActies.Count > 0 && huidigeHand.Status == HandStatussen.InSpel) || huidigeHand.Status == HandStatussen.Verdubbelen || huidigeHand.Status == HandStatussen.Gesplitst || huidigeHand.Status == HandStatussen.Gekochtocht)
+                        while ((mogelijkActies.Count > 0 && spelerHand.Status == HandStatussen.InSpel) || spelerHand.Status == HandStatussen.Verdubbelen || spelerHand.Status == HandStatussen.Gesplitst || spelerHand.Status == HandStatussen.Gekochtocht)
                         {
                             if (mogelijkActies.Count == 1)
                             {
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                this.ProcessActie(this.spel.HuidigeHand, mogelijkActies[0]);
-                                Console.ResetColor();
+                                this.ProcessActie(this.spelerHand, mogelijkActies[0]);
                             }
                             else
                             {
-                                Console.ForegroundColor = ConsoleColor.Green;
-
                                 // er zijn meerdere acties mogelijk, vraag aan de speler wat hij/zij wil
-                                Acties gekozenActie = this.AskActie(mogelijkActies, this.spel.HuidigeHand);
-                                this.ProcessActie(this.spel.HuidigeHand, gekozenActie);
-                                Console.ResetColor();
+                                Acties gekozenActie = this.AskActie(mogelijkActies, this.spelerHand);
+                                this.ProcessActie(this.spelerHand, gekozenActie);
                             }
 
-                            mogelijkActies = this.ControleerHand(huidigeHand);
+                            mogelijkActies = this.ControleerHand(spelerHand);
                         }
                     }
                     else
                     {
                         // start behandelen met de dealer.
-                        this.BehandelDeDealer(huidigeHand);
+                        this.dealerHand = spelerHand as DealerHand;
+                        this.BehandelDeDealer(this.dealerHand);
                     }
                 }
-
-                ColorConsole.WriteLine(ConsoleColor.Blue, "====+===========================================================================>");
             }
-
-            Thread.Sleep(3000);
-            Console.WriteLine();
-            ColorConsole.WriteLine(ConsoleColor.Cyan, "====++++====++++====++++====++++====++++====++++====++++====++++====++++====++++====++++>");
-            ColorConsole.WriteLine(ConsoleColor.Red, "Nu kunnen we de resultaten krijgen.......");
-            ColorConsole.WriteLine(ConsoleColor.Cyan, "====++++====++++====++++====++++====++++====++++====++++====++++====++++====++++====++++>");
-            Console.WriteLine();
-            Thread.Sleep(5000);
 
             this.BeeindHetSpel(this.spel.Handen);
         }
@@ -132,49 +174,69 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="huidigeHand">De hand van de speler.</param>
         /// <param name="actie">De actie die de speler heeft gekozen.</param>
-        private void ProcessActie(Hand huidigeHand, Acties actie)
+        private void ProcessActie(SpelerHand huidigeHand, Acties actie)
         {
+            // ben ik een speler of een dealerhand?
+            // het verschil is dat ik niet tegen de dealer praat maar tegen de spelers
+            List<Speler> spelersToTell = new List<Speler>();
+            SpelerHand spelerHand = null;
 
-            this.spel.PrintMessage(huidigeHand);
-            this.VoerActieUit(huidigeHand, actie);
+            if (huidigeHand.IsDealerHand)
+            {
+                // aan meerdere spelers vertellen
+                spelersToTell = this.spel.Spelers;
+            }
+            else
+            {
+                spelerHand = huidigeHand as SpelerHand;
+                spelersToTell.Add(spelerHand.Speler);
+            }
+
+            this.TellToPlayers(spelersToTell, Meldingen.ToonHand, huidigeHand, string.Empty);
+
+            // this.spel.PrintMessage(huidigeHand);
+            this.VoerActieUit(spelerHand, actie);
+
             if (huidigeHand.IsDood(this.blackJackPointsCalculator.CalculatePoints(huidigeHand.Kaarten)))
             {
-                Console.WriteLine();
-                Console.WriteLine("Helaas je hebt meer dan 21 punten, Sorry je moet dus stoppen.");
-                Console.WriteLine();
-                Console.WriteLine($"Je hebt {huidigeHand.Inzet.WaardeVanDeFiches} verliezen.");
+                if (huidigeHand.IsDealerHand)
+                {
+                    this.TellToPlayers(spelersToTell, Meldingen.DealerDied, spelerHand, string.Empty);
+                }
+                else
+                {
+                    this.TellToPlayers(spelersToTell, Meldingen.YouDied, spelerHand, string.Empty);
+                }
+
+                this.communicator.TellHand(spelerHand, Meldingen.Verdienen, string.Empty);
                 huidigeHand.ChangeStatus(HandStatussen.IsDood);
             }
             else if (huidigeHand.Status == HandStatussen.Gesplitst)
             {
-                Console.WriteLine($"{huidigeHand.Persoon.Naam} je hebt twee handen!");
-                List<Hand> handenVanSpeler = this.spel.HeeftDeSpelerMeerDanEenHand(huidigeHand);
-                for (int index = 0; index < handenVanSpeler.Count; index++)
-                {
-                    if (index == 0)
-                    {
-                        Console.WriteLine($"bij eerste hand heb je : ");
-                        foreach (Kaart kaart in handenVanSpeler[0].Kaarten)
-                        {
-                            Console.WriteLine($"{kaart.Kleur} van {kaart.Teken}");
-                        }
-
-                        Console.WriteLine("----------------------------------------------------------------------");
-                    }
-                    else if (index == 1)
-                    {
-                        Console.WriteLine($"bij tweede hand heb je : ");
-                        foreach (Kaart kaart in handenVanSpeler[0].Kaarten)
-                        {
-                            Console.WriteLine($"{kaart.Kleur} van {kaart.Teken}");
-                        }
-
-                        Console.WriteLine("----------------------------------------------------------------------");
-                    }
-                }
+                // this.communicator.TellPlayer(spelerHand.Speler, Meldingen.ToonHand);
+                /*                List<Hand> handenVanSpeler = this.spel.HandenVanDeSpeler(spelerHand);
+                                for (int index = 0; index < handenVanSpeler.Count; index++)
+                                {
+                                    if (index == 0)
+                                    {
+                                        this.communicator.TellHand(spelerHand, Meldingen.WaardeVanDeHand);
+                                        foreach (Kaart kaart in handenVanSpeler[0].Kaarten)
+                                        {
+                                            this.communicator.TellHand(spelerHand, Meldingen.KaartenVanDeHand, $"{kaart.Kleur} van {kaart.Teken}");
+                                        }
+                                    }
+                                    else if (index == 1)
+                                    {
+                                        this.communicator.TellHand(spelerHand, Meldingen.KartenVanDeHand, $"bij tweede hand heb je : ");
+                                        foreach (Kaart kaart in handenVanSpeler[0].Kaarten)
+                                        {
+                                            this.communicator.TellHand(spelerHand, Meldingen.GeenActie, $"{kaart.Kleur} van {kaart.Teken}");
+                                        }
+                                    }
+                                }*/
             }
 
-            this.spel.PrintMessage(huidigeHand);
+            this.TellToPlayers(this.spel.Spelers, Meldingen.KaartenVanDeHand, spelerHand, string.Empty);
         }
 
         /// <summary>
@@ -187,24 +249,98 @@ namespace HenE.GameBlackJack
         {
             foreach (Speler speler in this.tafel.Spelers)
             {
-                if (speler != null)
-                {
-                    int ficheWaarde = speler.FicheWaardeDeSpelerWilZetten(speler);
-                    while (!this.tafel.BepaaltOfDeWaardetussenMaxInzetEnMinInzet(ficheWaarde))
-                    {
-                        ColorConsole.WriteLine(ConsoleColor.Yellow, "Een onjuiste waarde.");
-                        ficheWaarde = speler.FicheWaardeDeSpelerWilZetten(speler);
-                    }
+                // De waarde van de fiches die de speler wil kopen.
+                int waardeVanFiches;
+                int waardeVanDeInzetten = 0;
 
-                    this.VraagOmfichesBijDeHandTeInZetten(speler, ficheWaarde);
-                    Console.WriteLine($"{speler.Naam} je hebt {ficheWaarde} ingezet.");
-                    Console.WriteLine();
-                    Console.WriteLine("////////////////////////////////////////////////////");
+                // todo, loopje
+                while (speler.Fiches.WaardeVanDeFiches < speler.HuidigeTafel.MinimalenZet)
+                {
+                    if (this.communicator.AskFichesKopen(speler, out waardeVanFiches))
+                    {
+                        // inzet is ok
+                        // een hand wordt aangemaakt,
+                        // ok de speler heeft ingezet en wil dus meedoen
+                        // aan de collectie toegevoegd.
+                        this.communicator.TellPlayer(speler, Meldingen.Verdienen);
+                        break;
+                    }
+                    else
+                    {
+                        // de speler wil niet inzetten en doetr dus niet mee
+                        this.spel.SpelerVerwijderen(speler);
+                        continue; // while true
+                    }
+                }
+
+                foreach (Hand hand in this.spel.Handen)
+                {
+                    if (!hand.IsDealerHand)
+                    {
+                        this.spelerHand = hand as SpelerHand;
+
+                        if (this.spelerHand.Speler == speler)
+                        {
+                            while (!this.VraagAanSpelerInzetVoorEenHand(this.spelerHand, out waardeVanDeInzetten))
+                            {
+                                this.communicator.TellHand(this.spelerHand, Meldingen.Fout, string.Empty);
+                            }
+
+                            speler.ZetFichesBijHandIn(this.spelerHand, waardeVanDeInzetten);
+
+                            // Dan laat de andere spelers weten wat is gebeurt.
+                            this.TellToPlayers(this.tafel.Spelers, Meldingen.ToonInzet, this.spelerHand, string.Empty);
+                        }
+                    }
                 }
             }
 
-            this.spel.GeefIedereHandEersteKaart(this.tafel.StapelKaarten);
-            this.spel.GeefIedereHandTweedeKaart(this.tafel.StapelKaarten);
+            // geef elke hand een kaart
+            foreach (Hand hand in this.spel.Handen)
+            {
+                Kaart kaart = this.tafel.StapelKaarten.NeemEenKaart();
+                if (kaart != null)
+                {
+                    hand.AddKaart(kaart);
+                }
+                else
+                {
+                    // todo, wat gaan we doen als we geen kaarten meer hebben? //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++>
+                }
+
+                if (!hand.IsDealerHand)
+                {
+                    SpelerHand spelerhand = hand as SpelerHand;
+
+                    // Dan laat de andere spelers weten wat is gebeurt.
+                    this.TellToPlayers(this.spel.Spelers, Meldingen.KaartenVanDeHand, spelerhand, string.Empty);
+                }
+            }
+
+            // geef elke hand een kaart, behalve de dealer
+            foreach (Hand hand in this.spel.Handen)
+            {
+                if (!hand.IsDealerHand)
+                {
+                    Kaart kaart = this.tafel.StapelKaarten.NeemEenKaart();
+                    if (kaart != null)
+                    {
+                        hand.AddKaart(kaart);
+                    }
+                    else
+                    {
+                        // todo, wat gaan we doen als we geen kaarten meer hebbe++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++>
+                    }
+                }
+
+                if (!hand.IsDealerHand)
+                {
+                    SpelerHand spelerhand = hand as SpelerHand;
+
+                    // Dan laat de andere spelers weten wat is gebeurt.
+                    this.TellToPlayers(this.spel.Spelers, Meldingen.KaartenVanDeHand, spelerhand, string.Empty);
+                }
+            }
         }
 
         /// <summary>
@@ -212,16 +348,19 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="hand">De huidige hand.</param>
         /// <param name="deActie">De actie die de speler wil doen.</param>
-        private void VoerActieUit(Hand hand, Acties deActie)
+        private void VoerActieUit(SpelerHand hand, Acties deActie)
         {
             switch (deActie)
             {
+                case Acties.IsDefined:
+                    throw new ArgumentNullException("Er is geen actie.");
+
                 case Acties.Splitsen:
                     this.spel.SplitsHand(hand);
                     hand.ChangeStatus(HandStatussen.Gesplitst);
                     break;
                 case Acties.Verdubbelen:
-                    this.spel.Verdubbelen(hand, this.tafel.StapelKaarten);
+                    this.Verdubbelen(hand);
                     hand.ChangeStatus(HandStatussen.Verdubbelen);
                     break;
                 case Acties.Kopen:
@@ -232,6 +371,58 @@ namespace HenE.GameBlackJack
                     hand.ChangeStatus(HandStatussen.Gepassed);
                     break;
             }
+        }
+
+        /// <summary>
+        /// functie om te checken of de speler mag vedubbelen of niet.
+        /// Als mag dan ga dat doen.
+        /// </summary>
+        /// <param name="hand">De hand die wordt verdubbelt.</param>
+        /// <returns>Mag verdubbeln of niet.</returns>
+        private bool Verdubbelen(SpelerHand hand)
+        {
+            int waardeVanFiches;
+
+            // ok, de speler heeft gekozen om te verdubbelen
+            // heeft hij nog fiche ter waarde van hand?
+            while (hand.Inzet.WaardeVanDeFiches > hand.Speler.Fiches.WaardeVanDeFiches)
+            {
+                if (this.communicator.AskFichesKopen(hand.Speler, out waardeVanFiches))
+                {
+                    // inzet is ok
+                    // een hand wordt aangemaakt,
+                    // ok de speler heeft ingezet en wil dus meedoen
+                    // aan de collectie toegevoegd.
+                    this.communicator.TellPlayer(hand.Speler, Meldingen.Verdienen);
+                    break;
+                }
+                else
+                {
+                    // de speler wil niet inzetten en doetr dus niet mee
+                    this.spel.SpelerVerwijderen(hand.Speler);
+                    continue; // while true
+                }
+            }
+
+            Fiches fiches = this.spelerHand.Speler.Fiches.GeefMeFischesTerWaardeVan(this.spelerHand.Inzet.WaardeVanDeFiches, 0, true);
+            while (fiches == null)
+            {
+                // dan heeft de speler niet de juiste hoeveelheid fiches. Hij kan dan eventueel inwisselen of kopen.
+                // inwisselen is kopen met als inleg een fiche
+                // todo check hier wat goed is.
+                // string answer = this.communicator.AskFichesKopen(spelerHand,Vragen);
+
+                // bepaal antwoord.
+                // indien kopen, koop de fiches en vraag weer de juiste hoeveelheid uit?
+                // indien niet kopen, return false;
+                // todo doe dit in een loopje
+                fiches = this.spelerHand.Speler.Fiches.GeefMeFischesTerWaardeVan(this.spelerHand.Inzet.WaardeVanDeFiches, 0, true);
+            }
+
+            // inzetten bij de hand
+
+            // oke, koop dan maar een kaart
+            return this.spel.Verdubbelen(this.spelerHand, this.tafel.StapelKaarten);
         }
 
         /// <summary>
@@ -274,19 +465,19 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="hand">Huidige hand.</param>
         /// <param name="wordtBetaal">De waarde die worde gebetaald.</param>
-        private void KeerUit(Hand hand, double wordtBetaal)
+        private void KeerUit(SpelerHand hand, double wordtBetaal)
         {
             if (wordtBetaal == 1.5)
             {
                 float betaal = hand.Inzet.WaardeVanDeFiches * 1.5f;
                 int moetBetalenAanHand = (int)betaal;
-                ColorConsole.WriteLine(ConsoleColor.Green, $"{hand.Persoon.Naam}Je heeft {moetBetalenAanHand} verdient.");
+                this.communicator.TellPlayer(hand.Speler, Meldingen.Verdienen);
                 this.FichesVerdienen(hand, moetBetalenAanHand);
             }
             else if (wordtBetaal == 1.0)
             {
                 this.FichesVerdienen(hand, hand.Inzet.WaardeVanDeFiches);
-                ColorConsole.WriteLine(ConsoleColor.Green, $"{hand.Persoon.Naam}Je heeft {hand.Inzet.WaardeVanDeFiches} verdient.");
+                this.communicator.TellPlayer(hand.Speler, Meldingen.Verdienen);
             }
         }
 
@@ -316,27 +507,30 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="mogelijkActies">Lijst van de acties die de speler mag van uit het mag kiezen is.</param>
         /// <param name="huidigeHand">De huidige hand.</param>
-        private Acties AskActie(List<Acties> mogelijkActies, Hand huidigeHand)
+        private Acties AskActie(List<Acties> mogelijkActies, SpelerHand huidigeHand)
         {
-            Console.WriteLine();
-            Console.WriteLine($"{huidigeHand.Persoon.Naam} je hebt nu {this.blackJackPointsCalculator.CalculatePoints(huidigeHand.Kaarten)} punten bij je hand.");
-            return huidigeHand.HuidigeSpeler().AskActie(mogelijkActies);
+            // De actie die de speler wil doen.
+            int deActie = 0;
+            Acties actie = Acties.IsDefined;
+            this.communicator.TellHand(huidigeHand, Meldingen.KaartenVanDeHand, string.Empty);
+            deActie = this.communicator.AskWhichAction(huidigeHand, mogelijkActies);
+
+            // omdat de lijst start vanaf nummer 0 en de keuze start vanaf nummer 1 moest hier min -1 doen.
+            actie = mogelijkActies[deActie - 1];
+            mogelijkActies.Remove(mogelijkActies[deActie - 1]);
+            this.TellToPlayers(this.spel.Spelers, Meldingen.ActieGekozen, huidigeHand, Helper.Helper.ChangeEnumToString(actie));
+            return actie;
         }
 
-        /// <summary>
-        /// Vraag de speler om fiches bij de hand in zetten.
-        /// </summary>
-        /// <param name="speler">De lijst van de spelers die zijn in het spelr bezig.</param>
-        /// <param name="waarde">De waarde van een fiche.</param>
-        private int VraagOmfichesBijDeHandTeInZetten(Speler speler, int waarde)
+        private int VraagOmfichesBijDeHandTeInZetten(Speler speler, int waarde) // +++++++++++++++++++++++++======================> Vraag Aan Speler Inzet Voor Een Hand
         {
             foreach (Hand hand in this.spel.Handen)
             {
-                if (hand.Persoon == speler)
+                SpelerHand spelerHand = hand as SpelerHand;
+                if (spelerHand.Speler == speler)
                 {
-                    speler.ZetFichesBijHandIn(hand, waarde);
-                    Console.WriteLine();
-                    waarde = hand.Inzet.WaardeVanDeFiches;
+                    speler.ZetFichesBijHandIn(spelerHand, waarde);
+                    waarde = spelerHand.Inzet.WaardeVanDeFiches;
                 }
             }
 
@@ -347,7 +541,7 @@ namespace HenE.GameBlackJack
         /// Als de hand klaar is dan doe hij dicht.
         /// </summary>
         /// <param name="hand">De hand die klaar is.</param>
-        private void CloseHand(Hand hand)
+        private void CloseHand(SpelerHand hand)
         {
             if (hand.Status == HandStatussen.BlackJeck)
             {
@@ -410,24 +604,20 @@ namespace HenE.GameBlackJack
         /// Controleer aan de hand van de dealer.
         /// </summary>
         /// <param name="dealerHand">De hand van de dealer.</param>
-        private void BehandelDeDealer(Hand dealerHand)
+        private void BehandelDeDealer(DealerHand dealerHand)
         {
             while (this.MoetDeDealerKopen(dealerHand))
             {
-                this.spel.GeefDeHandEenKaart(dealerHand, this.tafel.StapelKaarten);
+                this.spel.Kopen(dealerHand, this.tafel.StapelKaarten);
             }
 
             if (this.MoetDeDealerPassen(dealerHand))
             {
                 dealerHand.ChangeStatus(HandStatussen.Gepassed);
-                Console.WriteLine();
-                Console.WriteLine($"{dealerHand.Persoon.Naam} Je heeft meer dan 17 punten dus je moet passen.");
-                Console.WriteLine("--------------------------------------------------------------------------");
             }
             else if (this.IsDealerDood(dealerHand))
             {
                 dealerHand.ChangeStatus(HandStatussen.IsDood);
-                Console.WriteLine($"{dealerHand.Persoon.Naam} Je hebt meer dan 21 punten dus je mag niet meer kopen.");
             }
         }
 
@@ -440,24 +630,29 @@ namespace HenE.GameBlackJack
         /// <param name="handen">De handen als lijst.</param>
         private void BeeindHetSpel(List<Hand> handen)
         {
+            SpelerHand spelerHand = null;
             int waardeVanDeDealerHand = this.WaardeVanDeDealerHand(handen);
             foreach (Hand hand in handen)
             {
-                if (hand.HuidigeSpeler() != null)
+                if (!hand.IsDealerHand)
                 {
-                    if (hand.Status != HandStatussen.BlackJeck && hand.Status != HandStatussen.IsDood && hand.Status != HandStatussen.Gestopt)
+                    spelerHand = hand as SpelerHand;
+                    if (spelerHand.Speler != null)
                     {
-                        if (waardeVanDeDealerHand <= 21)
+                        if (hand.Status != HandStatussen.BlackJeck && hand.Status != HandStatussen.IsDood && hand.Status != HandStatussen.Gestopt)
                         {
-                            this.DefinieerResultaten(hand, waardeVanDeDealerHand);
+                            if (waardeVanDeDealerHand <= 21)
+                            {
+                                this.DefinieerResultaten(spelerHand, waardeVanDeDealerHand);
+                            }
+                            else
+                            {
+                                hand.ChangeStatus(HandStatussen.Gewonnen);
+                            }
                         }
-                        else
-                        {
-                            hand.ChangeStatus(HandStatussen.Gewonnen);
-                        }
-                    }
 
-                    this.CloseHand(hand);
+                        this.CloseHand(spelerHand);
+                    }
                 }
             }
         }
@@ -469,9 +664,11 @@ namespace HenE.GameBlackJack
         /// <returns>De waarde van de dealers hand.</returns>
         private int WaardeVanDeDealerHand(List<Hand> handen)
         {
+            DealerHand dealerHand = null;
             foreach (Hand hand in handen)
             {
-                if (hand.Persoon != hand.HuidigeSpeler())
+                dealerHand = hand as DealerHand;
+                if (dealerHand != null)
                 {
                     return this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten);
                 }
@@ -495,7 +692,7 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="hand">Huidige hand.</param>
         /// <param name="betaalAanHand">Het bedrag die moet betalen worden.</param>
-        private void FichesVerdienen(Hand hand, double betaalAanHand)
+        private void FichesVerdienen(SpelerHand hand, double betaalAanHand)
         {
             if (betaalAanHand == 1.5)
             {
@@ -511,9 +708,8 @@ namespace HenE.GameBlackJack
         /// Neem de fiches van de hand uit.
         /// </summary>
         /// <param name="hand">De hand.</param>
-        private void VerzameelDeFiches(Hand hand)
+        private void VerzameelDeFiches(SpelerHand hand)
         {
-            ColorConsole.WriteLine(ConsoleColor.Red, $"{hand.Persoon.Naam} je hebt {hand.Inzet.WaardeVanDeFiches} verliezen.");
             this.tafel.Fiches.Add(hand.Inzet.GeefMeFischesTerWaardeVan(hand.Inzet.WaardeVanDeFiches));
         }
 
@@ -522,33 +718,24 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="hand">Huidige hand.</param>
         /// <param name="waardeVanDeDealerHand">De waarde van de hand van de dealer.</param>
-        private void DefinieerResultaten(Hand hand, int waardeVanDeDealerHand)
+        private void DefinieerResultaten(SpelerHand hand, int waardeVanDeDealerHand)
         {
             int waardeVanDeSpeler = this.WaardeVanDeSpelerHand(hand);
 
             if (waardeVanDeSpeler < waardeVanDeDealerHand)
             {
                 hand.ChangeStatus(HandStatussen.Verloren);
-                Console.WriteLine();
-                ColorConsole.WriteLine(ConsoleColor.Red, $"{hand.Persoon.Naam} je bent helaas verloren want je heeft {waardeVanDeSpeler} punten en de dealer heeft {waardeVanDeDealerHand}");
-                Console.WriteLine();
-                Console.WriteLine("----------------------------------------------------------------------------------");
+                this.TellToPlayers(this.spel.Spelers, Meldingen.Verliezen, hand, string.Empty);
             }
             else if (waardeVanDeSpeler == waardeVanDeDealerHand)
             {
                 hand.ChangeStatus(HandStatussen.OnHold);
-                ColorConsole.WriteLine(ConsoleColor.Yellow, $"{hand.Persoon.Naam} Je mag wachten totdat het volgend rondje start want je heeft {waardeVanDeSpeler} punten en de dealer heeft {waardeVanDeDealerHand}");
-                Console.WriteLine();
-                Console.WriteLine("----------------------------------------------------------------------------------");
-                Console.WriteLine();
+                this.TellToPlayers(this.spel.Spelers, Meldingen.Verliezen, hand, string.Empty);
             }
             else if (waardeVanDeSpeler > waardeVanDeDealerHand && waardeVanDeSpeler <= 21)
             {
                 hand.ChangeStatus(HandStatussen.Gewonnen);
-                ColorConsole.WriteLine(ConsoleColor.Green, $"Wat leuk, {hand.Persoon.Naam} Je bent gewonnen want je heeft {waardeVanDeSpeler} punten en de dealer heeft {waardeVanDeDealerHand}");
-                Console.WriteLine();
-                Console.WriteLine("----------------------------------------------------------------------------------");
-                Console.WriteLine();
+                this.TellToPlayers(this.spel.Spelers, Meldingen.Verliezen, hand, string.Empty);
             }
         }
 
@@ -561,9 +748,7 @@ namespace HenE.GameBlackJack
             {
                 if (this.tafel.Plekken[i].Speler != null)
                 {
-                    Console.WriteLine();
                     int plek = i + 1;
-                    Console.WriteLine($"{this.tafel.Plekken[i].Speler.Naam} Je gaat op de plek  {plek} aan de tafel zitten");
                 }
             }
         }
@@ -592,10 +777,43 @@ namespace HenE.GameBlackJack
         /// Als de hand Black Jack dan change de status van de hand en close de hand.
         /// </summary>
         /// <param name="hand">De hand die Balck Jack wordt.</param>
-        private void HandelBlackJack(Hand hand)
+        private void HandelBlackJack(SpelerHand hand)
         {
             hand.ChangeStatus(HandStatussen.BlackJeck);
             this.CloseHand(hand);
+        }
+
+        /// <summary>
+        /// Zet de actie tot string.
+        /// </summary>
+        /// <param name="acties">De actie die wordt omgezet.</param>
+        /// <returns>De actie als string.</returns>
+        private string ActieTotString(Acties acties)
+        {
+            return this.actiesHelper.ZetEnumTotStringOm(acties);
+        }
+
+        /// <summary>
+        /// functie om naar de spelers wat te zeggen.
+        /// </summary>
+        /// <param name="spelers">De lijst van de spelers.</param>
+        /// <param name="melding">De text van de melding.</param>
+        /// <param name="hand">De hand van de speler.</param>
+        /// <param name="meerInformatie">Geef aan de spelers meer informatie die zij nodig hebben.</param>
+        private void TellToPlayers(List<Speler> spelers, Meldingen melding, SpelerHand hand, string meerInformatie)
+        {
+            // todo nog iets verzinnen, voor de verschillende spelers;
+            foreach (Speler speler in spelers)
+            {
+                if (hand.Speler == speler)
+                {
+                    this.communicator.TellHand(hand, melding, meerInformatie);
+                }
+                else
+                {
+                    this.communicator.TellPlayer(speler, melding, hand, meerInformatie);
+                }
+            }
         }
     }
 }
