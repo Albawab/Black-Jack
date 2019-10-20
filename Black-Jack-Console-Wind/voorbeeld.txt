@@ -1,0 +1,45 @@
+class Speler : Persoon
+{
+	private List<Hand> handen;
+	private PlekAanEentafel 
+
+
+	bool GaatAanTafelZitten(Tafel tafel, int welkePlek)
+	{
+		if (tafel.IsPlekVrij(welkePlek))
+		{
+			PlekAanEentafel  = tafel.SpelerNeemtPlaats(speler);
+		}
+		CommunicateToPersonen(PlekAanEentafel.Tafel.Dealer, $"Hallo, mijn naam is {this.Naam}");
+	}
+}
+
+class PlekAanEentafel
+{
+
+	PlekAanEentafel(tafel, plek)
+	{
+	}
+
+}
+
+class Dealer()
+{
+	actie = VraagtActieAanSpelerVoorHand(speler, hand);
+	ActieUitvoerenOpDeHand(actie, hand);
+}
+
+swithc (actie)
+{
+	case Kopen:
+		kaart = this.PakKaart();
+		hand.AddKaart(kaart);
+		hand.BepaalStatus();
+		if (hand.status == dead)
+		{
+			//dealer pakt de fiches 
+			hand.sluiten(); 	
+		}
+	break
+}
+

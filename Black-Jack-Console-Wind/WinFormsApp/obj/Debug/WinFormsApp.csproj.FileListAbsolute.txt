@@ -1,0 +1,23 @@
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\WinFormsApp.exe.config
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\WinFormsApp.exe
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\WinFormsApp.pdb
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\WinFormsApp.csprojAssemblyReference.cache
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\WinFormsApp.BlackJack.resources
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\WinFormsApp.csproj.GenerateResource.cache
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\WinFormsApp.exe
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\WinFormsApp.pdb
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\GameBlackJack.dll
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\GameBlackJack.pdb
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\GameBlackJack.xml
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\HenE.WinFormsApp.Properties.Resources.resources
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\WinFormsApp.csproj.CopyComplete
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\JDragControl.dll
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\JGradient Panel.dll
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\JImageButton.dll
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\JMaterialTextbox.dll
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\JMetroTextBox.dll
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\JTextBox.dll
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\JTextBox2.dll
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\FlatButton.dll
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\bin\Debug\JThinButton.dll
+C:\Users\Abdul\Desktop\Balck Jack\WinFormsApp\obj\Debug\HenE.WinFormsApp.Dialogs.DlgInzetten.resources
