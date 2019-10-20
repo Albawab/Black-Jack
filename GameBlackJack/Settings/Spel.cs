@@ -199,43 +199,6 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
-        /// Splits de hand.
-        /// geef kaarten . en ook geef ficehs aan de hand .
-        /// De fiches zijn gelijk op de fiches die bij de hand die wordet gesplist.
-        /// De Kaarten zijn gelijk op de Kaarten die bij de hand die wordet gesplist.
-        /// </summary>
-        /// <param name="handDieGesplitstMoetWorden">De hand die wordt gesplitst.</param>
-        /// <returns>De hand.</returns>
-        public Hand SplitsHand(SpelerHand handDieGesplitstMoetWorden)
-        {
-            SpelerHand nieuweHand = null;
-
-            // zoek de postitie va de handDieGesplitstMoetWorden
-            for (int index = 0; index < this.Handen.Count; index++)
-            {
-                if (this.Handen[index] == handDieGesplitstMoetWorden)
-                {
-                    // clone de oudehand
-                    nieuweHand = handDieGesplitstMoetWorden.Splits();
-
-                    if (index == this.Handen.Count)
-                    {
-                        // dan moet ik toevoegen
-                        this.VoegEenHandToe(nieuweHand);
-                    }
-                    else
-                    {
-                        // TODO voeg je de hand in op de postite van de oude + 1
-                        this.VoegEenHandIn(index + 1, nieuweHand);
-                    }
-                }
-            }
-
-            nieuweHand.GeefFichesBijHandDieWordtGesplits(handDieGesplitstMoetWorden);
-            return nieuweHand;
-        }
-
-        /// <summary>
         /// Maak de lei schoon.
         /// </summary>
         /// <param name="dealer">De Dealer.</param>
@@ -293,24 +256,6 @@ namespace HenE.GameBlackJack
 
             return false;
         }
-
-        /*       public List<Hand> HeeftDeSpelerMeerDanEenHand(Hand hudigeHand)
-               {
-                   List<Hand> handenVanEenSpeler = new List<Hand>();
-                   foreach (Hand hand in this.Handen)
-                   {
-                       if (hudigeHand.HuidigeSpeler() == hand.HuidigeSpeler())
-                       {
-                           handenVanEenSpeler.Add(hand);
-                           if (handenVanEenSpeler.Count == 2)
-                           {
-                               return handenVanEenSpeler;
-                           }
-                       }
-                   }
-
-                   return null;
-               }*/
 
         /// <summary>
         /// Hoeveel handen de speler heeft.

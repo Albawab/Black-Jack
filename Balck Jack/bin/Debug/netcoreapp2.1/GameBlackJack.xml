@@ -263,7 +263,7 @@
         </member>
         <member name="P:HenE.GameBlackJack.SpelSpullen.Tafel.StapelKaarten">
             <summary>
-            Gets ts De stapel van de kaarten.
+            Gets or sets ts De stapel van de kaarten.
             </summary>
         </member>
         <member name="P:HenE.GameBlackJack.SpelSpullen.Tafel.MinimalenZet">
@@ -717,6 +717,11 @@
             Die toont inzet.
             </summary>
         </member>
+        <member name="F:HenE.GameBlackJack.Enum.Meldingen.MagNietVerdubbelen">
+            <summary>
+            Als de speler wil of heeft geen fiches dan mag hij niet verdubbelen.
+            </summary>
+        </member>
         <member name="F:HenE.GameBlackJack.Enum.Meldingen.ToonHand">
             <summary>
             Die toont de hand.
@@ -772,6 +777,11 @@
             Als de speler heeft waarde die gelijk aan de waarde van de dealer, dus hij moet  wachten.
             </summary>
         </member>
+        <member name="F:HenE.GameBlackJack.Enum.Meldingen.MagNietSplitsen">
+            <summary>
+            Als de speler niet splitsen mag.
+            </summary>
+        </member>
         <member name="F:HenE.GameBlackJack.Enum.Meldingen.Gewonnen">
             <summary>
             Als de speler is gewonnen dan laat hem dat weten.
@@ -800,6 +810,11 @@
         <member name="F:HenE.GameBlackJack.Enum.Meldingen.DealerGepassed">
             <summary>
             Als de dealer heeft score tussen 17 en 21.
+            </summary>
+        </member>
+        <member name="F:HenE.GameBlackJack.Enum.Meldingen.FichesKoppen">
+            <summary>
+            als de speler heeft fiches gekocht.
             </summary>
         </member>
         <member name="T:HenE.GameBlackJack.Enum.HandStatussen">
@@ -1057,6 +1072,7 @@
             </summary>
             <param name="huidigeHand">De hand van de speler.</param>
             <param name="actie">De actie die de speler heeft gekozen.</param>
+            <returns> heeft een actie gedaan of niet.</returns>
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.Beginnen">
             <summary>
@@ -1072,6 +1088,7 @@
             </summary>
             <param name="hand">De huidige hand.</param>
             <param name="deActie">De actie die de speler wil doen.</param>
+            <returns>Heeft actie gedaan of niet.</returns>
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.Verdubbelen(HenE.GameBlackJack.SpelerHand)">
             <summary>
@@ -1154,6 +1171,16 @@
             Controleer aan de hand van de dealer.
             </summary>
             <param name="dealerHand">De hand van de dealer.</param>
+        </member>
+        <member name="M:HenE.GameBlackJack.BlackjackController.SplitsHand(HenE.GameBlackJack.SpelerHand)">
+            <summary>
+            Splits de hand.
+            geef kaarten . en ook geef ficehs aan de hand .
+            De fiches zijn gelijk op de fiches die bij de hand die wordet gesplist.
+            De Kaarten zijn gelijk op de Kaarten die bij de hand die wordet gesplist.
+            </summary>
+            <param name="handDieGesplitstMoetWorden">De hand die wordt gesplitst.</param>
+            <returns>De hand.</returns>
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.BeeindHetSpel(System.Collections.Generic.List{HenE.GameBlackJack.Hand})">
             <summary>
@@ -1337,16 +1364,6 @@
             </summary>
             <param name="dealer">De dealer die wordt toegevoegd.</param>
             <returns>De hand van de dealer.</returns>
-        </member>
-        <member name="M:HenE.GameBlackJack.Spel.SplitsHand(HenE.GameBlackJack.SpelerHand)">
-            <summary>
-            Splits de hand.
-            geef kaarten . en ook geef ficehs aan de hand .
-            De fiches zijn gelijk op de fiches die bij de hand die wordet gesplist.
-            De Kaarten zijn gelijk op de Kaarten die bij de hand die wordet gesplist.
-            </summary>
-            <param name="handDieGesplitstMoetWorden">De hand die wordt gesplitst.</param>
-            <returns>De hand.</returns>
         </member>
         <member name="M:HenE.GameBlackJack.Spel.InitialiseerHetSpel(HenE.GameBlackJack.Dealer,System.Collections.Generic.List{HenE.GameBlackJack.Speler})">
             <summary>

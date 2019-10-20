@@ -112,13 +112,13 @@
             laat een speler weten dat een andere speler wordt gestopt.
             </summary>
             <param name="speler">De speler die wordt geïnformeerd.</param>
-            <param name="hand">De hand van de speler die wordt gestopt,</param>
+            <param name="hand">De hand van de speler die wordt gestopt.</param>
         </member>
         <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.SpelerGestopt(HenE.GameBlackJack.SpelerHand)">
             <summary>
             laat de speler weten dat hij wordt gestopt.
             </summary>
-            <param name="hand">De hand van de speler die wordt gestopt,</param>
+            <param name="hand">De hand van de speler die wordt gestopt,.</param>
         </member>
         <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.BlackJack(HenE.GameBlackJack.Hand)">
             <summary>
@@ -136,6 +136,7 @@
             <summary>
             Tell de speler dat de andere dood is.
             </summary>
+            <param name="speler">De speler die een message ontvangt.</param>
             <param name="hand">De hand die dood wordt.</param>
         </member>
         <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellDealerDied(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Hand)">
@@ -151,6 +152,24 @@
             </summary>
             <param name="speler">Speler die krijgt een message.</param>
             <param name="hand">huidige hand.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellFiches(HenE.GameBlackJack.Speler)">
+            <summary>
+            Als de speler heeft fiches gekocht, dan toon het waarde van zijn waarde.
+            </summary>
+            <param name="speler">De speler die heeft gekocht.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellMagNietVerdubbeln(HenE.GameBlackJack.Speler)">
+            <summary>
+            Tell de speler dat hij mag niet verdubellen.
+            </summary>
+            <param name="speler">De speler die een message heeft gekregen.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellMagNietSplitsen(HenE.GameBlackJack.Speler)">
+            <summary>
+            Tell de speler dat hij niet mag splitsen.
+            </summary>
+            <param name="speler">De speler die een massage ontvangt.</param>
         </member>
         <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellHand(HenE.GameBlackJack.SpelerHand,HenE.GameBlackJack.Enum.Meldingen,System.String)">
             <summary>

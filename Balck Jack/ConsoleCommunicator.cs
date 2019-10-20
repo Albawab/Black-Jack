@@ -29,7 +29,7 @@ namespace HenEBalck_Jack
         private void ToonFiches(Speler speler)
         {
             Console.WriteLine();
-            Console.WriteLine($"{speler.Naam} heeft {0} ingezet.", speler.Fiches.WaardeVanDeFiches);
+            Console.WriteLine($"{speler.Naam} heeft {speler.Fiches.WaardeVanDeFiches} ingezet.");
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace HenEBalck_Jack
         /// <summary>
         /// Als de speler heeft fiches verdient.
         /// </summary>
-        private void Verdienen(Speler speler,Hand hand)
+        private void Verdienen(Speler speler, Hand hand)
         {
             SpelerHand spelerHand = hand as SpelerHand;
             Console.WriteLine();
@@ -102,7 +102,6 @@ namespace HenEBalck_Jack
             {
                 Console.WriteLine($"De waarde van de kaarten die bij de hand van de dealer is {this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten)}");
                 Console.WriteLine($"de dealer heeft nu");
-
             }
             else
             {
@@ -183,7 +182,7 @@ namespace HenEBalck_Jack
         /// laat een speler weten dat een andere speler wordt gestopt.
         /// </summary>
         /// <param name="speler">De speler die wordt geïnformeerd.</param>
-        /// <param name="hand">De hand van de speler die wordt gestopt,</param>
+        /// <param name="hand">De hand van de speler die wordt gestopt.</param>
         private void SpelerGestopt(Speler speler, Hand hand)
         {
             if (hand.IsDealerHand)
@@ -195,13 +194,12 @@ namespace HenEBalck_Jack
                 SpelerHand spelerHand = hand as SpelerHand;
                 Console.WriteLine($"{speler.Naam} let op dat {spelerHand.Speler.Naam} wordt gestopt.");
             }
-
         }
 
         /// <summary>
         /// laat de speler weten dat hij wordt gestopt.
         /// </summary>
-        /// <param name="hand">De hand van de speler die wordt gestopt,</param>
+        /// <param name="hand">De hand van de speler die wordt gestopt,.</param>
         private void SpelerGestopt(SpelerHand hand)
         {
             Console.WriteLine();
@@ -233,8 +231,9 @@ namespace HenEBalck_Jack
         /// <summary>
         /// Tell de speler dat de andere dood is.
         /// </summary>
+        /// <param name="speler">De speler die een message ontvangt.</param>
         /// <param name="hand">De hand die dood wordt.</param>
-        private void TellDied(Speler speler ,Hand hand)
+        private void TellDied(Speler speler, Hand hand)
         {
             Console.WriteLine();
             SpelerHand spelerHand = hand as SpelerHand;
@@ -263,6 +262,36 @@ namespace HenEBalck_Jack
             Console.WriteLine();
             Console.WriteLine($"{speler.Naam} let op,");
             Console.WriteLine($"dealer is gepassed want hij heet {this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten)} score.");
+        }
+
+        /// <summary>
+        /// Als de speler heeft fiches gekocht, dan toon het waarde van zijn waarde.
+        /// </summary>
+        /// <param name="speler">De speler die heeft gekocht.</param>
+        private void TellFiches(Speler speler)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"{speler.Naam} je hebt nu {speler.Fiches.WaardeVanDeFiches} waarde van fiches.");
+        }
+
+        /// <summary>
+        /// Tell de speler dat hij mag niet verdubellen.
+        /// </summary>
+        /// <param name="speler">De speler die een message heeft gekregen.</param>
+        private void TellMagNietVerdubbeln(Speler speler)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"{speler.Naam} je Mag niet verdubbeln.");
+        }
+
+        /// <summary>
+        /// Tell de speler dat hij niet mag splitsen.
+        /// </summary>
+        /// <param name="speler">De speler die een massage ontvangt.</param>
+        private void TellMagNietSplitsen(Speler speler)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"{speler.Naam} Je mag niet splitsen.");
         }
     }
 }

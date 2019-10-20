@@ -79,7 +79,7 @@ namespace HenE.GameBlackJack.SpelSpullen
         public Fiches Fiches { get; set; }
 
         /// <summary>
-        /// Gets ts De stapel van de kaarten.
+        /// Gets or sets ts De stapel van de kaarten.
         /// </summary>
         public StapelKaarten StapelKaarten { get; set; }
 

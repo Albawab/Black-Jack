@@ -81,6 +81,15 @@ namespace HenEBalck_Jack
                 case Meldingen.GeenFiches:
                     this.GeenFiches(speler);
                     break;
+                case Meldingen.FichesKoppen:
+                    this.TellFiches(speler);
+                    break;
+                case Meldingen.MagNietVerdubbelen:
+                    this.TellMagNietVerdubbeln(speler);
+                    break;
+                case Meldingen.MagNietSplitsen:
+                    this.TellMagNietSplitsen(speler);
+                    break;
             }
         }
 

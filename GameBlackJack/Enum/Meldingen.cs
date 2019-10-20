@@ -24,6 +24,11 @@ namespace HenE.GameBlackJack.Enum
         ToonInzet,
 
         /// <summary>
+        /// Als de speler wil of heeft geen fiches dan mag hij niet verdubbelen.
+        /// </summary>
+        MagNietVerdubbelen,
+
+        /// <summary>
         /// Die toont de hand.
         /// </summary>
         ToonHand,
@@ -79,6 +84,11 @@ namespace HenE.GameBlackJack.Enum
         Hold,
 
         /// <summary>
+        /// Als de speler niet splitsen mag.
+        /// </summary>
+        MagNietSplitsen,
+
+        /// <summary>
         /// Als de speler is gewonnen dan laat hem dat weten.
         /// </summary>
         Gewonnen,
@@ -107,5 +117,10 @@ namespace HenE.GameBlackJack.Enum
         /// Als de dealer heeft score tussen 17 en 21.
         /// </summary>
         DealerGepassed,
+
+        /// <summary>
+        /// als de speler heeft fiches gekocht.
+        /// </summary>
+        FichesKoppen,
     }
 }
