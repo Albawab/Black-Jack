@@ -7,6 +7,7 @@ namespace Balck_Jack
     using System;
     using HenE.GameBlackJack;
     using HenE.GameBlackJack.SpelSpullen;
+    using HenEBalck_Jack;
     using HenEBalck_Jack.Helpers;
     using static HenE.GameBlackJack.Fiche;
 
@@ -44,26 +45,28 @@ namespace Balck_Jack
             Console.WriteLine("Speler: A");
             Console.ResetColor();
             Console.WriteLine("Leuk je komt Black Jack spelen. Wilt je me je naam vertelen?");
-            string naamSpelerA = Console.ReadLine();
-            Speler spelerA = new Speler(naamSpelerA);
+
+            // string naamSpelerA = Console.ReadLine();
+            Speler spelerA = new Speler("A");
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Speler: B");
             Console.ResetColor();
             Console.WriteLine("Leuk je komt Black Jack spelen. Wilt je me je naam vertelen?");
-            string naamSpelerB = Console.ReadLine();
-            Speler spelerB = new Speler(naamSpelerB);
+
+            // string naamSpelerB = Console.ReadLine();
+            Speler spelerB = new Speler("B");
 
             // koopt fiches vbij de cassiere
             spelerA.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(90, 20, true));
             spelerB.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(90, 20, true));
 
             Console.WriteLine();
-            Console.WriteLine(spelerA.Naam + "Je hebt gekocht");
+            Console.WriteLine(spelerA.Naam + " Je hebt gekocht");
             FichesConsolePrinter.PrintWaardeFiches(spelerA.Fiches);
             FichesConsolePrinter.PrintFiches(spelerA.Fiches);
             Console.WriteLine();
-            Console.WriteLine(spelerB.Naam + "Je hebt gekocht");
+            Console.WriteLine(spelerB.Naam + " Je hebt gekocht");
             FichesConsolePrinter.PrintWaardeFiches(spelerB.Fiches);
             FichesConsolePrinter.PrintFiches(spelerB.Fiches);
 
@@ -78,7 +81,7 @@ namespace Balck_Jack
                 throw new ArgumentOutOfRangeException("Het plek is niet meer beschikbaar.");
             }
 
-            BlackjackController blackJackController = new BlackjackController(tafel);
+            BlackjackController blackJackController = new BlackjackController(tafel, new ConsoleCommunicatorBehandelen());
 
             blackJackController.Start();
             Console.ReadLine();

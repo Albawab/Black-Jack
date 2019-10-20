@@ -1,10 +1,27 @@
 C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\bin\Debug\netstandard2.0\GameBlackJack.deps.json
 C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\bin\Debug\netstandard2.0\GameBlackJack.dll
 C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.csprojAssemblyReference.cache
-C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.csproj.CoreCompileInputs.cache
 C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.AssemblyInfoInputs.cache
 C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.AssemblyInfo.cs
 C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\bin\Debug\netstandard2.0\GameBlackJack.pdb
 C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\bin\Debug\netstandard2.0\GameBlackJack.xml
 C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.dll
 C:\Users\Abdul\Desktop\Balck Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.pdb
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\GameBlackJack\bin\Debug\netstandard2.0\GameBlackJack.deps.json
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\GameBlackJack\bin\Debug\netstandard2.0\GameBlackJack.dll
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\GameBlackJack\bin\Debug\netstandard2.0\GameBlackJack.pdb
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\GameBlackJack\bin\Debug\netstandard2.0\GameBlackJack.xml
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.csprojAssemblyReference.cache
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.AssemblyInfoInputs.cache
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.AssemblyInfo.cs
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.dll
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.pdb
+C:\Users\Abdul\Desktop\Werk\Black-Jack\GameBlackJack\bin\Debug\netstandard2.0\GameBlackJack.deps.json
+C:\Users\Abdul\Desktop\Werk\Black-Jack\GameBlackJack\bin\Debug\netstandard2.0\GameBlackJack.dll
+C:\Users\Abdul\Desktop\Werk\Black-Jack\GameBlackJack\bin\Debug\netstandard2.0\GameBlackJack.pdb
+C:\Users\Abdul\Desktop\Werk\Black-Jack\GameBlackJack\bin\Debug\netstandard2.0\GameBlackJack.xml
+C:\Users\Abdul\Desktop\Werk\Black-Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.csprojAssemblyReference.cache
+C:\Users\Abdul\Desktop\Werk\Black-Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.AssemblyInfoInputs.cache
+C:\Users\Abdul\Desktop\Werk\Black-Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.AssemblyInfo.cs
+C:\Users\Abdul\Desktop\Werk\Black-Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.dll
+C:\Users\Abdul\Desktop\Werk\Black-Jack\GameBlackJack\obj\Debug\netstandard2.0\GameBlackJack.pdb
