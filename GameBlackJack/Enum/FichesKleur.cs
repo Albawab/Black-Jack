@@ -33,5 +33,10 @@ namespace HenE.GameBlackJack.Enum
         /// Rode fiche.
         /// </summary>
         Rood,
+
+        /// <summary>
+        /// Wit fiche
+        /// </summary>
+        Wit,
     }
 }

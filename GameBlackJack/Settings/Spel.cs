@@ -230,13 +230,8 @@ namespace HenE.GameBlackJack
         /// <returns>Heeft de speler het verdubbelt of niet.</returns>
         public bool Verdubbelen(SpelerHand hand, StapelKaarten stapelKaarten)
         {
-            if (hand.GeefFichesBijHand())
-            {
-                // is eigenlijk Kopen
-                return this.Kopen(hand, stapelKaarten);
-            }
-
-            return false;
+            // is eigenlijk Kopen
+            return this.Kopen(hand, stapelKaarten);
         }
 
         /// <summary>

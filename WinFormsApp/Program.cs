@@ -16,6 +16,7 @@ namespace HenE.WinFormsApp
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
+        [Obsolete]
         static void Main()
         {
             Application.EnableVisualStyles();

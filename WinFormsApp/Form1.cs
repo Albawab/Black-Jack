@@ -17,6 +17,7 @@ namespace WinFormsApp
 {
     public partial class BlackJack : Form
     {
+        WinFormCommunicator communicator = new WinFormCommunicator();
         TextBox[] textBoxesSpelers = new TextBox[5];
         private Tafel Tafel { get; set; }
         private BlackjackController blackjackController;
@@ -38,7 +39,7 @@ namespace WinFormsApp
             Fiches cassiereFiches = FicheFactory.CreateFiches(1000);
 
             // tafel
-            this.Tafel = Tafel.CreateBlackJackTafel(cassiereFiches.GeefMeFischesTerWaardeVan(500));
+            this.Tafel = Tafel.CreateBlackJackTafel(cassiereFiches.GeefMeFischesTerWaardeVan(500, 50, true));
             blackjackController = new BlackjackController(this.Tafel, new WinFormCommunicator());
             // is   de waarde vban de fiches nu 500?
 
@@ -55,7 +56,7 @@ namespace WinFormsApp
             {
                 throw new ArgumentOutOfRangeException("Het plek is niet meer beschikbaar.");
             }
-            spelerA.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(90, 20, true));
+            spelerA.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(90, 100, true));
             this.AddSpelerBoxToArray();
         }
 
@@ -93,6 +94,8 @@ namespace WinFormsApp
             Start.Visible = false;
             //Thread.Sleep(1000);
             Hand1.Visible = true;
+            Hand1.Text = communicator.Ask(Tafel.Plekken[0].Speler, HenE.GameBlackJack.Enum.Vragen.Inzetten);
+
             /*            blackjackController.Start();*/
         }
 
@@ -113,7 +116,7 @@ namespace WinFormsApp
         /// </summary>
         /// <param name="sender">Een object.</param>
         /// <param name="e">Een event.</param
-        private void speler1_TextChanged(object sender, EventArgs e)
+        private void Speler1_TextChanged(object sender, EventArgs e)
         {
             speler1.Text = speler1.Text;
         }

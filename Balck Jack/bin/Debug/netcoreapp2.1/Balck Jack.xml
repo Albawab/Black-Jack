@@ -16,6 +16,13 @@
             <param name="color">De kleur die gaat passen.</param>
             <param name="message">De message die de kleur wordt veranderd.</param>
         </member>
+        <member name="M:HenEBalck_Jack.ColorConsole.Write(System.ConsoleColor,System.String)">
+            <summary>
+            Change de kleur van een text.
+            </summary>
+            <param name="color">De kleur die gaat passen.</param>
+            <param name="message">De message die de kleur wordt veranderd.</param>
+        </member>
         <member name="T:HenEBalck_Jack.ConsoleCommunicatorBehandelen">
             <summary>
             De console die gaat communicte tussen de speler en het spel doen.
@@ -120,13 +127,13 @@
             </summary>
             <param name="hand">De hand van de speler die wordt gestopt,.</param>
         </member>
-        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.BlackJack(HenE.GameBlackJack.Hand)">
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.BlackJack(HenE.GameBlackJack.SpelerHand)">
             <summary>
             Laat de persoon weten dat de andere speler is black jack.
             </summary>
             <param name="hand">De hand die black jack is.</param>
         </member>
-        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellDied(HenE.GameBlackJack.Hand)">
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellDied(HenE.GameBlackJack.SpelerHand)">
             <summary>
             Tell de speler dat hij dood is.
             </summary>
@@ -171,7 +178,38 @@
             </summary>
             <param name="speler">De speler die een massage ontvangt.</param>
         </member>
-        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellHand(HenE.GameBlackJack.SpelerHand,HenE.GameBlackJack.Enum.Meldingen,System.String)">
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellNieuweHand(HenE.GameBlackJack.Speler)">
+            <summary>
+            laat de speler weten dat hij een nieuwe hand heeft gekregen.
+            </summary>
+            <param name="speler">De speler die een message heeft gekregen.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.BlackJackVerdienen(HenE.GameBlackJack.SpelerHand,System.String)">
+            <summary>
+            tell de speler dat hij fiches heeft verdienen.
+            </summary>
+            <param name="spelerHand">De hand van de speler.</param>
+            <param name="info">Meer informatie.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellGeenActie(HenE.GameBlackJack.SpelerHand)">
+            <summary>
+            laat de speler dat weten hij geen actie heeft.
+            </summary>
+            <param name="spelerHand">de hand van de speler.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellNietGelijkFiches(HenE.GameBlackJack.Speler)">
+            <summary>
+            Laat de speler weten dat De fiches met de speler en de fiches die de speler wil inzetten zijn niet gelijk.
+            </summary>
+            <param name="speler">De speler die een message kreeg.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellTafelMaxMinInzet(HenE.GameBlackJack.Speler)">
+            <summary>
+            Laat de speler weten de mixinzet en mininzet van de tafel.
+            </summary>
+            <param name="speler">De speler die een message zal krijgen.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellHand(HenE.GameBlackJack.Hand,HenE.GameBlackJack.Enum.Meldingen,System.String)">
             <summary>
             geef informatie over iets gebeurt.
             Wijs melding naar de juiste methode die de melding toont.
@@ -214,6 +252,12 @@
             <param name="speler">De speler die gaat fiches kopen.</param>
             <param name="waarde">De waarde die de speler wil kopen van fiches.</param>
             <returns>Is de speler gekocht fiches of niet.</returns>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.AskNieuwRondje(HenE.GameBlackJack.Speler)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.SleuitHetSpel">
+            <inheritdoc/>
         </member>
         <member name="T:HenEBalck_Jack.Helpers.FichesConsolePrinter">
             <summary>

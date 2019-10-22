@@ -185,11 +185,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\BlackJackResources\\BlackJackResources.csproj",
+      "projectUniqueName": "C:\\Users\\Abdul\\Desktop\\Black Jack\\BlackJackResources\\BlackJackResources.csproj",
       "projectName": "BlackJackResources",
-      "projectPath": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\BlackJackResources\\BlackJackResources.csproj",
+      "projectPath": "C:\\Users\\Abdul\\Desktop\\Black Jack\\BlackJackResources\\BlackJackResources.csproj",
       "packagesPath": "C:\\Users\\Abdul\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\BlackJackResources\\obj\\",
+      "outputPath": "C:\\Users\\Abdul\\Desktop\\Black Jack\\BlackJackResources\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

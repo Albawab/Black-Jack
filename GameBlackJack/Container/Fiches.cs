@@ -111,11 +111,11 @@ namespace HenE.GameBlackJack.SpelSpullen
             // check eerst of ik fiches heb die de maxWaarde hebben maxFiches
             foreach (Fiche fiche in this.fiches)
             {
-                if (fiche.Waarde == maxFicheWaarde)
+                if (fiche.Waarde <= maxFicheWaarde)
                 {
                     if (returnFiches.WaardeVanDeFiches + fiche.Waarde <= waardeInEuros)
                     {
-                        // ok, voeg tioe aan de return wfiches
+                        // ok, voeg toe aan de return wfiches
                         returnFiches.Add(fiche);
                     }
                 }
@@ -164,7 +164,7 @@ namespace HenE.GameBlackJack.SpelSpullen
                 returnFiches = null;
             }
 
-            // ok alle fiches die ik terug geef verwijderen uitr mijn lijst
+            // ok alle fiches die ik terug geef verwijderen uit mijn lijst
             if (returnFiches != null)
             {
                 foreach (Fiche fiche in returnFiches.fiches)
@@ -174,17 +174,6 @@ namespace HenE.GameBlackJack.SpelSpullen
             }
 
             return returnFiches;
-        }
-
-        /// <summary>
-        /// Deze method geeft een fiche aan de dealer.
-        /// verwijdeert de fiches vanuit de list van de fiches.
-        /// </summary>
-        /// <param name="waardeInEuros">De waarde van de fiches in euro.</param>
-        /// <returns>De fiches.</returns>
-        public Fiches GeefMeFischesTerWaardeVan(int waardeInEuros)
-        {
-            return this.GeefMeFischesTerWaardeVan(waardeInEuros, 20, false);
         }
 
         /// <summary>

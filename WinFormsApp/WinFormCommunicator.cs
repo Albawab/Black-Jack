@@ -33,32 +33,27 @@ namespace HenE.WinFormsApp
             }
         }
 
-        public bool AskFichesInzetten(SpelerHand hand, int minWaarde)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool AskFichesInzetten(SpelerHand hand, out int minWaarde)
         {
             throw new NotImplementedException();
         }
 
-        public bool AskFichesKopen(SpelerHand hand)
+        public bool AskFichesKopen(Speler speler, out int waarde)
         {
             throw new NotImplementedException();
         }
 
-        public bool AskFichesKopen(SpelerHand hand, Vragen vragen)
+        public bool AskNieuwRondje(Speler speler)
         {
             throw new NotImplementedException();
         }
 
-        public bool AskFichesKopen(Speler speler, out int vragen)
+        public int AskWhichAction(SpelerHand hand, List<Acties> acties)
         {
             throw new NotImplementedException();
         }
 
-        public bool AskWhichAction(SpelerHand hand, List<Acties> acties)
+        public void SleuitHetSpel()
         {
             throw new NotImplementedException();
         }
@@ -77,7 +72,12 @@ namespace HenE.WinFormsApp
             }
         }
 
-        public void TellHand(SpelerHand hand, Meldingen melding)
+        public void TellHand(SpelerHand hand, Meldingen melding, string meerInformatie)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TellHand(Hand hand, Meldingen melding, string meerInformatie)
         {
             throw new NotImplementedException();
         }
@@ -87,11 +87,17 @@ namespace HenE.WinFormsApp
             throw new NotImplementedException();
         }
 
-        public void TellPlayer(Speler speler, Meldingen melding, SpelerHand hand)
+        public void TellPlayer(Speler speler, Meldingen melding, Hand hand, string meerInformatie)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Vraan de speler om de fiches te inzetten.
+        /// </summary>
+        /// <param name="speler">De speler die wordt gevraagd.</param>
+        /// <param name="info">Meer informatie.</param>
+        /// <returns>Het antwoord als string.</returns>
         protected string StelInzettenVraag(Speler speler, string info)
         {
             DlgInzetten dlg = new DlgInzetten(speler);
@@ -102,11 +108,6 @@ namespace HenE.WinFormsApp
             }
 
             return string.Empty;
-        }
-
-        int ICommunicate.AskWhichAction(SpelerHand hand, List<Acties> acties)
-        {
-            throw new NotImplementedException();
         }
     }
 }

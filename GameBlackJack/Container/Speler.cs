@@ -6,6 +6,7 @@ namespace HenE.GameBlackJack
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using HenE.GameBlackJack.Enum;
     using HenE.GameBlackJack.Interface;
     using HenE.GameBlackJack.SpelSpullen;
@@ -82,72 +83,5 @@ namespace HenE.GameBlackJack
 
             return this.HuidigeTafel.SpelerVerlaatTafel(this);
         }
-
-        /// <summary>
-        /// De speler zet een fiche in bij de hand in.
-        /// </summary>
-        /// <param name="hand">De hand van de speler.</param>
-        /// <param name="waarde">De waarde die de speler wil bij de hand .</param>
-        public void ZetFichesBijHandIn(SpelerHand hand, int waarde)
-        {
-            if (this.fiches.ReadOnlyFiches.Count != 0)
-            {
-                foreach (Fiche fiche in this.fiches.ReadOnlyFiches)
-                {
-                    /*                   while (!this.HeeftDitBedragInFichesbak(waarde))
-                                       {
-                                           if (this.CheckAntwoord())
-                                           {
-                                               this.Fiches.GeefMeFischesTerWaardeVan(20, 10, false);
-                                           }
-                                       }*/
-
-                    hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(waarde, 1, false));
-                    break;
-                }
-            }
-        }
-
-        /// <summary>
-        /// De speler zet een fiche in bij de hand in.
-        /// </summary>
-        /// <param name="hand">De hand van de speler.</param>
-        public void ZetFichesBijHandIn(SpelerHand hand)
-        {
-            if (this.fiches.ReadOnlyFiches.Count != 0)
-            {
-                /*                while (!this.HeeftDitBedragInFichesbak(hand.Inzet.WaardeVanDeFiches))
-                                {
-                                                       if (this.CheckAntwoord())
-                                    {
-                                        this.Fiches.GeefMeFischesTerWaardeVan(20, 10, false);
-                                    }
-                                }*/
-
-                hand.Inzet.Add(this.Fiches.GeefMeFischesTerWaardeVan(20, 1, false));
-            }
-        }
-
-        /// <summary>
-        /// Als de speler heeft geen fiches meer.
-        /// Vraag hem of hij wil Kopen.
-        /// </summary>
-        /// <returns>Heeft de speler fiches of niet.</returns>
-        public bool HeeftSpelerNogFiches()
-        {
-            if (this.Fiches.ReadOnlyFiches.Count == 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Vraag of de speler dat bedrag inde fichesbak heeft.
-        /// </summary>
-        /// <param name="bedrag">Bedrag die bij de hand moet zijn.</param>
-        /// <returns>Check of heet dat bedrag of niet.</returns>
-        private bool HeeftDitBedragInFichesbak(int bedrag) => bedrag <= this.fiches.WaardeVanDeFiches;
     }
 }

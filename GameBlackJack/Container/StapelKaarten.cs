@@ -39,7 +39,7 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// <summary>
         /// Neem een kaart van de stapel kaarten.
         /// </summary>
-        /// <returns>Kaart.</returns>
+        /// <returns>De eerste kaart van de stapel of null als er geen kaarten zijn.</returns>
         public Kaart NeemEenKaart()
         {
             if (this.Kaarten.Count == 0)
@@ -53,7 +53,7 @@ namespace HenE.GameBlackJack.SpelSpullen
         }
 
         /// <summary>
-        /// functie om de stapel kaarten te resetten.
+        /// functie om de stapel kaarten te resetten. voor elke stapel kaarten wordt een reeks kaarten toegevoegd.
         /// </summary>
         public void Reset()
         {
@@ -81,8 +81,6 @@ namespace HenE.GameBlackJack.SpelSpullen
                     this.Kaarten.Add(new Kaart(KaartKleur.Schoppen, tekenVanKaart, this.GeefWaardeAanKaart()));
                 }
             }
-
-            // this.Shuffle(5);
         }
 
         /// <summary>
@@ -124,7 +122,7 @@ namespace HenE.GameBlackJack.SpelSpullen
         }
 
         /// <summary>
-        /// Geef de juste waarde aan een kaart.
+        /// Geef de juiste waarde aan een kaart.
         /// </summary>
         private int GeefWaardeAanKaart()
         {

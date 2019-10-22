@@ -24,5 +24,17 @@ namespace HenEBalck_Jack
             Console.WriteLine(message);
             Console.ResetColor();
         }
+
+        /// <summary>
+        /// Change de kleur van een text.
+        /// </summary>
+        /// <param name="color">De kleur die gaat passen.</param>
+        /// <param name="message">De message die de kleur wordt veranderd.</param>
+        public static void Write(ConsoleColor color, string message)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(message);
+            Console.ResetColor();
+        }
     }
 }

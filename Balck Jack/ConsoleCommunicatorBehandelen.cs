@@ -6,10 +6,12 @@ namespace HenEBalck_Jack
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading;
     using HenE.GameBlackJack;
     using HenE.GameBlackJack.Enum;
     using HenE.GameBlackJack.Interface;
     using HenE.GameBlackJack.Settings;
+    using HenEBalck_Jack.Helpers;
     using HenEConsole_Balck_Jack;
 
     /// <summary>
@@ -26,39 +28,49 @@ namespace HenEBalck_Jack
         /// <param name="hand">De hand die krijgt een melding.</param>
         /// <param name="melding">De text van een melding.</param>
         /// <param name="meerInformatie">Geef aan de spelers meer informatie die zij nodig hebben.</param>
-        public void TellHand(SpelerHand hand, Meldingen melding, string meerInformatie)
+        public void TellHand(Hand hand, Meldingen melding, string meerInformatie)
         {
+            SpelerHand spelerHand = hand as SpelerHand;
             switch (melding)
             {
                 case Meldingen.ToonInzet:
-                    this.ToonInzet(hand);
+                    this.ToonInzet(spelerHand);
                     break;
                 case Meldingen.Verliezen:
-                    this.Verliezen(hand);
+                    this.Verliezen(spelerHand);
                     break;
                 case Meldingen.KaartenVanDeHand:
-                    this.KaartenVanDeHand(hand.Speler, hand);
+                    this.KaartenVanDeHand(spelerHand.Speler, spelerHand);
                     break;
                 case Meldingen.Fout:
-                    this.FoutMelding(hand);
+                    this.FoutMelding(spelerHand);
                     break;
                 case Meldingen.Hold:
-                    this.HoldHand(hand);
+                    this.HoldHand(spelerHand);
                     break;
                 case Meldingen.Gewonnen:
-                    this.Gewonnen(hand);
+                    this.Gewonnen(spelerHand);
                     break;
                 case Meldingen.ActieGekozen:
-                    this.ActieGekozen(hand, meerInformatie);
+                    this.ActieGekozen(spelerHand, meerInformatie);
                     break;
                 case Meldingen.Gestopt:
-                    this.SpelerGestopt(hand);
-                    break;
-                case Meldingen.BlackJack:
-                    this.BlackJack(hand);
+                    this.SpelerGestopt(spelerHand);
                     break;
                 case Meldingen.Verdienen:
                     this.Verdienen(hand);
+                    break;
+                case Meldingen.YouDied:
+                    this.TellDied(spelerHand);
+                    break;
+                case Meldingen.BlackJack:
+                    this.BlackJack(spelerHand);
+                    break;
+                case Meldingen.BlackJackVerdienen:
+                    this.BlackJackVerdienen(spelerHand, meerInformatie);
+                    break;
+                case Meldingen.GeenActie:
+                    this.TellGeenActie(spelerHand);
                     break;
             }
         }
@@ -89,6 +101,15 @@ namespace HenEBalck_Jack
                     break;
                 case Meldingen.MagNietSplitsen:
                     this.TellMagNietSplitsen(speler);
+                    break;
+                case Meldingen.NieuweHand:
+                    this.TellNieuweHand(speler);
+                    break;
+                case Meldingen.NietGelijkFiches:
+                    this.TellNietGelijkFiches(speler);
+                    break;
+                case Meldingen.VoorwaardenTafelFiches:
+                    this.TellTafelMaxMinInzet(speler);
                     break;
             }
         }
@@ -133,9 +154,6 @@ namespace HenEBalck_Jack
                 case Meldingen.Gestopt:
                     this.SpelerGestopt(speler, hand);
                     break;
-                case Meldingen.BlackJack:
-                    this.BlackJack(hand);
-                    break;
                 case Meldingen.YouDied:
                     this.TellDied(speler, hand);
                     break;
@@ -161,9 +179,9 @@ namespace HenEBalck_Jack
                 Console.WriteLine($" {actie.ToString()}- {mogelijkActies[actie - 1]}");
             }
 
-            Console.WriteLine("Kies maar een van die actie. Type maar het nummer van de actie.");
+            Console.WriteLine("Kies maar een van die acties. Type maar het nummer van de acties.");
             string answer = Console.ReadLine();
-            while (!this.IsGeldigWaarde(answer, out actieNummer) || (actieNummer > mogelijkActies.Count || actieNummer < 1))
+            while (!this.IsGeldigWaarde(answer, out actieNummer) || actieNummer > mogelijkActies.Count || actieNummer < 1)
             {
                 Console.WriteLine("Type maar een nummer of een juiste keuze.");
                 answer = Console.ReadLine();
@@ -182,14 +200,26 @@ namespace HenEBalck_Jack
         {
             Console.WriteLine();
             int waardeDieDeSpelerWilInzetten = 0;
+            Console.WriteLine();
+            Console.WriteLine($"Type maar alleen nummers tussen 1 en {hand.Speler.HuidigeTafel.Fiches.WaardeVanDeFiches} gebruiken.");
             ColorConsole.WriteLine(ConsoleColor.Cyan, $"{hand.Speler.Naam} Wat voor waarde wil je inzetten?");
             string answerWarde = Console.ReadLine();
-            while (!this.IsGeldigWaarde(answerWarde, out waardeDieDeSpelerWilInzetten))
+            while (!this.IsGeldigWaarde(answerWarde, out waardeDieDeSpelerWilInzetten) || waardeDieDeSpelerWilInzetten > hand.Speler.HuidigeTafel.MaximaleInZet || waardeDieDeSpelerWilInzetten < hand.Speler.HuidigeTafel.MinimalenZet)
             {
-                Console.WriteLine(hand.Speler.Naam + " Type maar een nummer.");
-                answerWarde = Console.ReadLine();
-            }
+                Console.WriteLine();
+                Console.WriteLine($"Type maar alleen nummers tussen {hand.Speler.HuidigeTafel.MaximaleInZet} en {hand.Speler.HuidigeTafel.Fiches.WaardeVanDeFiches} gebruiken.");
+                if (waardeDieDeSpelerWilInzetten < hand.Speler.HuidigeTafel.Fiches.WaardeVanDeFiches)
+                {
+                    Console.WriteLine("Mag niet het nummer null of minder dan null zijn");
+                }
+                else
+                {
+                    Console.WriteLine("Type maar een nummer.");
+                }
 
+                answerWarde = Console.ReadLine();
+
+            }
             waarde = waardeDieDeSpelerWilInzetten;
             return true;
         }
@@ -203,21 +233,32 @@ namespace HenEBalck_Jack
         public bool AskFichesKopen(Speler speler, out int waarde)
         {
             int waardeDieDeSpelerWilInzetten = 0;
-            Console.WriteLine("Wil je fiches kopen Y of N?");
+            Console.WriteLine("Wil je fiches kopen J of N?");
             string answer = Console.ReadLine().ToLower();
             while (!this.IsAntwoordGoed(answer))
             {
-                Console.WriteLine("Je mag alleen Y of N typen!");
+                Console.WriteLine("Je mag alleen J of N typen!");
                 answer = Console.ReadLine();
             }
 
-            if (answer == "y")
+            if (answer == "j")
             {
                 Console.WriteLine($"{speler.Naam} Wat voor waarde wil je kopen?");
                 string answerWarde = Console.ReadLine();
-                while (!this.IsGeldigWaarde(answerWarde, out waardeDieDeSpelerWilInzetten))
+
+                while (!this.IsGeldigWaarde(answerWarde, out waardeDieDeSpelerWilInzetten) || waardeDieDeSpelerWilInzetten > speler.HuidigeTafel.Fiches.WaardeVanDeFiches || waardeDieDeSpelerWilInzetten <= 0)
                 {
-                    Console.WriteLine("Type maar een nummer.");
+                    Console.WriteLine();
+                    Console.WriteLine($"Type maar alleen nummers tussen 1 en {speler.HuidigeTafel.Fiches.WaardeVanDeFiches} gebruiken.");
+                    if (waardeDieDeSpelerWilInzetten <= 0)
+                    {
+                        Console.WriteLine($"Mag niet het nummer null of minder dan null zijn of hoger dan{speler.HuidigeTafel.Fiches.WaardeVanDeFiches}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Type maar een nummer.");
+                    }
+
                     answerWarde = Console.ReadLine();
                 }
 
@@ -227,6 +268,34 @@ namespace HenEBalck_Jack
 
             waarde = waardeDieDeSpelerWilInzetten;
             return false;
+        }
+
+        /// <inheritdoc/>
+        public bool AskNieuwRondje(Speler speler)
+        {
+            Console.WriteLine();
+            Thread.Sleep(2000);
+            Console.WriteLine("Wil je nu een nieuw rondje doen of niet J of N?");
+            string answer = Console.ReadLine().ToLower();
+            while (!this.IsAntwoordGoed(answer))
+            {
+                Console.WriteLine("Je mag alleen J of N typen!");
+                answer = Console.ReadLine();
+            }
+
+            if (answer == "j")
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <inheritdoc/>
+        public void SleuitHetSpel()
+        {
+            Console.WriteLine();
+            ColorConsole.WriteLine(ConsoleColor.Yellow, "Tot Ziens!");
         }
     }
 }

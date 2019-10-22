@@ -22,7 +22,7 @@ namespace HenE.GameBlackJack.Interface
         /// <param name="hand">De hand die krijgt een melding.</param>
         /// <param name="melding">De text van een melding.</param>
         /// <param name="meerInformatie">Geef aan de spelers meer informatie die zij nodig hebben.</param>
-        void TellHand(SpelerHand hand, Meldingen melding, string meerInformatie);
+        void TellHand(Hand hand, Meldingen melding, string meerInformatie);
 
         /// <summary>
         /// geef informatie over iets gebeurt.
@@ -63,5 +63,17 @@ namespace HenE.GameBlackJack.Interface
         /// <param name="waarde">De waarde van fiches die de speler wil kopen.</param>
         /// <returns>Heeft de speler gekocht of niet.</returns>
         bool AskFichesKopen(Speler speler, out int waarde);
+
+        /// <summary>
+        /// Vraag de speler of hij een nieuw rondje wil doen.
+        /// </summary>
+        /// <param name="speler">De speler die een vraag heeft ontvangen.</param>
+        /// <returns>Wil de speler een nieuw rondje of niet.</returns>
+        bool AskNieuwRondje(Speler speler);
+
+        /// <summary>
+        /// Doe het spel dicht.
+        /// </summary>
+        void SleuitHetSpel();
     }
 }

@@ -55,25 +55,22 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// Splits de hand.
         /// </summary>
-        /// <returns>De hand die wordt gesplitst.</returns>
-        public SpelerHand Splits()
+        /// <param name="handDieGesplitstMoetWorden">De hand die wordt gesplitst.</param>
+        /// <returns>De nieuwe hand.</returns>
+        public SpelerHand Splits(SpelerHand handDieGesplitstMoetWorden)
         {
             // todo, wat zijn de voorwaarden om te splitsen?
-            if (this.Kaarten.Count == 2)
+            if (handDieGesplitstMoetWorden.Kaarten.Count == 2)
             {
                 if (true/*this.Kaarten[0].Waarde == this.Kaarten[1].Waarde*/)
                 {
                     // kaarten moeten gelijk zijn
                     // kaarten moeten een even aantal zijn (== twee).
                     // welke controle moet ik doen
-                    SpelerHand nieuweHand = new SpelerHand(this.Speler);
+                    this.Kaarten.Add(handDieGesplitstMoetWorden.Kaarten[0]);
+                    handDieGesplitstMoetWorden.Kaarten.Remove(this.Kaarten[0]);
 
-                    for (int index = 0; index < this.Kaarten.Count; index++)
-                    {
-                        nieuweHand.Kaarten.Add(this.Kaarten[index]);
-                    }
-
-                    return nieuweHand;
+                    return this;
                 }
             }
 
@@ -85,31 +82,18 @@ namespace HenE.GameBlackJack
             // en dat ik de kaarten van deze hand moet delen en verplaatsen naar de nieuwe hand
         }
 
-        /// <summary>
-        /// Heef fiches bij de hand van de speler.
-        /// </summary>
-        /// <returns>Geeft de speler fiches bij de hand of niet.</returns>
-        public bool GeefFichesBijHand()
-        {
-            foreach (Fiche fiche in this.Inzet.ReadOnlyFiches)
-            {
-                this.Speler.ZetFichesBijHandIn(this, fiche.Waarde);
-            }
-
-            return true;
-        }
-
-        /// <summary>
+/*        /// <summary>
         /// Zoek op in hand die wordt gesplits voor de fiches.
         /// Geef de nieuwe hand de zelfde fiches.
         /// </summary>
         /// <param name="handWordtGesplits">De hand die gesplits wordt.</param>
-        public void GeefFichesBijHandDieWordtGesplits(SpelerHand handWordtGesplits)
+        /// <param name="blackjackController">De black jack controller.</param>
+        public void GeefFichesBijHandDieWordtGesplits(SpelerHand handWordtGesplits, BlackjackController blackjackController)
         {
             foreach (Fiche fiche in handWordtGesplits.Inzet.ReadOnlyFiches)
             {
-                this.Speler.ZetFichesBijHandIn(this, fiche.Waarde);
+                blackjackController.ZetFichesBijHandIn(this, fiche.Waarde);
             }
-        }
+        }*/
     }
 }

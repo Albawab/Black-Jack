@@ -150,14 +150,6 @@
             <param name="exact">of je wel of niet exact moet uitkomen.</param>
             <returns>de lijst met fiches.</returns>
         </member>
-        <member name="M:HenE.GameBlackJack.SpelSpullen.Fiches.GeefMeFischesTerWaardeVan(System.Int32)">
-            <summary>
-            Deze method geeft een fiche aan de dealer.
-            verwijdeert de fiches vanuit de list van de fiches.
-            </summary>
-            <param name="waardeInEuros">De waarde van de fiches in euro.</param>
-            <returns>De fiches.</returns>
-        </member>
         <member name="M:HenE.GameBlackJack.SpelSpullen.Fiches.AddFicheAanFichesBak(HenE.GameBlackJack.Fiche)">
             <summary>
             Zet een fiche in de fiches bak in.
@@ -208,11 +200,11 @@
             <summary>
             Neem een kaart van de stapel kaarten.
             </summary>
-            <returns>Kaart.</returns>
+            <returns>De eerste kaart van de stapel of null als er geen kaarten zijn.</returns>
         </member>
         <member name="M:HenE.GameBlackJack.SpelSpullen.StapelKaarten.Reset">
             <summary>
-            functie om de stapel kaarten te resetten.
+            functie om de stapel kaarten te resetten. voor elke stapel kaarten wordt een reeks kaarten toegevoegd.
             </summary>
         </member>
         <member name="M:HenE.GameBlackJack.SpelSpullen.StapelKaarten.Shuffle(System.Int32)">
@@ -223,7 +215,7 @@
         </member>
         <member name="M:HenE.GameBlackJack.SpelSpullen.StapelKaarten.GeefWaardeAanKaart">
             <summary>
-            Geef de juste waarde aan een kaart.
+            Geef de juiste waarde aan een kaart.
             </summary>
         </member>
         <member name="T:HenE.GameBlackJack.SpelSpullen.Tafel">
@@ -436,33 +428,6 @@
             </summary>
             <returns>Heeft de speler de tafel verlaten of niet.</returns>
         </member>
-        <member name="M:HenE.GameBlackJack.Speler.ZetFichesBijHandIn(HenE.GameBlackJack.SpelerHand,System.Int32)">
-            <summary>
-            De speler zet een fiche in bij de hand in.
-            </summary>
-            <param name="hand">De hand van de speler.</param>
-            <param name="waarde">De waarde die de speler wil bij de hand .</param>
-        </member>
-        <member name="M:HenE.GameBlackJack.Speler.ZetFichesBijHandIn(HenE.GameBlackJack.SpelerHand)">
-            <summary>
-            De speler zet een fiche in bij de hand in.
-            </summary>
-            <param name="hand">De hand van de speler.</param>
-        </member>
-        <member name="M:HenE.GameBlackJack.Speler.HeeftSpelerNogFiches">
-            <summary>
-            Als de speler heeft geen fiches meer.
-            Vraag hem of hij wil Kopen.
-            </summary>
-            <returns>Heeft de speler fiches of niet.</returns>
-        </member>
-        <member name="M:HenE.GameBlackJack.Speler.HeeftDitBedragInFichesbak(System.Int32)">
-            <summary>
-            Vraag of de speler dat bedrag inde fichesbak heeft.
-            </summary>
-            <param name="bedrag">Bedrag die bij de hand moet zijn.</param>
-            <returns>Check of heet dat bedrag of niet.</returns>
-        </member>
         <member name="T:HenE.GameBlackJack.SpelerHand">
             <summary>
             Heeft de kaarten en de fiches van de speler en ook heeft eigen situatie.
@@ -490,24 +455,12 @@
             </summary>
             <returns>Huidige speler.</returns>
         </member>
-        <member name="M:HenE.GameBlackJack.SpelerHand.Splits">
+        <member name="M:HenE.GameBlackJack.SpelerHand.Splits(HenE.GameBlackJack.SpelerHand)">
             <summary>
             Splits de hand.
             </summary>
-            <returns>De hand die wordt gesplitst.</returns>
-        </member>
-        <member name="M:HenE.GameBlackJack.SpelerHand.GeefFichesBijHand">
-            <summary>
-            Heef fiches bij de hand van de speler.
-            </summary>
-            <returns>Geeft de speler fiches bij de hand of niet.</returns>
-        </member>
-        <member name="M:HenE.GameBlackJack.SpelerHand.GeefFichesBijHandDieWordtGesplits(HenE.GameBlackJack.SpelerHand)">
-            <summary>
-            Zoek op in hand die wordt gesplits voor de fiches.
-            Geef de nieuwe hand de zelfde fiches.
-            </summary>
-            <param name="handWordtGesplits">De hand die gesplits wordt.</param>
+            <param name="handDieGesplitstMoetWorden">De hand die wordt gesplitst.</param>
+            <returns>De nieuwe hand.</returns>
         </member>
         <member name="T:HenE.GameBlackJack.Enum.Acties">
             <summary>
@@ -579,6 +532,11 @@
         <member name="F:HenE.GameBlackJack.Enum.FichesKleur.Rood">
             <summary>
             Rode fiche.
+            </summary>
+        </member>
+        <member name="F:HenE.GameBlackJack.Enum.FichesKleur.Wit">
+            <summary>
+            Wit fiche
             </summary>
         </member>
         <member name="T:HenE.GameBlackJack.Enum.KaartKleur">
@@ -732,6 +690,11 @@
             Als de dealer dood is, dan laat de anders dat weten.
             </summary>
         </member>
+        <member name="F:HenE.GameBlackJack.Enum.Meldingen.BlackJackVerdienen">
+            <summary>
+            de waarde van de balck jack die hij heeft gekregen.
+            </summary>
+        </member>
         <member name="F:HenE.GameBlackJack.Enum.Meldingen.YouDied">
             <summary>
             Als de persoon dood is dan laat hem dat weten.
@@ -815,6 +778,21 @@
         <member name="F:HenE.GameBlackJack.Enum.Meldingen.FichesKoppen">
             <summary>
             als de speler heeft fiches gekocht.
+            </summary>
+        </member>
+        <member name="F:HenE.GameBlackJack.Enum.Meldingen.NieuweHand">
+            <summary>
+            Als de speler heeft een nieuwe hand gekrijgen.
+            </summary>
+        </member>
+        <member name="F:HenE.GameBlackJack.Enum.Meldingen.NietGelijkFiches">
+            <summary>
+            De fiches met de speler en de fiches die de speler wil inzetten zijn niet gelijk
+            </summary>
+        </member>
+        <member name="F:HenE.GameBlackJack.Enum.Meldingen.VoorwaardenTafelFiches">
+            <summary>
+            De maximaleInZet en min minimaleInZet bij de tafel die mag inzetten.
             </summary>
         </member>
         <member name="T:HenE.GameBlackJack.Enum.HandStatussen">
@@ -919,7 +897,7 @@
             Maak contact between de speler en dealer met de controller van het spel.
             </summary>
         </member>
-        <member name="M:HenE.GameBlackJack.Interface.ICommunicate.TellHand(HenE.GameBlackJack.SpelerHand,HenE.GameBlackJack.Enum.Meldingen,System.String)">
+        <member name="M:HenE.GameBlackJack.Interface.ICommunicate.TellHand(HenE.GameBlackJack.Hand,HenE.GameBlackJack.Enum.Meldingen,System.String)">
             <summary>
             geef informatie over iets gebeurt.
             Wijs melding naar de juiste methode die de melding toont.
@@ -967,6 +945,18 @@
             <param name="speler">De speler die gaat fiches kopen.</param>
             <param name="waarde">De waarde van fiches die de speler wil kopen.</param>
             <returns>Heeft de speler gekocht of niet.</returns>
+        </member>
+        <member name="M:HenE.GameBlackJack.Interface.ICommunicate.AskNieuwRondje(HenE.GameBlackJack.Speler)">
+            <summary>
+            Vraag de speler of hij een nieuw rondje wil doen.
+            </summary>
+            <param name="speler">De speler die een vraag heeft ontvangen.</param>
+            <returns>Wil de speler een nieuw rondje of niet.</returns>
+        </member>
+        <member name="M:HenE.GameBlackJack.Interface.ICommunicate.SleuitHetSpel">
+            <summary>
+            Doe het spel dicht.
+            </summary>
         </member>
         <member name="T:HenE.GameBlackJack.Kaart">
             <summary>
@@ -1061,6 +1051,7 @@
             <param name="waarde">De waarde van een fiche.</param>
             <returns>Fiches die de speler wil inzetten bij de hand.</returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:HenE.GameBlackJack.BlackjackController.ZetFichesBijHandIn(HenE.GameBlackJack.SpelerHand,System.Int32)" -->
         <member name="M:HenE.GameBlackJack.BlackjackController.StartRonde">
             <summary>
             Start een rondje.
@@ -1251,6 +1242,19 @@
             <param name="melding">De text van de melding.</param>
             <param name="hand">De hand van de speler.</param>
             <param name="meerInformatie">Geef aan de spelers meer informatie die zij nodig hebben.</param>
+        </member>
+        <member name="M:HenE.GameBlackJack.BlackjackController.MagDealerBehandelen">
+            <summary>
+            Check de handen zijn in spel, als ja dan laat de dealer door gaan.
+            </summary>
+            <returns>Mag de dealer mee gaan of niet.</returns>
+        </member>
+        <member name="M:HenE.GameBlackJack.BlackjackController.AskNieuwRondje(System.Collections.Generic.List{HenE.GameBlackJack.Speler})">
+            <summary>
+            Ask de speler of hij een nieuw rondje wil doen.
+            </summary>
+            <param name="spelers">De lijst van de spelers die aan het spel bezig zijn.</param>
+            <returns>wil de speler een nieuw rondje doen of niet.</returns>
         </member>
         <member name="T:HenE.GameBlackJack.Settings.BlackJackPointsCalculator">
             <summary>

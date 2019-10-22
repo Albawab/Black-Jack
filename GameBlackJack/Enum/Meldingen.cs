@@ -39,6 +39,11 @@ namespace HenE.GameBlackJack.Enum
         DealerDied,
 
         /// <summary>
+        /// de waarde van de balck jack die hij heeft gekregen.
+        /// </summary>
+        BlackJackVerdienen,
+
+        /// <summary>
         /// Als de persoon dood is dan laat hem dat weten.
         /// </summary>
         YouDied,
@@ -122,5 +127,20 @@ namespace HenE.GameBlackJack.Enum
         /// als de speler heeft fiches gekocht.
         /// </summary>
         FichesKoppen,
+
+        /// <summary>
+        /// Als de speler heeft een nieuwe hand gekrijgen.
+        /// </summary>
+        NieuweHand,
+
+        /// <summary>
+        /// De fiches met de speler en de fiches die de speler wil inzetten zijn niet gelijk
+        /// </summary>
+        NietGelijkFiches,
+
+        /// <summary>
+        /// De maximaleInZet en min minimaleInZet bij de tafel die mag inzetten.
+        /// </summary>
+        VoorwaardenTafelFiches,
     }
 }

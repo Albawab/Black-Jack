@@ -24,15 +24,17 @@ namespace Balck_Jack
         {
             // fiches
             // de hoofdbak met fiches
-            Fiches cassiereFiches = FicheFactory.CreateFiches(1000);
-            FichesConsolePrinter.PrintWaardeFiches(cassiereFiches);
+            Fiches cassiereFiches = FicheFactory.CreateFiches(5000);
+
+            // FichesConsolePrinter.PrintWaardeFiches(cassiereFiches);
 
             // tafel
-            Tafel tafel = Tafel.CreateBlackJackTafel(cassiereFiches.GeefMeFischesTerWaardeVan(500));
-            FichesConsolePrinter.PrintWaardeFiches(tafel.Fiches);
+            Tafel tafel = Tafel.CreateBlackJackTafel(cassiereFiches.GeefMeFischesTerWaardeVan(2500, 50, false));
+
+            // FichesConsolePrinter.PrintWaardeFiches(tafel.Fiches);
 
             // is   de waarde vban de fiches nu 500?
-            FichesConsolePrinter.PrintWaardeFiches(cassiereFiches);
+            // FichesConsolePrinter.PrintWaardeFiches(cassiereFiches);
 
             // dealer
             // dealer aanmaken en toewijzen aan een tafel
@@ -42,49 +44,92 @@ namespace Balck_Jack
             // spelers, komen binnen en kopen bij het cassiere fiches
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Speler: A");
-            Console.ResetColor();
-            Console.WriteLine("Leuk je komt Black Jack spelen. Wilt je me je naam vertelen?");
 
-            // string naamSpelerA = Console.ReadLine();
-            Speler spelerA = new Speler("A");
+            Console.WriteLine("Leuk dat je Black Jack komt spelen. Wat is je naam?");
+            bool isLetters = false;
+            Speler spelerA = null;
+
+            while (!isLetters)
+            {
+                Console.WriteLine("Je mag alleen letters typen.");
+                int chetIsNotLetter = 0;
+                string naamSpelerA = Console.ReadLine();
+                spelerA = new Speler(naamSpelerA);
+                char[] lettersOfName = naamSpelerA.ToCharArray();
+                naamSpelerA.ToCharArray();
+                for (int i = 0; i < naamSpelerA.Length; i++)
+                {
+                    if (!char.IsLetter(lettersOfName[i]))
+                    {
+                        chetIsNotLetter++;
+                        break;
+                    }
+                }
+
+                if (chetIsNotLetter == 0)
+                {
+                    isLetters = true;
+                }
+                else
+                {
+                    Console.WriteLine("Je hebt fout gedaan!");
+                }
+            }
+
+            Console.ResetColor();
             Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Speler: B");
-            Console.ResetColor();
-            Console.WriteLine("Leuk je komt Black Jack spelen. Wilt je me je naam vertelen?");
+            /*            Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Speler: B");
+                        Console.ResetColor();
+                        Console.WriteLine("Leuk je komt Black Jack spelen. Wilt je me je naam vertelen?");
 
-            // string naamSpelerB = Console.ReadLine();
-            Speler spelerB = new Speler("B");
+                        // string naamSpelerB = Console.ReadLine();
+                        Speler spelerB = new Speler("B");
+                        */
 
             // koopt fiches vbij de cassiere
-            spelerA.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(90, 20, true));
-            spelerB.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(90, 20, true));
+            Console.WriteLine("Wat zou je de waarde van fiches kopen?");
+            Console.WriteLine($"Mag alleen tussen 1 en {tafel.Fiches.WaardeVanDeFiches}");
+            string waardeFiches = Console.ReadLine();
+            int waarde = 0;
+            while (!int.TryParse(waardeFiches, out waarde) || waarde > tafel.Fiches.WaardeVanDeFiches || waarde <= 0)
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Type maar alleen nummers tussen 1 en {tafel.Fiches.WaardeVanDeFiches} gebruiken.");
+                if (!int.TryParse(waardeFiches, out waarde))
+                {
+                    Console.WriteLine("Je mag geen letters gebruiken.");
+                }
+
+                waardeFiches = Console.ReadLine();
+            }
+
+            spelerA.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(waarde, 50, true));
+            /*            spelerB.Fiches.Add(cassiereFiches.GeefMeFischesTerWaardeVan(90, 20, true));*/
 
             Console.WriteLine();
             Console.WriteLine(spelerA.Naam + " Je hebt gekocht");
             FichesConsolePrinter.PrintWaardeFiches(spelerA.Fiches);
             FichesConsolePrinter.PrintFiches(spelerA.Fiches);
             Console.WriteLine();
-            Console.WriteLine(spelerB.Naam + " Je hebt gekocht");
-            FichesConsolePrinter.PrintWaardeFiches(spelerB.Fiches);
-            FichesConsolePrinter.PrintFiches(spelerB.Fiches);
+            /*            Console.WriteLine(spelerB.Naam + " Je hebt gekocht");*/
+            /*            FichesConsolePrinter.PrintWaardeFiches(spelerB.Fiches);
+                        FichesConsolePrinter.PrintFiches(spelerB.Fiches);*/
 
-            FichesConsolePrinter.PrintWaardeFiches(cassiereFiches);
-
+            // FichesConsolePrinter.PrintWaardeFiches(cassiereFiches);
             if (!spelerA.GaatAanTafelZitten(tafel, 1))
             {
                 throw new ArgumentOutOfRangeException("Het plek is niet meer beschikbaar.");
             }
-            else if (!spelerB.GaatAanTafelZitten(tafel, 2))
-            {
-                throw new ArgumentOutOfRangeException("Het plek is niet meer beschikbaar.");
-            }
+
+            /*            else if (!spelerB.GaatAanTafelZitten(tafel, 2))
+                        {
+                            throw new ArgumentOutOfRangeException("Het plek is niet meer beschikbaar.");
+                        }*/
 
             BlackjackController blackJackController = new BlackjackController(tafel, new ConsoleCommunicatorBehandelen());
 
             blackJackController.Start();
-            Console.ReadLine();
         }
     }
 }
