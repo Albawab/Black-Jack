@@ -49,6 +49,9 @@ namespace HenE.GameBlackJack
                 throw new ArgumentNullException("Er is geen dealer.");
             }
 
+            this.BepaalWaarElkeSpelerGaatZitten();
+            this.spel.InitialiseerHetSpel(this.tafel.Dealer, this.tafel.Spelers);
+
             this.StartRonde();
             return true;
         }
@@ -97,8 +100,6 @@ namespace HenE.GameBlackJack
                     }
                     else
                     {
-                        this.TellToPlayers(this.tafel.Spelers, Meldingen.Gestopt, this.spelerHand, string.Empty);
-                        this.tafel.Spelers.Remove(spelerhand.Speler);
                         return false;
                     }
 
@@ -139,81 +140,85 @@ namespace HenE.GameBlackJack
                 throw new ArgumentNullException("Er zijn geen plekken met spelers.");
             }
 
-            this.BepaalWaarElkeSpelerGaatZitten();
-            this.spel.InitialiseerHetSpel(this.tafel.Dealer, this.tafel.Spelers);
+            this.spel.ResetHanden();
 
-            this.Beginnen();
-
-            while (this.spel.GaNaarDeVolgendeSpeelbareHand() != null)
+            if (this.Beginnen())
             {
-                Hand spelerHand = this.spel.HuidigeHand;
-                this.spelerHand = spelerHand as SpelerHand;
-                if (this.IsBlackJack(spelerHand))
-                {
-                    this.HandelBlackJack(this.spelerHand);
-                    this.communicator.TellHand(spelerHand, Meldingen.KaartenVanDeHand, string.Empty);
-                    this.communicator.TellHand(spelerHand, Meldingen.BlackJack, string.Empty);
 
-                    // this.TellToPlayers(this.tafel.Spelers, Meldingen.BlackJack, spelerHand, string.Empty);
-                }
-
-                if (spelerHand.Status != HandStatussen.BlackJeck && spelerHand.Status != HandStatussen.IsDood)
+                while (this.spel.GaNaarDeVolgendeSpeelbareHand() != null)
                 {
-                    List<Acties> mogelijkActies = this.ControleerHand(spelerHand);
-                    if (!spelerHand.IsDealerHand)
+                    Hand spelerHand = this.spel.HuidigeHand;
+                    this.spelerHand = spelerHand as SpelerHand;
+
+
+                    if (spelerHand.Status != HandStatussen.BlackJeck && spelerHand.Status != HandStatussen.IsDood)
                     {
-                        if (mogelijkActies.Count == 0)
+                        List<Acties> mogelijkActies = this.ControleerHand(spelerHand);
+                        if (!spelerHand.IsDealerHand)
                         {
-                            // dan kan ik niks en ga ik naar de volgende hand. Bijv, omdat de hand is gesloten
-                            this.communicator.TellHand(this.spelerHand, Meldingen.GeenActie, string.Empty);
-                            continue;
-                        }
+                            if (this.IsBlackJack(spelerHand))
+                            {
+                                this.HandelBlackJack(this.spelerHand);
+                                this.communicator.TellHand(spelerHand, Meldingen.KaartenVanDeHand, string.Empty);
+                                this.communicator.TellHand(spelerHand, Meldingen.BlackJack, string.Empty);
 
-                        while ((mogelijkActies.Count > 0 && spelerHand.Status == HandStatussen.InSpel) || spelerHand.Status == HandStatussen.Verdubbelen || spelerHand.Status == HandStatussen.Gesplitst || spelerHand.Status == HandStatussen.Gekochtocht)
-                        {
-                            if (mogelijkActies.Count == 1)
-                            {
-                                this.ProcessActie(this.spelerHand, mogelijkActies[0]);
+                                // this.TellToPlayers(this.tafel.Spelers, Meldingen.BlackJack, spelerHand, string.Empty);
                             }
-                            else
+
+                            if (mogelijkActies.Count == 0)
                             {
-                                // er zijn meerdere acties mogelijk, vraag aan de speler wat hij/zij wil
-                                Acties gekozenActie = this.AskActie(mogelijkActies, this.spelerHand);
-                                if (this.ProcessActie(this.spelerHand, gekozenActie))
+                                // dan kan ik niks en ga ik naar de volgende hand. Bijv, omdat de hand is gesloten
+                                this.communicator.TellHand(this.spelerHand, Meldingen.GeenActie, string.Empty);
+                                continue;
+                            }
+
+                            while ((mogelijkActies.Count > 0 && spelerHand.Status == HandStatussen.InSpel) || spelerHand.Status == HandStatussen.Verdubbelen || spelerHand.Status == HandStatussen.Gesplitst || spelerHand.Status == HandStatussen.Gekochtocht)
+                            {
+                                if (mogelijkActies.Count == 1)
                                 {
-                                    mogelijkActies = this.ControleerHand(spelerHand);
+                                    this.ProcessActie(this.spelerHand, mogelijkActies[0]);
                                 }
                                 else
                                 {
-                                    mogelijkActies.Remove(gekozenActie);
+                                    // er zijn meerdere acties mogelijk, vraag aan de speler wat hij/zij wil
+                                    Acties gekozenActie = this.AskActie(mogelijkActies, this.spelerHand);
+                                    if (this.ProcessActie(this.spelerHand, gekozenActie))
+                                    {
+                                        mogelijkActies = this.ControleerHand(spelerHand);
+                                    }
+                                    else
+                                    {
+                                        mogelijkActies.Remove(gekozenActie);
+                                    }
                                 }
                             }
                         }
-                    }
-                    else
-                    {
-                        if (this.MagDealerBehandelen())
-                        {
-                            // start behandelen met de dealer.
-                            this.dealerHand = spelerHand as DealerHand;
-                            this.BehandelDeDealer(this.dealerHand);
-                        }
                         else
                         {
-                            break;
+                            if (this.MagDealerBehandelen())
+                            {
+                                // start behandelen met de dealer.
+                                this.dealerHand = spelerHand as DealerHand;
+                                this.BehandelDeDealer(this.dealerHand);
+                            }
+                            else
+                            {
+                                break;
+                            }
                         }
                     }
                 }
-            }
 
-            this.BeeindHetSpel(this.spel.Handen);
-            if (this.AskNieuwRondje(this.tafel.Spelers))
-            {
-                this.StartRonde();
-            }
-            else
-            {
-                this.communicator.SleuitHetSpel();
+                this.BeeindHetSpel(this.spel.Handen);
+
+                if (this.AskNieuwRondje(this.tafel.Spelers))
+                {
+                    this.StartRonde();
+                }
+                else
+                {
+                    this.communicator.SleuitHetSpel();
+                }
             }
         }
 
@@ -258,7 +263,7 @@ namespace HenE.GameBlackJack
         /// Geef elke hand eerste kaart.Ook geeft allen de spelers tweede kaart.
         /// Dus de dealer krijgt een kaart.
         /// </summary>
-        private void Beginnen()
+        private bool Beginnen()
         {
             foreach (Speler speler in this.tafel.Spelers)
             {
@@ -281,12 +286,25 @@ namespace HenE.GameBlackJack
                     }
                     else
                     {
+                        // Wil niet mee doen.
                         // de speler wil niet inzetten en doet dus niet mee
-                        this.spel.SpelerVerwijderen(speler);
-                        continue; // while true
+                        this.communicator.TellPlayer(speler,Meldingen.GeenFiches);
+                        if (this.AskNieuwRondje(this.tafel.Spelers))
+                        {
+                            this.StartRonde();
+                            return false;
+                        }
+                        else
+                        {
+
+                            this.communicator.TellPlayer(speler, Meldingen.Gestopt);
+                            this.communicator.SleuitHetSpel();
+                            return false;
+                        }
                     }
                 }
 
+                // Vraag om te inzetten.
                 foreach (Hand hand in this.spel.Handen)
                 {
                     if (!hand.IsDealerHand)
@@ -301,8 +319,10 @@ namespace HenE.GameBlackJack
                                 break;
                             }
 
+                            // als ja dan heeft de speler de eisen van inzetten.
                             if (magInzetten)
                             {
+                                // dan mag inzetten.
                                 // Check of hij kan zet met de fiches of hij moet kopen.
                                 while (!this.ZetFichesBijHandIn(this.spelerHand, waardeVanDeInzetten))
                                 {
@@ -314,18 +334,40 @@ namespace HenE.GameBlackJack
                                     }
                                     else
                                     {
-                                        this.spel.SpelerVerwijderen(speler);
-                                        continue;
+                                        if (this.AskNieuwRondje(this.tafel.Spelers))
+                                        {
+                                            this.StartRonde();
+                                            return false;
+                                        }
+                                        else
+                                        {
+
+                                            this.communicator.TellPlayer(speler, Meldingen.Gestopt);
+                                            this.communicator.SleuitHetSpel();
+                                            return false;
+                                        }
                                     }
                                 }
 
-                                // Dan laat de andere spelers weten wat is gebeurt.
                                 this.communicator.TellHand(this.spelerHand, Meldingen.ToonInzet, string.Empty);
                             }
                             else
                             {
-                                this.spel.Handen.Remove(this.spelerHand);
-                                break;
+                                // Wil niet mee doen.
+                                // de speler wil niet inzetten en doet dus niet mee
+                                this.communicator.TellPlayer(speler, Meldingen.GeenFiches);
+                                if (this.AskNieuwRondje(this.tafel.Spelers))
+                                {
+                                    this.StartRonde();
+                                    return false;
+                                }
+                                else
+                                {
+
+                                    this.communicator.TellPlayer(speler, Meldingen.Gestopt);
+                                    this.communicator.SleuitHetSpel();
+                                    return false;
+                                }
                             }
                         }
                     }
@@ -380,6 +422,8 @@ namespace HenE.GameBlackJack
                     //  this.TellToPlayers(this.spel.Spelers, Meldingen.KaartenVanDeHand, spelerhand, string.Empty);
                 }
             }
+
+            return true;
         }
 
         /// <summary>
@@ -590,14 +634,17 @@ namespace HenE.GameBlackJack
             if (hand.Status == HandStatussen.BlackJeck)
             {
                 this.KeerUit(hand, this.BepaalFactorInzet(hand));
+                hand.Speler.Fiches.Add(hand.Inzet.GeefMeFischesTerWaardeVan(hand.Inzet.WaardeVanDeFiches, 100, true));
             }
             else if (hand.Status == HandStatussen.OnHold)
             {
                 this.communicator.TellHand(hand, Meldingen.Hold, string.Empty);
+                hand.Speler.Fiches.Add(hand.Inzet.GeefMeFischesTerWaardeVan(hand.Inzet.WaardeVanDeFiches, 100, true));
             }
             else if (hand.Status == HandStatussen.Gewonnen)
             {
                 this.KeerUit(hand, this.BepaalFactorInzet(hand));
+                hand.Speler.Fiches.Add(hand.Inzet.GeefMeFischesTerWaardeVan(hand.Inzet.WaardeVanDeFiches,100,true));
             }
             else
             {
@@ -779,6 +826,10 @@ namespace HenE.GameBlackJack
 
                         this.BetaalHand(spelerHand);
                     }
+                }
+                else
+                {
+                    hand.Close();
                 }
             }
         }

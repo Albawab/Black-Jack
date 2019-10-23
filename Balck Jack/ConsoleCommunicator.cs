@@ -123,6 +123,7 @@ namespace HenEBalck_Jack
                 Console.WriteLine($"{spelerHand.Speler.Naam} heeft nu");
             }
 
+            Thread.Sleep(2000);
             foreach (Kaart kaart in hand.Kaarten)
             {
                 ColorConsole.WriteLine(ConsoleColor.Green, $" {kaart.Kleur} van {kaart.Teken}");
@@ -144,7 +145,7 @@ namespace HenEBalck_Jack
         {
             Thread.Sleep(2000);
             Console.WriteLine();
-            ColorConsole.WriteLine(ConsoleColor.Yellow, $"{hand.Speler.Naam} mag wachten totdat het volgend rondje start want je heeft {this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten)} score en de dealer heeft het zelfde.");
+            ColorConsole.WriteLine(ConsoleColor.Yellow, $"{hand.Speler.Naam} mag wachten met dit hand totdat het volgend rondje start want je heeft {this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten)} score en de dealer heeft het zelfde.");
         }
 
         private void Gewonnen(SpelerHand hand)
@@ -199,6 +200,17 @@ namespace HenEBalck_Jack
         }
 
         /// <summary>
+        /// laat een speler weten dat hij  wordt gestopt.
+        /// </summary>
+        /// <param name="speler">De speler die wordt geïnformeerd.</param>
+        private void SpelerGestopt(Speler speler)
+        {
+            Thread.Sleep(2000);
+            ColorConsole.WriteLine(ConsoleColor.Red, $"{speler.Naam} je wordt gestopt.");
+            Thread.Sleep(1000);
+        }
+
+        /// <summary>
         /// laat een speler weten dat een andere speler wordt gestopt.
         /// </summary>
         /// <param name="speler">De speler die wordt geïnformeerd.</param>
@@ -249,7 +261,7 @@ namespace HenEBalck_Jack
             Thread.Sleep(2000);
             Console.WriteLine();
             SpelerHand spelerHand = hand as SpelerHand;
-            Console.WriteLine($"{spelerHand.Speler.Naam} je bent gestopt want je hebt {this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten)} score.");
+            Console.WriteLine($"{spelerHand.Speler.Naam} Dit hand wordt gestopt want dit hand heeft {this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten)} score.");
         }
 
         /// <summary>
@@ -292,6 +304,7 @@ namespace HenEBalck_Jack
             Thread.Sleep(2000);
             Console.WriteLine("Hij gaat de resultaten bereken dan weet je of je gewonnen bent of niet.");
             Thread.Sleep(2000);
+            Console.WriteLine();
             ColorConsole.WriteLine(ConsoleColor.Red, "Wacht even!");
             Thread.Sleep(2000);
         }
@@ -375,7 +388,7 @@ namespace HenEBalck_Jack
         {
             Console.WriteLine();
             Thread.Sleep(1000);
-            Console.WriteLine($"{speler.Naam} de fiches die je hem wil bij je hand inzetten en de fiches die in jouw portemonnee zijn zijn niet gelijk.");
+            Console.WriteLine($"{speler.Naam} de fiches die je hem wil bij je hand inzetten en de fiches die in jouw portemonnee staan zijn niet gelijk.");
             Console.WriteLine("Of je heeft geen fiches.");
         }
 
@@ -387,7 +400,7 @@ namespace HenEBalck_Jack
         {
             Thread.Sleep(2000);
             Console.WriteLine();
-            Console.WriteLine($"{speler.Naam} je moet  minimale inzet van {speler.HuidigeTafel.MinimalenZet} en maximale inzet van {speler.HuidigeTafel.MaximaleInZet} inzetten.");
+            Console.WriteLine($"{speler.Naam} je moet  minimale waarde van {speler.HuidigeTafel.MinimalenZet} in je portemonnee staan.");
         }
     }
 }

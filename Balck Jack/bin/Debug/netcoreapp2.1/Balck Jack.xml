@@ -114,6 +114,12 @@
             </summary>
             <param name="speler">De speler die wordt geïnformeerd.</param>
         </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.SpelerGestopt(HenE.GameBlackJack.Speler)">
+            <summary>
+            laat een speler weten dat hij  wordt gestopt.
+            </summary>
+            <param name="speler">De speler die wordt geïnformeerd.</param>
+        </member>
         <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.SpelerGestopt(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Hand)">
             <summary>
             laat een speler weten dat een andere speler wordt gestopt.

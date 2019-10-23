@@ -1384,6 +1384,11 @@
             <param name="stapelKaarten">De stapel kaarten van het spel.</param>
             <returns>Heeft de speler het verdubbelt of niet.</returns>
         </member>
+        <member name="M:HenE.GameBlackJack.Spel.ResetHanden">
+            <summary>
+            Reste de huidige hand tot eerste hand van de lijst van de handen die bij het spel bezig zijn.
+            </summary>
+        </member>
         <member name="M:HenE.GameBlackJack.Spel.Kopen(HenE.GameBlackJack.Hand,HenE.GameBlackJack.SpelSpullen.StapelKaarten)">
             <summary>
             Geef een kaart uit.
@@ -1398,6 +1403,13 @@
             </summary>
             <param name="spelerHand">De hand van de speler.</param>
             <returns>De lijst van de handen van de speler.</returns>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.RemoveHamden(System.Collections.Generic.List{HenE.GameBlackJack.SpelerHand})">
+            <summary>
+            Loopt door de handen van de speler.
+            Als de speler heeft meer dan een hand , dan verwijdert de reste van de handen en bewaart alleen de eerste hand.
+            </summary>
+            <param name="spelerHanden">De lijst van de handen van een speler.</param>
         </member>
     </members>
 </doc>

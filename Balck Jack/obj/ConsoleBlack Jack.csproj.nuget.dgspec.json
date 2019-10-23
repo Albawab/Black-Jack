@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Abdul\\Desktop\\Black Jack\\Balck Jack\\ConsoleBlack Jack.csproj": {}
+    "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\Balck Jack\\ConsoleBlack Jack.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Abdul\\Desktop\\Black Jack\\Balck Jack\\ConsoleBlack Jack.csproj": {
+    "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\Balck Jack\\ConsoleBlack Jack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Abdul\\Desktop\\Black Jack\\Balck Jack\\ConsoleBlack Jack.csproj",
+        "projectUniqueName": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\Balck Jack\\ConsoleBlack Jack.csproj",
         "projectName": "ConsoleBlack Jack",
-        "projectPath": "C:\\Users\\Abdul\\Desktop\\Black Jack\\Balck Jack\\ConsoleBlack Jack.csproj",
+        "projectPath": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\Balck Jack\\ConsoleBlack Jack.csproj",
         "packagesPath": "C:\\Users\\Abdul\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Abdul\\Desktop\\Black Jack\\Balck Jack\\obj\\",
+        "outputPath": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\Balck Jack\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -30,11 +30,11 @@
         "frameworks": {
           "netcoreapp2.1": {
             "projectReferences": {
-              "C:\\Users\\Abdul\\Desktop\\Black Jack\\BlackJackResources\\BlackJackResources.csproj": {
-                "projectPath": "C:\\Users\\Abdul\\Desktop\\Black Jack\\BlackJackResources\\BlackJackResources.csproj"
+              "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\BlackJackResources\\BlackJackResources.csproj": {
+                "projectPath": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\BlackJackResources\\BlackJackResources.csproj"
               },
-              "C:\\Users\\Abdul\\Desktop\\Black Jack\\GameBlackJack\\GameBlackJack.csproj": {
-                "projectPath": "C:\\Users\\Abdul\\Desktop\\Black Jack\\GameBlackJack\\GameBlackJack.csproj"
+              "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\GameBlackJack\\GameBlackJack.csproj": {
+                "projectPath": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\GameBlackJack\\GameBlackJack.csproj"
               }
             }
           }
@@ -75,14 +75,14 @@
         }
       }
     },
-    "C:\\Users\\Abdul\\Desktop\\Black Jack\\BlackJackResources\\BlackJackResources.csproj": {
+    "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\BlackJackResources\\BlackJackResources.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Abdul\\Desktop\\Black Jack\\BlackJackResources\\BlackJackResources.csproj",
+        "projectUniqueName": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\BlackJackResources\\BlackJackResources.csproj",
         "projectName": "BlackJackResources",
-        "projectPath": "C:\\Users\\Abdul\\Desktop\\Black Jack\\BlackJackResources\\BlackJackResources.csproj",
+        "projectPath": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\BlackJackResources\\BlackJackResources.csproj",
         "packagesPath": "C:\\Users\\Abdul\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Abdul\\Desktop\\Black Jack\\BlackJackResources\\obj\\",
+        "outputPath": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\BlackJackResources\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -133,14 +133,14 @@
         }
       }
     },
-    "C:\\Users\\Abdul\\Desktop\\Black Jack\\GameBlackJack\\GameBlackJack.csproj": {
+    "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\GameBlackJack\\GameBlackJack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Abdul\\Desktop\\Black Jack\\GameBlackJack\\GameBlackJack.csproj",
+        "projectUniqueName": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\GameBlackJack\\GameBlackJack.csproj",
         "projectName": "GameBlackJack",
-        "projectPath": "C:\\Users\\Abdul\\Desktop\\Black Jack\\GameBlackJack\\GameBlackJack.csproj",
+        "projectPath": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\GameBlackJack\\GameBlackJack.csproj",
         "packagesPath": "C:\\Users\\Abdul\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Abdul\\Desktop\\Black Jack\\GameBlackJack\\obj\\",
+        "outputPath": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\GameBlackJack\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

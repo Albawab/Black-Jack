@@ -4,11 +4,6 @@
 
 namespace HenE.GameBlackJack
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using HenE.GameBlackJack.Enum;
-    using HenE.GameBlackJack.Interface;
     using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>

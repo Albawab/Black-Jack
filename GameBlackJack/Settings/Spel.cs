@@ -178,7 +178,7 @@ namespace HenE.GameBlackJack
         /// <param name="speler">De speler die wordt verwijderd.</param>
         public void SpelerVerwijderen(Speler speler)
         {
-            this.spelers.Remove(speler);
+            this.Spelers.Remove(speler);
         }
 
         /// <summary>
@@ -235,6 +235,37 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
+        /// Reste de huidige hand tot eerste hand van de lijst van de handen die bij het spel bezig zijn.
+        /// </summary>
+        public void ResetHanden()
+        {
+            this.HuidigeHand = this.Handen[0];
+            List<SpelerHand> spelerHanden = new List<SpelerHand>();
+            for (int index = 0; index < this.Handen.Count; index++)
+            {
+                spelerHanden.Clear();
+                foreach (Hand hand in this.Handen)
+                {
+                    if (!hand.IsDealerHand)
+                    {
+                        if (!this.Handen[index].IsDealerHand)
+                        {
+                            SpelerHand spelerHand = hand as SpelerHand;
+                            SpelerHand spelerHand1 = this.Handen[index] as SpelerHand;
+                            if (spelerHand1.Speler == spelerHand.Speler)
+                            {
+                                spelerHanden.Add(spelerHand);
+                            }
+                        }
+                    }
+                }
+
+                this.RemoveHamden(spelerHanden);
+            }
+        }
+
+
+        /// <summary>
         /// Geef een kaart uit.
         /// </summary>
         /// <param name="hand">De hand die een kaart krijgt.</param>
@@ -270,6 +301,22 @@ namespace HenE.GameBlackJack
             }
 
             return handen;
+        }
+
+        /// <summary>
+        /// Loopt door de handen van de speler.
+        /// Als de speler heeft meer dan een hand , dan verwijdert de reste van de handen en bewaart alleen de eerste hand.
+        /// </summary>
+        /// <param name="spelerHanden">De lijst van de handen van een speler.</param>
+        private void RemoveHamden(List<SpelerHand> spelerHanden)
+        {
+            if (spelerHanden.Count > 1)
+            {
+                for (int index = 1; index < spelerHanden.Count; index++)
+                {
+                    this.Handen.Remove(spelerHanden[index]);
+                }
+            }
         }
     }
 }

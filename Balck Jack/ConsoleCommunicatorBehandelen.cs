@@ -111,6 +111,9 @@ namespace HenEBalck_Jack
                 case Meldingen.VoorwaardenTafelFiches:
                     this.TellTafelMaxMinInzet(speler);
                     break;
+                case Meldingen.Gestopt:
+                    this.SpelerGestopt(speler);
+                    break;
             }
         }
 
@@ -201,25 +204,23 @@ namespace HenEBalck_Jack
             Console.WriteLine();
             int waardeDieDeSpelerWilInzetten = 0;
             Console.WriteLine();
-            Console.WriteLine($"Type maar alleen nummers tussen 1 en {hand.Speler.HuidigeTafel.Fiches.WaardeVanDeFiches} gebruiken.");
+            Console.WriteLine($"Je hebt {hand.Speler.Fiches.WaardeVanDeFiches} als waarde van de fiches in je portemonnee."); 
+            Console.WriteLine();
+            Console.WriteLine($"Type maar alleen nummers tussen {hand.Speler.HuidigeTafel.MinimalenZet} en {hand.Speler.HuidigeTafel.MaximaleInZet}.");
             ColorConsole.WriteLine(ConsoleColor.Cyan, $"{hand.Speler.Naam} Wat voor waarde wil je inzetten?");
             string answerWarde = Console.ReadLine();
             while (!this.IsGeldigWaarde(answerWarde, out waardeDieDeSpelerWilInzetten) || waardeDieDeSpelerWilInzetten > hand.Speler.HuidigeTafel.MaximaleInZet || waardeDieDeSpelerWilInzetten < hand.Speler.HuidigeTafel.MinimalenZet)
             {
                 Console.WriteLine();
-                Console.WriteLine($"Type maar alleen nummers tussen {hand.Speler.HuidigeTafel.MaximaleInZet} en {hand.Speler.HuidigeTafel.Fiches.WaardeVanDeFiches} gebruiken.");
-                if (waardeDieDeSpelerWilInzetten < hand.Speler.HuidigeTafel.Fiches.WaardeVanDeFiches)
+                Console.WriteLine($"Type maar alleen nummers tussen {hand.Speler.HuidigeTafel.MinimalenZet} en {hand.Speler.HuidigeTafel.MaximaleInZet}.");
+                if (waardeDieDeSpelerWilInzetten <= 0)
                 {
-                    Console.WriteLine("Mag niet het nummer null of minder dan null zijn");
-                }
-                else
-                {
-                    Console.WriteLine("Type maar een nummer.");
+                    Console.WriteLine("Mag niet letters of nummer die null of minder dan null zijn");
                 }
 
                 answerWarde = Console.ReadLine();
-
             }
+
             waarde = waardeDieDeSpelerWilInzetten;
             return true;
         }
@@ -232,7 +233,11 @@ namespace HenEBalck_Jack
         /// <returns>Is de speler gekocht fiches of niet.</returns>
         public bool AskFichesKopen(Speler speler, out int waarde)
         {
+            Thread.Sleep(2000);
+            Console.WriteLine();
+            Console.WriteLine($"{speler.Naam} je hebt {speler.Fiches.WaardeVanDeFiches} waarde van fiches in je portemonnee.");
             int waardeDieDeSpelerWilInzetten = 0;
+            Thread.Sleep(2000);
             Console.WriteLine("Wil je fiches kopen J of N?");
             string answer = Console.ReadLine().ToLower();
             while (!this.IsAntwoordGoed(answer))
@@ -249,10 +254,10 @@ namespace HenEBalck_Jack
                 while (!this.IsGeldigWaarde(answerWarde, out waardeDieDeSpelerWilInzetten) || waardeDieDeSpelerWilInzetten > speler.HuidigeTafel.Fiches.WaardeVanDeFiches || waardeDieDeSpelerWilInzetten <= 0)
                 {
                     Console.WriteLine();
-                    Console.WriteLine($"Type maar alleen nummers tussen 1 en {speler.HuidigeTafel.Fiches.WaardeVanDeFiches} gebruiken.");
+                    Console.WriteLine($"Type maar alleen nummers tussen 1 en {speler.HuidigeTafel.Fiches.WaardeVanDeFiches}.");
                     if (waardeDieDeSpelerWilInzetten <= 0)
                     {
-                        Console.WriteLine($"Mag niet het nummer null of minder dan null zijn of hoger dan{speler.HuidigeTafel.Fiches.WaardeVanDeFiches}");
+                        Console.WriteLine($"Mag niet het nummer null of minder dan null zijn of hoger dan{speler.HuidigeTafel.Fiches.WaardeVanDeFiches}.");
                     }
                     else
                     {
