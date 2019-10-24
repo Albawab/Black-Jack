@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WinFormsApp</name>
+    </assembly>
+    <members>
+        <member name="F:HenE.WinFormsApp.Dialogs.DlgInzetten.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:HenE.WinFormsApp.Dialogs.DlgInzetten.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:HenE.WinFormsApp.Dialogs.DlgInzetten.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:HenE.WinFormsApp.WinFormCommunicator">
+            <summary>
+            Stuur een bericht en krijg antwoord van de speler.
+            </summary>
+        </member>
+        <member name="M:HenE.WinFormsApp.WinFormCommunicator.Ask(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Enum.Vragen,System.String)">
+            <summary>
+            Stuur een bericht met een vraag aan de speler en krijg antwoord op die vraag.
+            </summary>
+            <param name="ask">De vraag dit gesteld gaat worden.</param>
+            <returns>Het antwoord van de vraag.</returns>
+        </member>
+        <member name="M:HenE.WinFormsApp.WinFormCommunicator.Tell(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Enum.Meldingen,System.String)">
+            <summary>
+            Geef een bericht of informatie aan de speler.
+            </summary>
+            <param name="message">De melding die verstuurt gaat worden.</param>
+        </member>
+        <member name="M:HenE.WinFormsApp.WinFormCommunicator.StelInzettenVraag(HenE.GameBlackJack.Speler,System.String)">
+            <summary>
+            Vraan de speler om de fiches te inzetten.
+            </summary>
+            <param name="speler">De speler die wordt gevraagd.</param>
+            <param name="info">Meer informatie.</param>
+            <returns>Het antwoord als string.</returns>
+        </member>
+        <member name="M:HenE.WinFormsApp.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:HenE.WinFormsApp.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:HenE.WinFormsApp.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:HenE.WinFormsApp.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="M:WinFormsApp.BlackJack.NewGame">
+            <summary>
+            Het creat nieuw spel.
+            </summary>
+        </member>
+        <member name="M:WinFormsApp.BlackJack.BlackJack_Load(System.Object,System.EventArgs)">
+            <summary>
+            die voeg de speler in een array toe.
+            </summary>
+            <param name="sender">Een object.</param>
+            <param name="e">Een event.</param>
+        </member>
+        <member name="M:WinFormsApp.BlackJack.Start_Click(System.Object,System.EventArgs)">
+            <summary>
+            start het spel.
+            </summary>
+            <param name="sender">Een object.</param>
+            <param name="e">Een event.</param>
+        </member>
+        <member name="M:WinFormsApp.BlackJack.AddSpelerBoxToArray">
+            <summary>
+            Voeg de speler in de array in.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:WinFormsApp.BlackJack.Speler1_TextChanged(System.Object,System.EventArgs)" -->
+        <member name="F:WinFormsApp.BlackJack.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:WinFormsApp.BlackJack.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:WinFormsApp.BlackJack.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -171,7 +171,10 @@ namespace HenE.GameBlackJack
                                 continue;
                             }
 
-                            while ((mogelijkActies.Count > 0 && spelerHand.Status == HandStatussen.InSpel) || spelerHand.Status == HandStatussen.Verdubbelen || spelerHand.Status == HandStatussen.Gesplitst || spelerHand.Status == HandStatussen.Gekochtocht)
+                            while ((mogelijkActies.Count > 0 && spelerHand.Status == HandStatussen.InSpel)
+                                || spelerHand.Status == HandStatussen.Verdubbelen
+                                || spelerHand.Status == HandStatussen.Gesplitst
+                                || spelerHand.Status == HandStatussen.Gekochtocht)
                             {
                                 if (mogelijkActies.Count == 1)
                                 {
@@ -498,7 +501,7 @@ namespace HenE.GameBlackJack
                 }
                 else
                 {
-                    // de speler wil niet inzetten en doetr dus niet mee
+                    // de speler wil niet inzetten en doet dus niet mee
                     this.TellToPlayers(this.tafel.Spelers, Meldingen.GeenFiches, hand, string.Empty);
                     return false;
                 }
@@ -559,25 +562,15 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
-        /// Beaal aan de Hand.
+        /// Vermenigvuldig de waarde van de fisches in de hand met de factor.
         /// </summary>
         /// <param name="hand">Huidige hand.</param>
-        /// <param name="wordtBetaal">De waarde die worde gebetaald.</param>
-        private void KeerUit(SpelerHand hand, double wordtBetaal)
+        /// <param name="factor">De factor die wordt betaald.</param>
+        private void KeerUit(SpelerHand hand, double factor)
         {
-            if (wordtBetaal == 1.5)
-            {
-                float betaal = hand.Inzet.WaardeVanDeFiches * 1.5f;
-                int moetBetalenAanHand = (int)betaal;
-
-                this.FichesVerdienen(hand, moetBetalenAanHand);
-                this.communicator.TellHand(hand, Meldingen.BlackJackVerdienen, moetBetalenAanHand.ToString());
-            }
-            else if (wordtBetaal == 1.0)
-            {
-                this.TellToPlayers(this.tafel.Spelers, Meldingen.Verdienen, hand, string.Empty);
-                this.FichesVerdienen(hand, hand.Inzet.WaardeVanDeFiches);
-            }
+            // todo, ik wil hier naar afronden in het voordeel van de speler
+            this.FichesVerdienen(hand, (int)(hand.Inzet.WaardeVanDeFiches * factor));
+            this.communicator.TellHand(hand, Meldingen.Verdienen, hand.Inzet.WaardeVanDeFiches.ToString());
         }
 
         /// <summary>
@@ -696,6 +689,7 @@ namespace HenE.GameBlackJack
         /// <param name="dealerHand">De hand van de dealer.</param>
         private void BehandelDeDealer(DealerHand dealerHand)
         {
+            this.TellToPlayers(this.tafel.Spelers, Meldingen.KaartenVanDeHand, dealerHand, string.Empty);
             while (this.MoetDeDealerKopen(dealerHand))
             {
                 this.spel.Kopen(dealerHand, this.tafel.StapelKaarten);
@@ -747,21 +741,9 @@ namespace HenE.GameBlackJack
                 }
             }
 
-            SpelerHand nieuweHand = new SpelerHand(handDieGesplitstMoetWorden.Speler);
+            // als ik hier kom, dan heeft de speler voldoende fiches en kan er gesplist worden.
 
-            while (!this.ZetFichesBijHandIn(nieuweHand, handDieGesplitstMoetWorden.Inzet.WaardeVanDeFiches))
-            {
-                this.communicator.TellPlayer(this.spelerHand.Speler, Meldingen.NietGelijkFiches);
-                if (this.communicator.AskFichesKopen(nieuweHand.Speler, out waardeVanFiches))
-                {
-                    nieuweHand.Speler.Fiches.Add(this.tafel.Fiches.GeefMeFischesTerWaardeVan(waardeVanFiches, 100, true));
-                    this.communicator.TellPlayer(nieuweHand.Speler, Meldingen.Verdienen);
-                }
-                else
-                {
-                    return null;
-                }
-            }
+            SpelerHand nieuweHand = null;
 
             // zoek de postitie va de handDieGesplitstMoetWorden
             for (int index = 0; index < this.spel.Handen.Count; index++)
@@ -769,7 +751,7 @@ namespace HenE.GameBlackJack
                 if (this.spel.Handen[index] == handDieGesplitstMoetWorden)
                 {
                     // clone de oudehand
-                    nieuweHand.Splits(handDieGesplitstMoetWorden);
+                    nieuweHand = handDieGesplitstMoetWorden.Splits();
 
                     if (index == this.spel.Handen.Count)
                     {
@@ -784,6 +766,25 @@ namespace HenE.GameBlackJack
 
                     this.spel.Kopen(handDieGesplitstMoetWorden, this.tafel.StapelKaarten);
                 }
+
+                // ok de hand mag splitst worden en is dus al gesplitst
+                if (nieuweHand != null)
+                {
+                    // todo nog 1 functie van maken, want dit gebruik ik vaker
+                    while (!this.ZetFichesBijHandIn(nieuweHand, handDieGesplitstMoetWorden.Inzet.WaardeVanDeFiches))
+                    {
+                        this.communicator.TellPlayer(this.spelerHand.Speler, Meldingen.NietGelijkFiches);
+                        if (this.communicator.AskFichesKopen(nieuweHand.Speler, out waardeVanFiches))
+                        {
+                            nieuweHand.Speler.Fiches.Add(this.tafel.Fiches.GeefMeFischesTerWaardeVan(waardeVanFiches, 100, true));
+                            this.communicator.TellPlayer(nieuweHand.Speler, Meldingen.Verdienen);
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
             }
 
             this.communicator.TellPlayer(handDieGesplitstMoetWorden.Speler, Meldingen.NieuweHand);
@@ -794,7 +795,7 @@ namespace HenE.GameBlackJack
         /// Check de punten.
         /// Geef de winnaar fiches.
         /// Neem van de losser fiches.
-        /// beeind het spel.
+        /// beeindig het spel.
         /// </summary>
         /// <param name="handen">Een lijst met handen.</param>
         private void BeeindHetSpel(List<Hand> handen)

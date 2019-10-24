@@ -173,6 +173,7 @@ namespace HenEBalck_Jack
         /// <inheritdoc/>
         public int AskWhichAction(SpelerHand hand, List<Acties> mogelijkActies)
         {
+            Thread.Sleep(1000);
             int actieNummer;
             Console.WriteLine($"{hand.Speler.Naam} je mag een van deze acties kiezen.");
             for (int actie = 1; actie <= mogelijkActies.Count; actie++)
@@ -180,6 +181,7 @@ namespace HenEBalck_Jack
                 Console.WriteLine($" {actie.ToString()}- {mogelijkActies[actie - 1]}");
             }
 
+            Thread.Sleep(1000);
             Console.WriteLine("Kies maar een van die acties. Type maar het nummer van een actie.");
             string answer = Console.ReadLine();
             while (!this.IsGeldigWaarde(answer, out actieNummer) || actieNummer > mogelijkActies.Count || actieNummer < 1)
@@ -199,7 +201,7 @@ namespace HenEBalck_Jack
         /// <returns>Is de speler wil inzetten of niet.</returns>
         public bool AskFichesInzetten(SpelerHand hand, out int waarde)
         {
-            Console.WriteLine();
+            Thread.Sleep(1000);
             Console.WriteLine();
             Console.WriteLine($"Je hebt {hand.Speler.Fiches.WaardeVanDeFiches} als waarde van de fiches die in je portemonnee zijn.");
             Console.WriteLine();
@@ -299,6 +301,7 @@ namespace HenEBalck_Jack
         {
             Console.WriteLine();
             ColorConsole.WriteLine(ConsoleColor.Yellow, "Tot Ziens!");
+            Thread.Sleep(2000);
         }
     }
 }

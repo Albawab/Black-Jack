@@ -1,0 +1,95 @@
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csprojAssemblyReference.cache
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\HenEConsole_Balck_Jack.Properties.Resources.resources
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csproj.GenerateResource.cache
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.AssemblyInfoInputs.cache
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.AssemblyInfo.cs
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.deps.json
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.runtimeconfig.json
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.runtimeconfig.dev.json
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.dll
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.pdb
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\Balck Jack.xml
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\BlackJackResources.dll
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.dll
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\BlackJackResources.pdb
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.pdb
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.xml
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csproj.CopyComplete
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.dll
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.pdb
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.deps.json
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.runtimeconfig.json
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.runtimeconfig.dev.json
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.dll
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.pdb
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\bin\Debug\netcoreapp2.1\Balck Jack.xml
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\bin\Debug\netcoreapp2.1\BlackJackResources.dll
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.dll
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\bin\Debug\netcoreapp2.1\BlackJackResources.pdb
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.pdb
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.xml
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csprojAssemblyReference.cache
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\obj\Debug\netcoreapp2.1\HenEConsole_Balck_Jack.Properties.Resources.resources
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csproj.GenerateResource.cache
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.AssemblyInfoInputs.cache
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.AssemblyInfo.cs
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csproj.CopyComplete
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.dll
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Black-Jack-Console-Wind\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.pdb
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.deps.json
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.runtimeconfig.json
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.runtimeconfig.dev.json
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.dll
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.pdb
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\Balck Jack.xml
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\BlackJackResources.dll
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.dll
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\BlackJackResources.pdb
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.pdb
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.xml
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csprojAssemblyReference.cache
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\HenEConsole_Balck_Jack.Properties.Resources.resources
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csproj.GenerateResource.cache
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.AssemblyInfoInputs.cache
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.AssemblyInfo.cs
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csproj.CopyComplete
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.dll
+C:\Users\Abdul\Desktop\Werk\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.pdb
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.deps.json
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.runtimeconfig.json
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.runtimeconfig.dev.json
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.dll
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.pdb
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\Balck Jack.xml
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\BlackJackResources.dll
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.dll
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\BlackJackResources.pdb
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.pdb
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.xml
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csprojAssemblyReference.cache
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\HenEConsole_Balck_Jack.Properties.Resources.resources
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csproj.GenerateResource.cache
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.AssemblyInfoInputs.cache
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.AssemblyInfo.cs
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csproj.CopyComplete
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.dll
+C:\Users\Abdul\Desktop\Black-Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.pdb
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.deps.json
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.runtimeconfig.json
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.runtimeconfig.dev.json
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.dll
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\bin\Debug\netcoreapp2.1\ConsoleBlack Jack.pdb
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\bin\Debug\netcoreapp2.1\Balck Jack.xml
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\bin\Debug\netcoreapp2.1\BlackJackResources.dll
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.dll
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\bin\Debug\netcoreapp2.1\BlackJackResources.pdb
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.pdb
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.xml
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csprojAssemblyReference.cache
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\obj\Debug\netcoreapp2.1\HenEConsole_Balck_Jack.Properties.Resources.resources
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csproj.GenerateResource.cache
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.AssemblyInfoInputs.cache
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.AssemblyInfo.cs
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.csproj.CopyComplete
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.dll
+C:\Users\Abdul\Desktop\Black Jack\Balck Jack\obj\Debug\netcoreapp2.1\ConsoleBlack Jack.pdb

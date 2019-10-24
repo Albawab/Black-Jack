@@ -50,7 +50,7 @@ namespace HenE.GameBlackJack.Interface
         /// </summary>
         /// <param name="hand">De huidige hand .</param>
         /// <param name="acties">De lijst van de moegelijkheden die de speler mag van uit kiezen.</param>
-        /// <returns>Heef gekozen of niet.</returns>
+        /// <returns>Heeft gekozen of niet.</returns>
         int AskWhichAction(SpelerHand hand, List<Acties> acties);
 
         /// <summary>

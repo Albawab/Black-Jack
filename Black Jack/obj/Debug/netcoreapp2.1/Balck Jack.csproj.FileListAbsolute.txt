@@ -1,0 +1,18 @@
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\Balck Jack.deps.json
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\Balck Jack.runtimeconfig.json
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\Balck Jack.runtimeconfig.dev.json
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\Balck Jack.dll
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.csprojAssemblyReference.cache
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.csproj.CoreCompileInputs.cache
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.AssemblyInfoInputs.cache
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.AssemblyInfo.cs
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\Balck Jack.pdb
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.dll
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.pdb
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\Balck Jack.xml
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\HenEBalck_Jack.Properties.Resources.resources
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.csproj.GenerateResource.cache
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.dll
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.pdb
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\bin\Debug\netcoreapp2.1\GameBlackJack.xml
+C:\Users\Abdul\Desktop\Balck Jack\Balck Jack\obj\Debug\netcoreapp2.1\Balck Jack.csproj.CopyComplete

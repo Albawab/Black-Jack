@@ -21,6 +21,7 @@ namespace HenEBalck_Jack
         private void ToonInzet(SpelerHand hand)
         {
             Console.WriteLine();
+            Thread.Sleep(1000);
             Console.WriteLine("Uw inzet is {0}", hand.Inzet.WaardeVanDeFiches);
         }
 
@@ -69,7 +70,7 @@ namespace HenEBalck_Jack
             Console.WriteLine();
             Console.Write($"{spelerHand.Speler.Naam} Je hebt ");
             ColorConsole.Write(ConsoleColor.Red, spelerHand.Inzet.WaardeVanDeFiches.ToString());
-            Console.WriteLine(" verdient.");
+            Console.WriteLine(" verdiend.");
         }
 
         /// <summary>
@@ -82,7 +83,7 @@ namespace HenEBalck_Jack
             Thread.Sleep(2000);
             SpelerHand spelerHand = hand as SpelerHand;
             Console.WriteLine();
-            Console.WriteLine($"{speler.Naam} let op \n {spelerHand.Speler.Naam} Je hebt {spelerHand.Inzet.WaardeVanDeFiches} verdient.");
+            Console.WriteLine($"{speler.Naam} let op \n {spelerHand.Speler.Naam} Je hebt {spelerHand.Inzet.WaardeVanDeFiches} verdiend.");
         }
 
         /// <summary>
@@ -92,12 +93,13 @@ namespace HenEBalck_Jack
         /// <param name="hand">de hand van de speler.</param>
         private void KaartenVanDeHand(Speler speler, SpelerHand hand)
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             Console.WriteLine();
             Console.Write($"{speler.Naam} je hebt nu ");
             ColorConsole.Write(ConsoleColor.Red, this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten).ToString());
             Console.WriteLine(" punten bij je hand.");
             Console.WriteLine();
+            Thread.Sleep(1000);
             Console.WriteLine($"{speler.Naam} Je hebt nu");
             foreach (Kaart kaart in hand.Kaarten)
             {
@@ -117,7 +119,8 @@ namespace HenEBalck_Jack
             Console.WriteLine($"Let Op {speler.Naam}");
             if (hand.IsDealerHand)
             {
-                Console.WriteLine($"De waarde van de kaarten die bij de hand van de dealer is {this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten)}");
+                Console.Write($"De waarde van de kaarten die bij de hand van de dealer is ");
+                ColorConsole.WriteLine(ConsoleColor.Yellow, $"{this.blackJackPointsCalculator.CalculatePoints(hand.Kaarten)}");
                 Console.WriteLine($"de dealer heeft nu");
             }
             else
@@ -321,9 +324,9 @@ namespace HenEBalck_Jack
             Thread.Sleep(2000);
             Console.WriteLine();
             FichesConsolePrinter.PrintWaardeFiches(speler.Fiches);
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
             FichesConsolePrinter.PrintFiches(speler.Fiches);
-            Thread.Sleep(3000);
+            Thread.Sleep(2000);
             Console.WriteLine();
             Console.WriteLine($"{speler.Naam} je hebt nu {speler.Fiches.WaardeVanDeFiches} waarde van fiches.");
         }
@@ -369,7 +372,8 @@ namespace HenEBalck_Jack
         private void BlackJackVerdienen(SpelerHand spelerHand, string info)
         {
             Console.WriteLine();
-            Console.WriteLine($"{spelerHand.Speler.Naam} je hebt {info} verdient.");
+            Thread.Sleep(1000);
+            Console.WriteLine($"{spelerHand.Speler.Naam} je hebt {info} verdiend.");
         }
 
         /// <summary>

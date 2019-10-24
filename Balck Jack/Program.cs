@@ -52,7 +52,7 @@ namespace Balck_Jack
             while (!isLetters)
             {
                 Console.WriteLine("Je mag alleen letters typen.");
-                int chetIsNotLetter = 0;
+                int charIsNotLetter = 0;
                 string naamSpelerA = Console.ReadLine();
 
                 spelerA = new Speler(naamSpelerA);
@@ -62,12 +62,12 @@ namespace Balck_Jack
                 {
                     if (!char.IsLetter(lettersOfName[i]))
                     {
-                        chetIsNotLetter++;
+                        charIsNotLetter++;
                         break;
                     }
                 }
 
-                if (chetIsNotLetter == 0 && naamSpelerA.Length != 0 && naamSpelerA.Length <= 15)
+                if (charIsNotLetter == 0 && naamSpelerA.Length != 0 && naamSpelerA.Length <= 15)
                 {
                     isLetters = true;
                 }
@@ -106,7 +106,7 @@ namespace Balck_Jack
 
             // koopt fiches vbij de cassiere
             Console.WriteLine("Wat zou je de waarde van fiches kopen?");
-            Console.WriteLine($"Mag alleen tussen 1 en {tafel.Fiches.WaardeVanDeFiches}");
+            Console.WriteLine($"Mag alleen tussen 1 en {tafel.Fiches.WaardeVanDeFiches}.");
             string waardeFiches = Console.ReadLine();
             int waarde;
             while (!int.TryParse(waardeFiches, out waarde) || waarde > tafel.Fiches.WaardeVanDeFiches || waarde <= 0)
@@ -145,9 +145,9 @@ namespace Balck_Jack
                         }*/
 
             BlackjackController blackJackController = new BlackjackController(tafel, new ConsoleCommunicatorBehandelen());
-            Console.WriteLine("Er is een fout gegaan.");
+            /*            Console.WriteLine("Er is een fout gegaan.");*/
 
-            // blackJackController.Start();
+            //*/ blackJackController.Start();
         }
     }
 }

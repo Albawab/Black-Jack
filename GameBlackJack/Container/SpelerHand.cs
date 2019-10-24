@@ -53,31 +53,24 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// Splits de hand.
         /// </summary>
-        /// <param name="handDieGesplitstMoetWorden">De hand die wordt gesplitst.</param>
-        /// <returns>De nieuwe hand.</returns>
-        public SpelerHand Splits(SpelerHand handDieGesplitstMoetWorden)
+        /// <returns>Indien de hand gesplitst kan worden De nieuwe hand, anders de oude hand.</returns>
+        public SpelerHand Splits()
         {
             // todo, wat zijn de voorwaarden om te splitsen?
-            if (handDieGesplitstMoetWorden.Kaarten.Count == 2)
+            // kaarten moeten gelijk zijn
+            // kaarten moeten een even aantal zijn (== twee).
+            // welke controle moet ik doen
+            if (this.Kaarten.Count != 2 &&
+                this.Kaarten[0].Waarde != this.Kaarten[1].Waarde)
             {
-                if (true/*this.Kaarten[0].Waarde == this.Kaarten[1].Waarde*/)
-                {
-                    // kaarten moeten gelijk zijn
-                    // kaarten moeten een even aantal zijn (== twee).
-                    // welke controle moet ik doen
-                    this.Kaarten.Add(handDieGesplitstMoetWorden.Kaarten[0]);
-                    handDieGesplitstMoetWorden.Kaarten.Remove(this.Kaarten[0]);
-
-                    return this;
-                }
+                return null;
             }
 
-            return null;
+            SpelerHand hand = new SpelerHand(this.Speler);
+            hand.Kaarten.Add(this.Kaarten[0]);
+            this.Kaarten.Remove(this.Kaarten[0]);
 
-            // wat betekent dit?
-            // dat ik een nieuwe hand moet maken
-
-            // en dat ik de kaarten van deze hand moet delen en verplaatsen naar de nieuwe hand
+            return hand;
         }
     }
 }

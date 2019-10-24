@@ -1,0 +1,318 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ConsoleBlack Jack</name>
+    </assembly>
+    <members>
+        <member name="T:HenEBalck_Jack.ColorConsole">
+            <summary>
+            Geef de text een keleur.
+            </summary>
+        </member>
+        <member name="M:HenEBalck_Jack.ColorConsole.WriteLine(System.ConsoleColor,System.String)">
+            <summary>
+            Change de kleur van een text.
+            Write op een nieuwe lijn.
+            </summary>
+            <param name="color">De kleur die gaat passen.</param>
+            <param name="message">De message die de kleur wordt veranderd.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ColorConsole.Write(System.ConsoleColor,System.String)">
+            <summary>
+            Change de kleur van een text.
+            Write op de zelfe lijn.
+            </summary>
+            <param name="color">De kleur die gaat passen.</param>
+            <param name="message">De message die de kleur wordt veranderd.</param>
+        </member>
+        <member name="T:HenEBalck_Jack.ConsoleCommunicatorBehandelen">
+            <summary>
+            De console die gaat communicte tussen de speler en het spel doen.
+            </summary>
+            <summary>
+            De console die gaat communicte tussen de speler en het spel doen.
+            </summary>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.ToonInzet(HenE.GameBlackJack.SpelerHand)">
+            <summary>
+            Laat de speler zien de inzet van de hand.
+            </summary>
+            <param name="hand">Speler hand.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.ToonFiches(HenE.GameBlackJack.Speler)">
+            <summary>
+            Laat de speler weet hoeveel fiches hij hij heeft.
+            </summary>
+            <param name="speler">Speler.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.ToonFiches(HenE.GameBlackJack.Speler,HenE.GameBlackJack.SpelerHand)">
+            <summary>
+            Laat de speler weet hoeveel fiches hij hij heeft.
+            </summary>
+            <param name="speler">Speler die een message zal krijgen.</param>
+            <param name="hand">Hand van een speler.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.Verliezen(HenE.GameBlackJack.SpelerHand)">
+            <summary>
+            method om te vertelen dat de hand is verliezen.
+            </summary>
+            <param name="hand">De hand die wordt verliezen.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.Verdienen(HenE.GameBlackJack.Hand)">
+            <summary>
+            Als de speler heeft fiches verdient.
+            </summary>
+            <param name="hand">De hand van een speler.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.Verdienen(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Hand)">
+            <summary>
+            Als de speler heeft fiches verdient.
+            </summary>
+            <param name="speler">Speler die een message zal krijgen.</param>
+            <param name="hand">De hand van een speler.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.KaartenVanDeHand(HenE.GameBlackJack.Speler,HenE.GameBlackJack.SpelerHand)">
+            <summary>
+            Vertelt hoe veel kaarten bij de hand staan.
+            </summary>
+            <param name="speler">Speler die een message zal krijgen.</param>
+            <param name="hand">de hand van de speler.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.KaartenVanDeHand(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Hand)">
+            <summary>
+            Vertelt hoe veel kaarten bij de hand staan.
+            </summary>
+            <param name="speler">Speler die een message zal krijgen.</param>
+            <param name="hand">de hand van de speler.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.FoutMelding(HenE.GameBlackJack.SpelerHand)">
+            <summary>
+            Als de speler heeft fout gedaan dan laat hem dat weten.
+            </summary>
+            <param name="hand">De hand van een speler.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.IsAntwoordGoed(System.String)">
+            <summary>
+            Check of het antwoord geldig is of niet.
+            </summary>
+            <param name="answer">Het antwoorde die de speler wil doen.</param>
+            <returns>Is Het antwoord good is of niet.</returns>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.IsGeldigWaarde(System.String,System.Int32@)">
+            <summary>
+            Check of het waarde nummer is of niet.
+            </summary>
+            <param name="answer">Het antwoord.</param>
+            <param name="waarde">De waarde als het een nummer is.</param>
+            <returns>Is het antwoord goed is of niet.</returns>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.ActieGekozen(HenE.GameBlackJack.SpelerHand,System.String)">
+            <summary>
+            Toont een melding over de actie die de speler heeft gekozen.
+            </summary>
+            <param name="hand">Huidige hand.</param>
+            <param name="actie">De actie die de speler heeft gekozen.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.GeenFiches(HenE.GameBlackJack.Speler)">
+            <summary>
+            Geef een melding aan de speler dat geen fiches heeft of niet veel fiches.
+            </summary>
+            <param name="speler">De speler die wordt geïnformeerd.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.SpelerGestopt(HenE.GameBlackJack.Speler)">
+            <summary>
+            laat een speler weten dat hij  wordt gestopt.
+            </summary>
+            <param name="speler">De speler die wordt geïnformeerd.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.SpelerGestopt(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Hand)">
+            <summary>
+            laat een speler weten dat een andere speler wordt gestopt.
+            </summary>
+            <param name="speler">De speler die wordt geïnformeerd.</param>
+            <param name="hand">De hand van de speler die wordt gestopt.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.SpelerGestopt(HenE.GameBlackJack.SpelerHand)">
+            <summary>
+            laat de speler weten dat hij wordt gestopt.
+            </summary>
+            <param name="hand">De hand van de speler die wordt gestopt,.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.BlackJack(HenE.GameBlackJack.SpelerHand)">
+            <summary>
+            Laat de persoon weten dat de andere speler is black jack.
+            </summary>
+            <param name="hand">De hand die black jack is.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellDied(HenE.GameBlackJack.SpelerHand)">
+            <summary>
+            Tell de speler dat hij dood is.
+            </summary>
+            <param name="hand">De hand die dood wordt.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellDied(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Hand)">
+            <summary>
+            Tell de speler dat de andere dood is.
+            </summary>
+            <param name="speler">De speler die een message ontvangt.</param>
+            <param name="hand">De hand die dood wordt.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellDealerDied(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Hand)">
+            <summary>
+            Tell de speler dat weten de dealer dood is.
+            </summary>
+            <param name="speler">De speler die een message krijget.</param>
+            <param name="hand">De hand.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellDealerGepassed(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Hand)">
+            <summary>
+            Tell de speler dat de dealer heeft punten tussen 17 en 21 score.
+            </summary>
+            <param name="speler">Speler die krijgt een message.</param>
+            <param name="hand">huidige hand.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellFiches(HenE.GameBlackJack.Speler)">
+            <summary>
+            Als de speler heeft fiches gekocht, dan toon het waarde van zijn waarde.
+            </summary>
+            <param name="speler">De speler die heeft gekocht.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellMagNietVerdubbeln(HenE.GameBlackJack.Speler)">
+            <summary>
+            Tell de speler dat hij mag niet verdubellen.
+            </summary>
+            <param name="speler">De speler die een message heeft gekregen.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellMagNietSplitsen(HenE.GameBlackJack.Speler)">
+            <summary>
+            Tell de speler dat hij niet mag splitsen.
+            </summary>
+            <param name="speler">De speler die een massage ontvangt.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellNieuweHand(HenE.GameBlackJack.Speler)">
+            <summary>
+            laat de speler weten dat hij een nieuwe hand heeft gekregen.
+            </summary>
+            <param name="speler">De speler die een message heeft gekregen.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.BlackJackVerdienen(HenE.GameBlackJack.SpelerHand,System.String)">
+            <summary>
+            tell de speler dat hij fiches heeft verdienen.
+            </summary>
+            <param name="spelerHand">De hand van de speler.</param>
+            <param name="info">Meer informatie.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellGeenActie(HenE.GameBlackJack.SpelerHand)">
+            <summary>
+            laat de speler dat weten hij geen actie heeft.
+            </summary>
+            <param name="spelerHand">de hand van de speler.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellNietGelijkFiches(HenE.GameBlackJack.Speler)">
+            <summary>
+            Laat de speler weten dat De fiches met de speler en de fiches die de speler wil inzetten zijn niet gelijk.
+            </summary>
+            <param name="speler">De speler die een message kreeg.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellTafelMaxMinInzet(HenE.GameBlackJack.Speler)">
+            <summary>
+            Laat de speler weten de mixinzet en mininzet van de tafel.
+            </summary>
+            <param name="speler">De speler die een message zal krijgen.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellHand(HenE.GameBlackJack.Hand,HenE.GameBlackJack.Enum.Meldingen,System.String)">
+            <summary>
+            geef informatie over iets gebeurt.
+            Wijs melding naar de juiste methode die de melding toont.
+            </summary>
+            <param name="hand">De hand die krijgt een melding.</param>
+            <param name="melding">De text van een melding.</param>
+            <param name="meerInformatie">Geef aan de spelers meer informatie die zij nodig hebben.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellPlayer(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Enum.Meldingen)">
+            <summary>
+            geef informatie over iets gebeurt.
+            </summary>
+            <param name="speler">De speler die een melding krijgt. </param>
+            <param name="melding">De text van de melding.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellPlayer(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Enum.Meldingen,HenE.GameBlackJack.Hand,System.String)">
+            <summary>
+            Geef informatie over wat gebeurt.
+            </summary>
+            <param name="speler">De speler die een melding krijgt. </param>
+            <param name="melding">De text van de melding.</param>
+            <param name="hand">De hand van een speler.</param>
+            <param name="meerInformatie">Geef aan de spelers meer informatie die zij nodig hebben.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.AskWhichAction(HenE.GameBlackJack.SpelerHand,System.Collections.Generic.List{HenE.GameBlackJack.Enum.Acties})">
+            <inheritdoc/>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.AskFichesInzetten(HenE.GameBlackJack.SpelerHand,System.Int32@)">
+            <summary>
+            Ask de speler om fiches voor de hand te inzetten.
+            </summary>
+            <param name="hand">De hand die een fiches krijgt.</param>
+            <param name="waarde">de waarde van de fiches.</param>
+            <returns>Is de speler wil inzetten of niet.</returns>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.AskFichesKopen(HenE.GameBlackJack.Speler,System.Int32@)">
+            <summary>
+            Ask de speler om fiches te kopen.
+            </summary>
+            <param name="speler">De speler die gaat fiches kopen.</param>
+            <param name="waarde">De waarde die de speler wil kopen van fiches.</param>
+            <returns>Is de speler gekocht fiches of niet.</returns>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.AskNieuwRondje(HenE.GameBlackJack.Speler)">
+            <inheritdoc/>
+        </member>
+        <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.SleuitHetSpel">
+            <inheritdoc/>
+        </member>
+        <member name="T:HenEBalck_Jack.Helpers.FichesConsolePrinter">
+            <summary>
+            class om de fiches in de console te printen.
+            </summary>
+        </member>
+        <member name="M:HenEBalck_Jack.Helpers.FichesConsolePrinter.PrintFiches(HenE.GameBlackJack.SpelSpullen.Fiches)">
+            <summary>
+            fubnctuie om de fiches te printen.
+            </summary>
+            <param name="fiches"> de fiches die ik wil printen.</param>
+        </member>
+        <member name="M:HenEBalck_Jack.Helpers.FichesConsolePrinter.PrintWaardeFiches(HenE.GameBlackJack.SpelSpullen.Fiches)">
+            <summary>
+            Printe de waarde van de fiche.
+            </summary>
+            <param name="fiches">De fiche.</param>
+        </member>
+        <member name="T:Balck_Jack.Program">
+            <summary>
+            Program van het spel.
+            </summary>
+        </member>
+        <member name="M:Balck_Jack.Program.Main(System.String[])">
+            <summary>
+            Main method.
+            </summary>
+            <param name="args">args.</param>
+        </member>
+        <member name="T:HenEConsole_Balck_Jack.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:HenEConsole_Balck_Jack.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:HenEConsole_Balck_Jack.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>
