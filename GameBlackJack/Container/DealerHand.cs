@@ -4,11 +4,6 @@
 
 namespace HenE.GameBlackJack
 {
-    using System;
-    using System.Collections.Generic;
-    using HenE.GameBlackJack.Enum;
-    using HenE.GameBlackJack.SpelSpullen;
-
     /// <summary>
     /// Heeft de kaarten en de fiches van de speler en ook heeft eigen situatie.
     /// </summary>

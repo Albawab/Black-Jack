@@ -21,7 +21,7 @@ namespace HenEBalck_Jack
         private void ToonInzet(SpelerHand hand)
         {
             Console.WriteLine();
-            Console.WriteLine("Uw inzetten zijn {0}", hand.Inzet.WaardeVanDeFiches);
+            Console.WriteLine("Uw inzet is {0}", hand.Inzet.WaardeVanDeFiches);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace HenEBalck_Jack
         /// <summary>
         /// Laat de speler weet hoeveel fiches hij hij heeft.
         /// </summary>
-        /// <param name="speler">Speler.</param>
+        /// <param name="speler">Speler die een message zal krijgen.</param>
         /// <param name="hand">Hand van een speler.</param>
         private void ToonFiches(Speler speler, SpelerHand hand)
         {
@@ -61,6 +61,7 @@ namespace HenEBalck_Jack
         /// <summary>
         /// Als de speler heeft fiches verdient.
         /// </summary>
+        /// <param name="hand">De hand van een speler.</param>
         private void Verdienen(Hand hand)
         {
             Thread.Sleep(2000);
@@ -74,6 +75,8 @@ namespace HenEBalck_Jack
         /// <summary>
         /// Als de speler heeft fiches verdient.
         /// </summary>
+        /// <param name="speler">Speler die een message zal krijgen.</param>
+        /// <param name="hand">De hand van een speler.</param>
         private void Verdienen(Speler speler, Hand hand)
         {
             Thread.Sleep(2000);
@@ -85,7 +88,7 @@ namespace HenEBalck_Jack
         /// <summary>
         /// Vertelt hoe veel kaarten bij de hand staan.
         /// </summary>
-        /// <param name="speler">Speler.</param>
+        /// <param name="speler">Speler die een message zal krijgen.</param>
         /// <param name="hand">de hand van de speler.</param>
         private void KaartenVanDeHand(Speler speler, SpelerHand hand)
         {
@@ -105,7 +108,7 @@ namespace HenEBalck_Jack
         /// <summary>
         /// Vertelt hoe veel kaarten bij de hand staan.
         /// </summary>
-        /// <param name="speler">De speler die een meldje gekregen.</param>
+        /// <param name="speler">Speler die een message zal krijgen.</param>
         /// <param name="hand">de hand van de speler.</param>
         private void KaartenVanDeHand(Speler speler, Hand hand)
         {
@@ -133,7 +136,7 @@ namespace HenEBalck_Jack
         /// <summary>
         /// Als de speler heeft fout gedaan dan laat hem dat weten.
         /// </summary>
-        /// <param name="hand">De hand van de speler.</param>
+        /// <param name="hand">De hand van een speler.</param>
         private void FoutMelding(SpelerHand hand)
         {
             Thread.Sleep(2000);

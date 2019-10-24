@@ -58,6 +58,26 @@ namespace HenE.GameBlackJack
         }
 
         /// <summary>
+        /// Checkt de waarde van de fiches.
+        /// </summary>
+        /// <param name="waarde">De waarde van de fiches.</param>
+        /// <returns>Heeft gecheckt of niet.</returns>
+        public bool CheckWaarde(int waarde)
+        {
+            if (waarde == 1 ||
+                waarde == 5 ||
+                waarde == 10 ||
+                waarde == 20 ||
+                waarde == 50 ||
+                waarde == 100)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// enige class die fiches kan aanmaken en uitgeven
         /// zodat niet iedereen fiches kan aanmaken.
         /// dus nog wel iets van rechten toekennen , wie deze
@@ -107,31 +127,6 @@ namespace HenE.GameBlackJack
 
                         returnFiches.Add(CreateFiche(kleur, waardeVanFiche, false));
                     }
-
-                    /*                    while (returnFiches.WaardeVanDeFiches > waarde)
-                                        {
-                                            int meerDanWaarde = returnFiches.WaardeVanDeFiches - waarde;
-                                            foreach (Fiche fiche in returnFiches.ReadOnlyFiches)
-                                            {
-                                                if (fiche.waarde == meerDanWaarde)
-                                                {
-                                                    returnFiches.Remove(fiche);
-                                                    break;
-                                                }
-                                            }
-
-                                            if (returnFiches.WaardeVanDeFiches != waarde)
-                                            {
-                                                foreach (Fiche fiche in returnFiches.ReadOnlyFiches)
-                                                {
-                                                    if (fiche.waarde > meerDanWaarde)
-                                                    {
-                                                        returnFiches.Remove(fiche);
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        }*/
                 }
 
                 return returnFiches;
@@ -148,26 +143,6 @@ namespace HenE.GameBlackJack
             {
                 return new Fiche(kleur, waarde);
             }
-        }
-
-        /// <summary>
-        /// Checkt de waarde van de fiches.
-        /// </summary>
-        /// <param name="waarde">De waarde van de fiches.</param>
-        /// <returns>Heeft gecheckt of niet.</returns>
-        public bool CheckWaarde(int waarde)
-        {
-            if (waarde == 1 ||
-                waarde == 5 ||
-                waarde == 10 ||
-                waarde == 20 ||
-                waarde == 50 ||
-                waarde == 100)
-            {
-                return true;
-            }
-
-            return false;
         }
     }
 }

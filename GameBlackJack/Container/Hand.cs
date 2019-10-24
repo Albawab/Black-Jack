@@ -4,10 +4,8 @@
 
 namespace HenE.GameBlackJack
 {
-    using System;
     using System.Collections.Generic;
     using HenE.GameBlackJack.Enum;
-    using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
     /// Heeft de kaarten en de fiches van de speler en ook heeft eigen situatie.
@@ -50,7 +48,7 @@ namespace HenE.GameBlackJack
         public abstract bool IsDealerHand { get; }
 
         /// <summary>
-        /// Add een kaart aan de hand.
+        /// Voeg een kaart aan de hand toe.
         /// </summary>
         /// <param name="kaart">Nieuwe kaart.</param>
         public void AddKaart(Kaart kaart)

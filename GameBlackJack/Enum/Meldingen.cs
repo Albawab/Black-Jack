@@ -4,10 +4,6 @@
 
 namespace HenE.GameBlackJack.Enum
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-
     /// <summary>
     /// Die gaat bepaal wat soort van melding is dat.
     /// </summary>

@@ -5,7 +5,7 @@
 namespace HenE.GameBlackJack.Enum
 {
     /// <summary>
-    /// De status van de speler.
+    /// De status van de handen.
     /// </summary>
     public enum HandStatussen
     {

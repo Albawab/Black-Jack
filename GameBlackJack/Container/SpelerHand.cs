@@ -5,8 +5,6 @@
 namespace HenE.GameBlackJack
 {
     using System;
-    using System.Collections.Generic;
-    using HenE.GameBlackJack.Enum;
     using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
@@ -81,19 +79,5 @@ namespace HenE.GameBlackJack
 
             // en dat ik de kaarten van deze hand moet delen en verplaatsen naar de nieuwe hand
         }
-
-/*        /// <summary>
-        /// Zoek op in hand die wordt gesplits voor de fiches.
-        /// Geef de nieuwe hand de zelfde fiches.
-        /// </summary>
-        /// <param name="handWordtGesplits">De hand die gesplits wordt.</param>
-        /// <param name="blackjackController">De black jack controller.</param>
-        public void GeefFichesBijHandDieWordtGesplits(SpelerHand handWordtGesplits, BlackjackController blackjackController)
-        {
-            foreach (Fiche fiche in handWordtGesplits.Inzet.ReadOnlyFiches)
-            {
-                blackjackController.ZetFichesBijHandIn(this, fiche.Waarde);
-            }
-        }*/
     }
 }

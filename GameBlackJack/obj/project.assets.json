@@ -754,11 +754,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\GameBlackJack\\GameBlackJack.csproj",
+      "projectUniqueName": "C:\\Users\\Abdul\\Desktop\\Black Jack\\GameBlackJack\\GameBlackJack.csproj",
       "projectName": "GameBlackJack",
-      "projectPath": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\GameBlackJack\\GameBlackJack.csproj",
+      "projectPath": "C:\\Users\\Abdul\\Desktop\\Black Jack\\GameBlackJack\\GameBlackJack.csproj",
       "packagesPath": "C:\\Users\\Abdul\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Abdul\\Desktop\\Werk\\Black-Jack\\GameBlackJack\\obj\\",
+      "outputPath": "C:\\Users\\Abdul\\Desktop\\Black Jack\\GameBlackJack\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

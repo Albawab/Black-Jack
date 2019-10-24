@@ -96,18 +96,31 @@ namespace HenE.GameBlackJack.SpelSpullen
             }
         }
 
+        /// <summary>
+        /// Loop door de kaarten heen, en swap de kaarten via functie SwapKaart.
+        /// </summary>
         private void RandomShuffleDeckOnce()
         {
-            // beginnen bij 1, zodat als we maar 1 kaart hebben, we niet gaan swappen
+            // beginnen bij 1, zodat als we maar 1 kaart hebben, we niet gaan swappen.
             for (int i = 1; i < this.Kaarten.Count; i++)
             {
-                // maak een mnieuwe plek voor de kaart en swap de kaarten dan;
+                // maak een nieuwe plek voor de kaart en swap de kaarten dan;
                 this.SwapKaart(i, this.GetRandomIndex(0, this.Kaarten.Count));
             }
         }
 
+        /// <summary>
+        /// verandert de plaats van de kaart tot andere plaats van een andere kaart.
+        /// </summary>
+        /// <param name="index1">De huidige plaats van de huidige kaart.</param>
+        /// <param name="index2">De nieuwe plaats waar de kaart gaat verplaatsen.</param>
         private void SwapKaart(int index1, int index2)
         {
+            if (index2 > this.Kaarten.Count)
+            {
+                throw new ArgumentOutOfRangeException("Mag de nummer niet hooger dan de maxnummer van de stapel kaart.");
+            }
+
             // todo indexen controleren aan de grootte vande stapel
             Kaart kaart1 = this.Kaarten[index1];
             Kaart kaart2 = this.Kaarten[index2];
@@ -115,9 +128,14 @@ namespace HenE.GameBlackJack.SpelSpullen
             this.Kaarten[index2] = kaart1;
         }
 
+        /// <summary>
+        /// Geef een random nummer tussen null en de maxnummer van de stapelkaarten.
+        /// </summary>
+        /// <param name="minNumber">Waar moet de random starten.</param>
+        /// <param name="maxNumber">waar moet de random stopen.</param>
+        /// <returns>Een nummer tussen minnummer en maxnummer.</returns>
         private int GetRandomIndex(int minNumber, int maxNumber)
         {
-            // todo dat minnummer >=0 en amxnumber > minnumber
             return new Random().Next(minNumber, maxNumber);
         }
 

@@ -25,8 +25,8 @@
             <summary>
             Kijk wat elke hand heeft.
             </summary>
-            <param name="hand">Huidige hand.</param>
-            <returns>De waarde in de hand.</returns>
+            <param name="hand">Huidige hand van de dealer.</param>
+            <returns>De waarde van de fiches in de hand.</returns>
         </member>
         <member name="T:HenE.GameBlackJack.DealerHand">
             <summary>
@@ -71,6 +71,13 @@
             </summary>
             <exception cref="T:System.ArgumentOutOfRangeException">Als de waarde niet 1, 5, 10, 20, 50, 100 is wordt deze execptie gegooid.</exception>
         </member>
+        <member name="M:HenE.GameBlackJack.Fiche.CheckWaarde(System.Int32)">
+            <summary>
+            Checkt de waarde van de fiches.
+            </summary>
+            <param name="waarde">De waarde van de fiches.</param>
+            <returns>Heeft gecheckt of niet.</returns>
+        </member>
         <member name="T:HenE.GameBlackJack.Fiche.FicheFactory">
             <summary>
             enige class die fiches kan aanmaken en uitgeven
@@ -94,13 +101,6 @@
             <param name="waarde">De waarde van een fiche.</param>
             <param name="copy">true of false.</param>
             <returns>Nieuwe fiche.</returns>
-        </member>
-        <member name="M:HenE.GameBlackJack.Fiche.CheckWaarde(System.Int32)">
-            <summary>
-            Checkt de waarde van de fiches.
-            </summary>
-            <param name="waarde">De waarde van de fiches.</param>
-            <returns>Heeft gecheckt of niet.</returns>
         </member>
         <member name="T:HenE.GameBlackJack.SpelSpullen.Fiches">
             <summary>
@@ -139,7 +139,7 @@
             <summary>
             Add meer dan een fiches.
             </summary>
-            <param name="fiches">fiches.</param>
+            <param name="fiches">fiches die wordt toegevoegd.</param>
         </member>
         <member name="M:HenE.GameBlackJack.SpelSpullen.Fiches.GeefMeFischesTerWaardeVan(System.Int32,System.Int32,System.Boolean)">
             <summary>
@@ -213,6 +213,26 @@
             </summary>
             <param name="kerenDatWeDeStapelSchudden">Hoe veel keer de kaarten shuffle shuifelen.</param>
         </member>
+        <member name="M:HenE.GameBlackJack.SpelSpullen.StapelKaarten.RandomShuffleDeckOnce">
+            <summary>
+            Loop door de kaarten heen, en swap de kaarten via functie SwapKaart.
+            </summary>
+        </member>
+        <member name="M:HenE.GameBlackJack.SpelSpullen.StapelKaarten.SwapKaart(System.Int32,System.Int32)">
+            <summary>
+            verandert de plaats van de kaart tot andere plaats van een andere kaart.
+            </summary>
+            <param name="index1">De huidige plaats van de huidige kaart.</param>
+            <param name="index2">De nieuwe plaats waar de kaart gaat verplaatsen.</param>
+        </member>
+        <member name="M:HenE.GameBlackJack.SpelSpullen.StapelKaarten.GetRandomIndex(System.Int32,System.Int32)">
+            <summary>
+            Geef een random nummer tussen null en de maxnummer van de stapelkaarten.
+            </summary>
+            <param name="minNumber">Waar moet de random starten.</param>
+            <param name="maxNumber">waar moet de random stopen.</param>
+            <returns>Een nummer tussen minnummer en maxnummer.</returns>
+        </member>
         <member name="M:HenE.GameBlackJack.SpelSpullen.StapelKaarten.GeefWaardeAanKaart">
             <summary>
             Geef de juiste waarde aan een kaart.
@@ -220,7 +240,7 @@
         </member>
         <member name="T:HenE.GameBlackJack.SpelSpullen.Tafel">
             <summary>
-            Hier staat de spullen van het spel.
+            De klas waar de spullen van het tafel staan.
             </summary>
         </member>
         <member name="M:HenE.GameBlackJack.SpelSpullen.Tafel.#ctor(System.Int32,HenE.GameBlackJack.SpelSpullen.Fiches,HenE.GameBlackJack.SpelSpullen.StapelKaarten,System.Int32,System.Int32)">
@@ -280,7 +300,7 @@
             functie om van dealer te wisselen.
             </summary>
             <param name="newDealer">nieuwe dealer.</param>
-            <returns>odue dealer.</returns>
+            <returns>oude dealer.</returns>
         </member>
         <member name="M:HenE.GameBlackJack.SpelSpullen.Tafel.SpelerVerlaatTafel(HenE.GameBlackJack.Speler)">
             <summary>
@@ -349,7 +369,7 @@
         </member>
         <member name="M:HenE.GameBlackJack.Hand.AddKaart(HenE.GameBlackJack.Kaart)">
             <summary>
-            Add een kaart aan de hand.
+            Voeg een kaart aan de hand toe.
             </summary>
             <param name="kaart">Nieuwe kaart.</param>
         </member>
@@ -462,17 +482,9 @@
             <param name="handDieGesplitstMoetWorden">De hand die wordt gesplitst.</param>
             <returns>De nieuwe hand.</returns>
         </member>
-        <member name="M:HenE.GameBlackJack.SpelerHand.GeefFichesBijHandDieWordtGesplits(HenE.GameBlackJack.SpelerHand,HenE.GameBlackJack.BlackjackController)">
-            <summary>
-            Zoek op in hand die wordt gesplits voor de fiches.
-            Geef de nieuwe hand de zelfde fiches.
-            </summary>
-            <param name="handWordtGesplits">De hand die gesplits wordt.</param>
-            <param name="blackjackController">De black jack controller.</param>
-        </member>
         <member name="T:HenE.GameBlackJack.Enum.Acties">
             <summary>
-            Hier staat de beslissingen die de speler wil gebruiken.
+            Hier staat de beslissingen die de speler mag gebruiken.
             </summary>
         </member>
         <member name="F:HenE.GameBlackJack.Enum.Acties.IsDefined">
@@ -499,18 +511,6 @@
             <summary>
             Als de speler de hand zou splitsen.
             </summary>
-        </member>
-        <member name="T:HenE.GameBlackJack.Enum.ActiesHelper">
-            <summary>
-            Ga de enum acties helpen.
-            </summary>
-        </member>
-        <member name="M:HenE.GameBlackJack.Enum.ActiesHelper.ZetEnumTotStringOm(HenE.GameBlackJack.Enum.Acties)">
-            <summary>
-            Geef de enum als string terug.
-            </summary>
-            <param name="actie">De acties.</param>
-            <returns>Actie als string.</returns>
         </member>
         <member name="T:HenE.GameBlackJack.Enum.FichesKleur">
             <summary>
@@ -805,7 +805,7 @@
         </member>
         <member name="T:HenE.GameBlackJack.Enum.HandStatussen">
             <summary>
-            De status van de speler.
+            De status van de handen.
             </summary>
         </member>
         <member name="F:HenE.GameBlackJack.Enum.HandStatussen.NogNietGestart">
@@ -887,18 +887,6 @@
             <summary>
             Vraagt de speler om fiches te kopen.
             </summary>
-        </member>
-        <member name="T:HenE.GameBlackJack.Helper.Helper">
-            <summary>
-            change een enum tot string.
-            </summary>
-        </member>
-        <member name="M:HenE.GameBlackJack.Helper.Helper.ChangeEnumToString(HenE.GameBlackJack.Enum.Acties)">
-            <summary>
-            change de actie tot stiring en geef hem terug.
-            </summary>
-            <param name="acties">De actie die wordt geomgezetten tot string.</param>
-            <returns>actie als string.</returns>
         </member>
         <member name="T:HenE.GameBlackJack.Interface.ICommunicate">
             <summary>
@@ -1023,7 +1011,7 @@
         </member>
         <member name="T:HenE.GameBlackJack.Kaarten.StapelKaartenFactory">
             <summary>
-            Creat now stapel kaart.
+            Creat nieuwe stapel kaart.
             </summary>
         </member>
         <member name="M:HenE.GameBlackJack.Kaarten.StapelKaartenFactory.CreateBlackJackKaarten(System.Int32)">
@@ -1053,7 +1041,7 @@
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.VraagAanSpelerInzetVoorEenHand(HenE.GameBlackJack.SpelerHand,System.Int32@)">
             <summary>
-            Vraag de speler om fiches bij de hand in zetten.
+            Vraag de speler om fiches bij de hand te inzetten.
             </summary>
             <param name="spelerhand">De hand van de speler.</param>
             <param name="waarde">De waarde van een fiche.</param>
@@ -1075,8 +1063,8 @@
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.Beginnen">
             <summary>
-            De eerste prossesn van het spel voor dat het spel start.
-            Vraag de speler om fiches bij de hand te inzitten.
+            De eerste processen van het spel voor dat het spel start.
+            Vraag de speler om fiches bij de hand te inzetten.
             Geef elke hand eerste kaart.Ook geeft allen de spelers tweede kaart.
             Dus de dealer krijgt een kaart.
             </summary>
@@ -1167,7 +1155,7 @@
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.BehandelDeDealer(HenE.GameBlackJack.DealerHand)">
             <summary>
-            Controleer aan de hand van de dealer.
+            Controleert de hand van de dealer.
             </summary>
             <param name="dealerHand">De hand van de dealer.</param>
         </member>
@@ -1188,7 +1176,7 @@
             Neem van de losser fiches.
             beeind het spel.
             </summary>
-            <param name="handen">De handen als lijst.</param>
+            <param name="handen">Een lijst met handen.</param>
         </member>
         <member name="M:HenE.GameBlackJack.BlackjackController.WaardeVanDeDealerHand(System.Collections.Generic.List{HenE.GameBlackJack.Hand})">
             <summary>
@@ -1276,13 +1264,6 @@
             </summary>
             <param name="kaarten">De kaarten die in de hand zijn.</param>
             <returns>Hoeveel points in de hand zijn.</returns>
-        </member>
-        <member name="M:HenE.GameBlackJack.Settings.BlackJackPointsCalculator.IsBlackJack(System.Collections.Generic.List{HenE.GameBlackJack.Kaart})">
-            <summary>
-            Als de speler heeft 21 punten.
-            </summary>
-            <param name="kaarten">De kaarten die in de hand zijn.</param>
-            <returns>Hoeveel punten in de hand zijn.</returns>
         </member>
         <member name="M:HenE.GameBlackJack.Settings.BlackJackPointsCalculator.BepaalAasWaarde(System.Int32)">
             <summary>
@@ -1392,6 +1373,11 @@
             <param name="stapelKaarten">De stapel kaarten van het spel.</param>
             <returns>Heeft de speler het verdubbelt of niet.</returns>
         </member>
+        <member name="M:HenE.GameBlackJack.Spel.ResetHanden">
+            <summary>
+            Reste de huidige hand tot eerste hand van de lijst van de handen die bij het spel bezig zijn.
+            </summary>
+        </member>
         <member name="M:HenE.GameBlackJack.Spel.Kopen(HenE.GameBlackJack.Hand,HenE.GameBlackJack.SpelSpullen.StapelKaarten)">
             <summary>
             Geef een kaart uit.
@@ -1406,6 +1392,13 @@
             </summary>
             <param name="spelerHand">De hand van de speler.</param>
             <returns>De lijst van de handen van de speler.</returns>
+        </member>
+        <member name="M:HenE.GameBlackJack.Spel.RemoveHamden(System.Collections.Generic.List{HenE.GameBlackJack.SpelerHand})">
+            <summary>
+            Loopt door de handen van de speler.
+            Als de speler heeft meer dan een hand , dan verwijdert de reste van de handen en bewaart alleen de eerste hand.
+            </summary>
+            <param name="spelerHanden">De lijst van de handen van een speler.</param>
         </member>
     </members>
 </doc>

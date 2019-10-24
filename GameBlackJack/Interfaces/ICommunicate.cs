@@ -4,11 +4,8 @@
 
 namespace HenE.GameBlackJack.Interface
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
     using HenE.GameBlackJack.Enum;
-    using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
     /// Maak contact between de speler en dealer met de controller van het spel.

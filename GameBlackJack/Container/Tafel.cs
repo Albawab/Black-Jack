@@ -9,7 +9,7 @@ namespace HenE.GameBlackJack.SpelSpullen
     using HenE.GameBlackJack.Kaarten;
 
     /// <summary>
-    /// Hier staat de spullen van het spel.
+    /// De klas waar de spullen van het tafel staan.
     /// </summary>
     public class Tafel
     {
@@ -108,7 +108,7 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// functie om van dealer te wisselen.
         /// </summary>
         /// <param name="newDealer">nieuwe dealer.</param>
-        /// <returns>odue dealer.</returns>
+        /// <returns>oude dealer.</returns>
         public Dealer WijzigDealer(Dealer newDealer)
         {
             Dealer oldDealer = this.Dealer;

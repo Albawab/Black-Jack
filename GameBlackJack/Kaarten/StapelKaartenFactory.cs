@@ -8,7 +8,7 @@ namespace HenE.GameBlackJack.Kaarten
     using HenE.GameBlackJack.SpelSpullen;
 
     /// <summary>
-    /// Creat now stapel kaart.
+    /// Creat nieuwe stapel kaart.
     /// </summary>
     public static class StapelKaartenFactory
     {

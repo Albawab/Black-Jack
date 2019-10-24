@@ -78,7 +78,7 @@ namespace HenE.GameBlackJack.SpelSpullen
         /// <summary>
         /// Add meer dan een fiches.
         /// </summary>
-        /// <param name="fiches">fiches.</param>
+        /// <param name="fiches">fiches die wordt toegevoegd.</param>
         public void Add(Fiches fiches)
         {
             Debug.Assert(fiches != null, "fiches mag niet null zijn");

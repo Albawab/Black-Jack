@@ -54,6 +54,7 @@ namespace Balck_Jack
                 Console.WriteLine("Je mag alleen letters typen.");
                 int chetIsNotLetter = 0;
                 string naamSpelerA = Console.ReadLine();
+
                 spelerA = new Speler(naamSpelerA);
                 char[] lettersOfName = naamSpelerA.ToCharArray();
                 naamSpelerA.ToCharArray();
@@ -66,13 +67,29 @@ namespace Balck_Jack
                     }
                 }
 
-                if (chetIsNotLetter == 0)
+                if (chetIsNotLetter == 0 && naamSpelerA.Length != 0 && naamSpelerA.Length <= 15)
                 {
                     isLetters = true;
                 }
                 else
                 {
-                    Console.WriteLine("Je hebt fout gedaan!");
+                    if (naamSpelerA.Length == 0)
+                    {
+                        Console.WriteLine("Mag niet zonder naam spelen.");
+                        Console.WriteLine("Wat is je naam?");
+                        Console.WriteLine();
+                    }
+                    else if (naamSpelerA.Length > 15)
+                    {
+                        Console.WriteLine("Je mag t/m 15 letters gebruiken.");
+                        Console.WriteLine();
+                        Console.WriteLine("Je mag geen nummers gebruiken.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Je hebt fout gedaan!");
+                        Console.WriteLine("Je mag geen nummers gebruiken.");
+                    }
                 }
             }
 
@@ -91,7 +108,7 @@ namespace Balck_Jack
             Console.WriteLine("Wat zou je de waarde van fiches kopen?");
             Console.WriteLine($"Mag alleen tussen 1 en {tafel.Fiches.WaardeVanDeFiches}");
             string waardeFiches = Console.ReadLine();
-            int waarde = 0;
+            int waarde;
             while (!int.TryParse(waardeFiches, out waarde) || waarde > tafel.Fiches.WaardeVanDeFiches || waarde <= 0)
             {
                 Console.WriteLine();
@@ -128,8 +145,9 @@ namespace Balck_Jack
                         }*/
 
             BlackjackController blackJackController = new BlackjackController(tafel, new ConsoleCommunicatorBehandelen());
+            Console.WriteLine("Er is een fout gegaan.");
 
-            blackJackController.Start();
+            // blackJackController.Start();
         }
     }
 }

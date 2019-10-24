@@ -6,7 +6,6 @@ namespace HenE.GameBlackJack
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading;
     using HenE.GameBlackJack.Enum;
     using HenE.GameBlackJack.Interface;
     using HenE.GameBlackJack.Settings;
@@ -263,7 +262,6 @@ namespace HenE.GameBlackJack
                 this.RemoveHamden(spelerHanden);
             }
         }
-
 
         /// <summary>
         /// Geef een kaart uit.

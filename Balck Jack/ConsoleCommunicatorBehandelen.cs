@@ -11,8 +11,6 @@ namespace HenEBalck_Jack
     using HenE.GameBlackJack.Enum;
     using HenE.GameBlackJack.Interface;
     using HenE.GameBlackJack.Settings;
-    using HenEBalck_Jack.Helpers;
-    using HenEConsole_Balck_Jack;
 
     /// <summary>
     /// De console die gaat communicte tussen de speler en het spel doen.
@@ -118,7 +116,7 @@ namespace HenEBalck_Jack
         }
 
         /// <summary>
-        /// geef informatie over iets gebeurt.
+        /// Geef informatie over wat gebeurt.
         /// </summary>
         /// <param name="speler">De speler die een melding krijgt. </param>
         /// <param name="melding">De text van de melding.</param>
@@ -176,13 +174,13 @@ namespace HenEBalck_Jack
         public int AskWhichAction(SpelerHand hand, List<Acties> mogelijkActies)
         {
             int actieNummer;
-            Console.WriteLine($"{hand.Speler.Naam} je mag een van de acties kiezen.");
+            Console.WriteLine($"{hand.Speler.Naam} je mag een van deze acties kiezen.");
             for (int actie = 1; actie <= mogelijkActies.Count; actie++)
             {
                 Console.WriteLine($" {actie.ToString()}- {mogelijkActies[actie - 1]}");
             }
 
-            Console.WriteLine("Kies maar een van die acties. Type maar het nummer van de acties.");
+            Console.WriteLine("Kies maar een van die acties. Type maar het nummer van een actie.");
             string answer = Console.ReadLine();
             while (!this.IsGeldigWaarde(answer, out actieNummer) || actieNummer > mogelijkActies.Count || actieNummer < 1)
             {
@@ -202,20 +200,20 @@ namespace HenEBalck_Jack
         public bool AskFichesInzetten(SpelerHand hand, out int waarde)
         {
             Console.WriteLine();
-            int waardeDieDeSpelerWilInzetten = 0;
             Console.WriteLine();
-            Console.WriteLine($"Je hebt {hand.Speler.Fiches.WaardeVanDeFiches} als waarde van de fiches in je portemonnee."); 
+            Console.WriteLine($"Je hebt {hand.Speler.Fiches.WaardeVanDeFiches} als waarde van de fiches die in je portemonnee zijn.");
             Console.WriteLine();
             Console.WriteLine($"Type maar alleen nummers tussen {hand.Speler.HuidigeTafel.MinimalenZet} en {hand.Speler.HuidigeTafel.MaximaleInZet}.");
             ColorConsole.WriteLine(ConsoleColor.Cyan, $"{hand.Speler.Naam} Wat voor waarde wil je inzetten?");
             string answerWarde = Console.ReadLine();
+            int waardeDieDeSpelerWilInzetten;
             while (!this.IsGeldigWaarde(answerWarde, out waardeDieDeSpelerWilInzetten) || waardeDieDeSpelerWilInzetten > hand.Speler.HuidigeTafel.MaximaleInZet || waardeDieDeSpelerWilInzetten < hand.Speler.HuidigeTafel.MinimalenZet)
             {
                 Console.WriteLine();
                 Console.WriteLine($"Type maar alleen nummers tussen {hand.Speler.HuidigeTafel.MinimalenZet} en {hand.Speler.HuidigeTafel.MaximaleInZet}.");
                 if (waardeDieDeSpelerWilInzetten <= 0)
                 {
-                    Console.WriteLine("Mag niet letters of nummer die null of minder dan null zijn");
+                    Console.WriteLine("Mag geen letters of nummer die null of minder dan null zijn");
                 }
 
                 answerWarde = Console.ReadLine();
@@ -238,7 +236,7 @@ namespace HenEBalck_Jack
             Console.WriteLine($"{speler.Naam} je hebt {speler.Fiches.WaardeVanDeFiches} waarde van fiches in je portemonnee.");
             int waardeDieDeSpelerWilInzetten = 0;
             Thread.Sleep(2000);
-            Console.WriteLine("Wil je fiches kopen J of N?");
+            Console.WriteLine("Wil je fiches kopen.. J of N?");
             string answer = Console.ReadLine().ToLower();
             while (!this.IsAntwoordGoed(answer))
             {
@@ -280,7 +278,7 @@ namespace HenEBalck_Jack
         {
             Console.WriteLine();
             Thread.Sleep(2000);
-            Console.WriteLine("Wil je nu een nieuw rondje doen of niet J of N?");
+            Console.WriteLine("Wil je nu een nieuw rondje doen of niet.. J of N?");
             string answer = Console.ReadLine().ToLower();
             while (!this.IsAntwoordGoed(answer))
             {

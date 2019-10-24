@@ -12,6 +12,7 @@
         <member name="M:HenEBalck_Jack.ColorConsole.WriteLine(System.ConsoleColor,System.String)">
             <summary>
             Change de kleur van een text.
+            Write op een nieuwe lijn.
             </summary>
             <param name="color">De kleur die gaat passen.</param>
             <param name="message">De message die de kleur wordt veranderd.</param>
@@ -19,6 +20,7 @@
         <member name="M:HenEBalck_Jack.ColorConsole.Write(System.ConsoleColor,System.String)">
             <summary>
             Change de kleur van een text.
+            Write op de zelfe lijn.
             </summary>
             <param name="color">De kleur die gaat passen.</param>
             <param name="message">De message die de kleur wordt veranderd.</param>
@@ -47,7 +49,7 @@
             <summary>
             Laat de speler weet hoeveel fiches hij hij heeft.
             </summary>
-            <param name="speler">Speler.</param>
+            <param name="speler">Speler die een message zal krijgen.</param>
             <param name="hand">Hand van een speler.</param>
         </member>
         <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.Verliezen(HenE.GameBlackJack.SpelerHand)">
@@ -60,31 +62,34 @@
             <summary>
             Als de speler heeft fiches verdient.
             </summary>
+            <param name="hand">De hand van een speler.</param>
         </member>
         <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.Verdienen(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Hand)">
             <summary>
             Als de speler heeft fiches verdient.
             </summary>
+            <param name="speler">Speler die een message zal krijgen.</param>
+            <param name="hand">De hand van een speler.</param>
         </member>
         <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.KaartenVanDeHand(HenE.GameBlackJack.Speler,HenE.GameBlackJack.SpelerHand)">
             <summary>
             Vertelt hoe veel kaarten bij de hand staan.
             </summary>
-            <param name="speler">Speler.</param>
+            <param name="speler">Speler die een message zal krijgen.</param>
             <param name="hand">de hand van de speler.</param>
         </member>
         <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.KaartenVanDeHand(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Hand)">
             <summary>
             Vertelt hoe veel kaarten bij de hand staan.
             </summary>
-            <param name="speler">De speler die een meldje gekregen.</param>
+            <param name="speler">Speler die een message zal krijgen.</param>
             <param name="hand">de hand van de speler.</param>
         </member>
         <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.FoutMelding(HenE.GameBlackJack.SpelerHand)">
             <summary>
             Als de speler heeft fout gedaan dan laat hem dat weten.
             </summary>
-            <param name="hand">De hand van de speler.</param>
+            <param name="hand">De hand van een speler.</param>
         </member>
         <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.IsAntwoordGoed(System.String)">
             <summary>
@@ -233,7 +238,7 @@
         </member>
         <member name="M:HenEBalck_Jack.ConsoleCommunicatorBehandelen.TellPlayer(HenE.GameBlackJack.Speler,HenE.GameBlackJack.Enum.Meldingen,HenE.GameBlackJack.Hand,System.String)">
             <summary>
-            geef informatie over iets gebeurt.
+            Geef informatie over wat gebeurt.
             </summary>
             <param name="speler">De speler die een melding krijgt. </param>
             <param name="melding">De text van de melding.</param>

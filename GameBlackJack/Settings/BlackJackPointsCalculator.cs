@@ -57,16 +57,6 @@ namespace HenE.GameBlackJack.Settings
         }
 
         /// <summary>
-        /// Als de speler heeft 21 punten.
-        /// </summary>
-        /// <param name="kaarten">De kaarten die in de hand zijn.</param>
-        /// <returns>Hoeveel punten in de hand zijn.</returns>
-        public bool IsBlackJack(List<Kaart> kaarten)
-        {
-            return kaarten.Count == 2 && this.CalculatePoints(kaarten) == BlackJackScore;
-        }
-
-        /// <summary>
         /// functie om te bepalen of het 1 of 11 moet zijn.
         /// de speler beslist, dus je kan het hem eventueel vragen.
         /// voor nu is het zo, dat het 11 is, behalve als je dood bent.

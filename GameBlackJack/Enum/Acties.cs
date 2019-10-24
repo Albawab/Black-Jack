@@ -5,7 +5,7 @@
 namespace HenE.GameBlackJack.Enum
 {
     /// <summary>
-    /// Hier staat de beslissingen die de speler wil gebruiken.
+    /// Hier staat de beslissingen die de speler mag gebruiken.
     /// </summary>
     public enum Acties
     {

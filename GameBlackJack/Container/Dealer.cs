@@ -32,8 +32,8 @@ namespace HenE.GameBlackJack
         /// <summary>
         /// Kijk wat elke hand heeft.
         /// </summary>
-        /// <param name="hand">Huidige hand.</param>
-        /// <returns>De waarde in de hand.</returns>
+        /// <param name="hand">Huidige hand van de dealer.</param>
+        /// <returns>De waarde van de fiches in de hand.</returns>
         public int WaardevanDeHand(Hand hand)
         {
             int deWaardeInHand = 0;
