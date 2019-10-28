@@ -578,8 +578,8 @@ namespace HenE.GameBlackJack
         {
             if (hand.Status == HandStatussen.BlackJeck || hand.Status == HandStatussen.Gewonnen)
             {
-                this.BetaalUit(hand, this.BepaalFactorInzet(hand));
                 hand.Speler.Fiches.Add(hand.Inzet.GeefMeFischesTerWaardeVan(hand.Inzet.WaardeVanDeFiches, 100, true));
+                this.BetaalUit(hand, this.BepaalFactorInzet(hand));
             }
             else if (hand.Status == HandStatussen.OnHold)
             {
