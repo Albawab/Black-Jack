@@ -210,14 +210,14 @@ namespace HenEBalck_Jack
         {
             Thread.Sleep(1000);
             int actieNummer;
-            Console.WriteLine($"{hand.Speler.Naam} je mag een van deze acties kiezen.");
+            Console.WriteLine($"{hand.Speler.Naam} je mag een van deze acties kiezen:");
             for (int actie = 1; actie <= mogelijkActies.Count; actie++)
             {
                 Console.WriteLine($" {actie.ToString()}- {mogelijkActies[actie - 1]}");
             }
 
             Thread.Sleep(1000);
-            Console.WriteLine("Kies het nummer van één de bovenstaande acties.");
+            Console.WriteLine("Kies het nummer van één van de bovenstaande acties.");
             string answer = Console.ReadLine();
             while (!this.IsGeldigWaarde(answer, out actieNummer) || actieNummer > mogelijkActies.Count || actieNummer < 1)
             {
@@ -272,6 +272,8 @@ namespace HenEBalck_Jack
             Thread.Sleep(2000);
             Console.WriteLine();
             Console.WriteLine($"In jouw portemonnee heb je een waarde van {speler.Fiches.WaardeVanDeFiches} fiches.");
+            Console.WriteLine("Je hebt :");
+            Console.WriteLine();
             int waardeDieDeSpelerWilInzetten = 0;
             Thread.Sleep(2000);
             Console.WriteLine("Wil je fiches kopen J of N?");
@@ -742,7 +744,7 @@ namespace HenEBalck_Jack
         /// </summary>
         private void Welkom()
         {
-            ColorConsole.WriteLine(ConsoleColor.Green, "Welkom!");
+            ColorConsole.WriteLine(ConsoleColor.Green, "=====> Welkom! <======");
             Console.WriteLine("Leuk dat je Black Jack komt spelen.");
         }
 
@@ -788,6 +790,9 @@ namespace HenEBalck_Jack
         private void TellFichesInPortemonnee(Speler speler)
         {
             Console.WriteLine($"In jouw portemonnee heb je een waarde van {speler.Fiches.WaardeVanDeFiches} fiches.");
+            Thread.Sleep(1000);
+            Console.WriteLine();
+            FichesConsolePrinter.PrintFiches(speler.Fiches);
         }
     }
 }
