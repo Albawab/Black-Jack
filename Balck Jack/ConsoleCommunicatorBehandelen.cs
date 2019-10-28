@@ -271,7 +271,7 @@ namespace HenEBalck_Jack
         {
             Thread.Sleep(2000);
             Console.WriteLine();
-            Console.WriteLine($"In jouw portemonnee heb je een waarde van {speler.Fiches.WaardeVanDeFiches} fiches.");
+            Console.WriteLine($"In je portemonnee heb je een waarde van {speler.Fiches.WaardeVanDeFiches} fiches.");
             Console.WriteLine("Je hebt :");
             Console.WriteLine();
             int waardeDieDeSpelerWilInzetten = 0;
