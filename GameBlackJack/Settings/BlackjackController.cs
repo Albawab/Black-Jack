@@ -72,20 +72,22 @@ namespace HenE.GameBlackJack
                     this.communicator.TellPlayer(spelerhand.Speler, Meldingen.OngeldigeInzet);
 
                     // todo doen we een loop?
-                    if (!this.communicator.AskFichesInzetten(spelerhand, out waarde))
+                    if (!this.VraagFichesInzetten(spelerhand, waarde))
                     {
                         while (this.tafel.BepaaltOfDeWaardetussenMaxInzetEnMinInzet(waarde))
                         {
                             // Vertel aan de speler het is geen juiste waarde.
                             this.communicator.TellPlayer(spelerhand.Speler, Meldingen.OngeldigeInzet);
 
-                            if (this.communicator.AskFichesInzetten(spelerhand, out waarde))
+                            if (this.VraagFichesInzetten(spelerhand, waarde))
                             {
                                 this.communicator.TellHand(this.spelerHand, Meldingen.ToonInzet, string.Empty);
                             }
-
-                            // speler wil of kan niet inzetten.
-                            return false;
+                            else
+                            {
+                                // speler wil of kan niet inzetten.
+                                return false;
+                            }
                         }
                     }
                 }
@@ -94,16 +96,10 @@ namespace HenE.GameBlackJack
                 while (waarde > this.spelerHand.Speler.Fiches.WaardeVanDeFiches)
                 {
                     this.communicator.TellPlayer(spelerhand.Speler, Meldingen.GeenFiches);
-                    if (this.communicator.AskFichesKopen(this.spelerHand.Speler, out int koop))
-                    {
-                        this.communicator.TellPlayer(this.spelerHand.Speler, Meldingen.Verdienen);
-                    }
-                    else
+                    if (!this.FichesKopen(spelerhand.Speler))
                     {
                         return false;
                     }
-
-                    spelerhand.Speler.Fiches.Add(this.tafel.Fiches.GeefMeFischesTerWaardeVan(koop, 50, true));
                 }
             }
 
@@ -221,6 +217,7 @@ namespace HenE.GameBlackJack
                 }
                 else
                 {
+                    // this.communicator.TellPlayer(this.spelerHand.Speler, Meldingen.ToonFichesInPortemonnee);
                     this.communicator.SleuitHetSpel();
                 }
             }
@@ -271,24 +268,13 @@ namespace HenE.GameBlackJack
         {
             foreach (Speler speler in this.tafel.Spelers)
             {
-                // De waarde van de fiches die de speler wil kopen.
-                int waardeVanFiches;
                 int waardeVanDeInzetten = 0;
 
                 // todo, loopje
                 while (speler.Fiches.WaardeVanDeFiches < speler.HuidigeTafel.MinimalenZet)
                 {
                     this.communicator.TellPlayer(speler, Meldingen.VoorwaardenTafelFiches);
-                    if (this.communicator.AskFichesKopen(speler, out waardeVanFiches))
-                    {
-                        // inzet is ok
-                        // een hand wordt aangemaakt,
-                        // ok de speler heeft ingezet en wil dus meedoen
-                        // aan de collectie toegevoegd.
-                        speler.Fiches.Add(this.tafel.Fiches.GeefMeFischesTerWaardeVan(waardeVanFiches, 100, true));
-                        this.communicator.TellPlayer(speler, Meldingen.FichesKoppen);
-                    }
-                    else
+                    if (!this.FichesKopen(speler))
                     {
                         // Wil niet mee doen.
                         // de speler wil niet inzetten en doet dus niet mee
@@ -325,32 +311,7 @@ namespace HenE.GameBlackJack
                             // als mag inzetten, dan laat de speler inzetten.
                             if (magInzetten)
                             {
-                                // dan mag inzetten.
-                                // Check of hij kan zet met de fiches of hij moet kopen.
-                                while (!this.ZetFichesBijHandIn(this.spelerHand, waardeVanDeInzetten))
-                                {
-                                    this.communicator.TellPlayer(this.spelerHand.Speler, Meldingen.NietGelijkFiches);
-                                    if (this.communicator.AskFichesKopen(speler, out waardeVanFiches))
-                                    {
-                                        speler.Fiches.Add(this.tafel.Fiches.GeefMeFischesTerWaardeVan(waardeVanFiches, 100, true));
-                                        this.communicator.TellPlayer(speler, Meldingen.Verdienen);
-                                    }
-                                    else
-                                    {
-                                        if (this.AskNieuwRondje(this.tafel.Spelers))
-                                        {
-                                            this.StartRonde();
-                                            return false;
-                                        }
-                                        else
-                                        {
-                                            this.communicator.TellPlayer(speler, Meldingen.Gestopt);
-                                            this.communicator.SleuitHetSpel();
-                                            return false;
-                                        }
-                                    }
-                                }
-
+                                this.spelerHand.Inzet.Add(this.spelerHand.Speler.Fiches.GeefMeFischesTerWaardeVan(waardeVanDeInzetten, 50, true));
                                 this.communicator.TellHand(this.spelerHand, Meldingen.ToonInzet, string.Empty);
                             }
                             else
@@ -483,23 +444,12 @@ namespace HenE.GameBlackJack
         /// <returns>Mag verdubbeln of niet.</returns>
         private bool Verdubbelen(SpelerHand hand)
         {
-            int waardeVanFiches;
-
             // ok, de speler heeft gekozen om te verdubbelen
             // heeft hij nog fiche ter waarde van hand?
             while (hand.Inzet.WaardeVanDeFiches > hand.Speler.Fiches.WaardeVanDeFiches)
             {
                 this.communicator.TellPlayer(hand.Speler, Meldingen.GeenFiches);
-                if (this.communicator.AskFichesKopen(hand.Speler, out waardeVanFiches))
-                {
-                    // inzet is ok
-                    // een hand wordt aangemaakt,
-                    // ok de speler heeft ingezet en wil dus meedoen
-                    // aan de collectie toegevoegd.
-                    // this.communicator.TellPlayer(hand.Speler, Meldingen.Verdienen);
-                    hand.Speler.Fiches.Add(this.tafel.Fiches.GeefMeFischesTerWaardeVan(waardeVanFiches, 20, true));
-                }
-                else
+                if (!this.FichesKopen(hand.Speler))
                 {
                     // de speler wil niet inzetten en doet dus niet mee
                     this.TellToPlayers(this.tafel.Spelers, Meldingen.GeenFiches, hand, string.Empty);
@@ -507,19 +457,24 @@ namespace HenE.GameBlackJack
                 }
             }
 
-            while (!this.ZetFichesBijHandIn(hand, hand.Inzet.WaardeVanDeFiches))
+            if (!this.VraagFichesInzetten(hand, hand.Inzet.WaardeVanDeFiches))
             {
-                this.communicator.TellPlayer(this.spelerHand.Speler, Meldingen.NietGelijkFiches);
-                if (this.communicator.AskFichesKopen(hand.Speler, out waardeVanFiches))
-                {
-                    hand.Speler.Fiches.Add(this.tafel.Fiches.GeefMeFischesTerWaardeVan(waardeVanFiches, 100, true));
-                    this.communicator.TellPlayer(hand.Speler, Meldingen.Verdienen);
-                }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
+
+            /*           !this.ZetFichesBijHandIn(hand, hand.Inzet.WaardeVanDeFiches))
+                       {
+                           this.communicator.TellPlayer(this.spelerHand.Speler, Meldingen.NietGelijkFiches);
+                           if (this.communicator.AskFichesKopen(hand.Speler, out waardeVanFiches))
+                           {
+                               hand.Speler.Fiches.Add(this.tafel.Fiches.GeefMeFischesTerWaardeVan(waardeVanFiches, 100, true));
+                               this.communicator.TellPlayer(hand.Speler, Meldingen.Verdienen);
+                           }
+                           else
+                           {
+
+                           }
+                       }*/
 
             // inzetten bij de hand
             // oke, koop dan maar een kaart
@@ -566,7 +521,7 @@ namespace HenE.GameBlackJack
         /// </summary>
         /// <param name="hand">Huidige hand.</param>
         /// <param name="factor">De factor die wordt betaald.</param>
-        private void KeerUit(SpelerHand hand, double factor)
+        private void BetaalUit(SpelerHand hand, double factor)
         {
             // todo, ik wil hier naar afronden in het voordeel van de speler
             this.FichesVerdienen(hand, (int)(hand.Inzet.WaardeVanDeFiches * factor));
@@ -621,19 +576,14 @@ namespace HenE.GameBlackJack
         /// <param name="hand">De hand die klaar is.</param>
         private void BetaalHand(SpelerHand hand)
         {
-            if (hand.Status == HandStatussen.BlackJeck)
+            if (hand.Status == HandStatussen.BlackJeck || hand.Status == HandStatussen.Gewonnen)
             {
-                this.KeerUit(hand, this.BepaalFactorInzet(hand));
+                this.BetaalUit(hand, this.BepaalFactorInzet(hand));
                 hand.Speler.Fiches.Add(hand.Inzet.GeefMeFischesTerWaardeVan(hand.Inzet.WaardeVanDeFiches, 100, true));
             }
             else if (hand.Status == HandStatussen.OnHold)
             {
                 this.communicator.TellHand(hand, Meldingen.Hold, string.Empty);
-                hand.Speler.Fiches.Add(hand.Inzet.GeefMeFischesTerWaardeVan(hand.Inzet.WaardeVanDeFiches, 100, true));
-            }
-            else if (hand.Status == HandStatussen.Gewonnen)
-            {
-                this.KeerUit(hand, this.BepaalFactorInzet(hand));
                 hand.Speler.Fiches.Add(hand.Inzet.GeefMeFischesTerWaardeVan(hand.Inzet.WaardeVanDeFiches, 100, true));
             }
             else
@@ -718,31 +668,18 @@ namespace HenE.GameBlackJack
         /// <returns>De hand.</returns>
         private Hand SplitsHand(SpelerHand handDieGesplitstMoetWorden)
         {
-            int waardeVanFiches;
-
             // ok, de speler heeft gekozen om te verdubbelen
             // heeft hij nog fiche ter waarde van hand?
             while (handDieGesplitstMoetWorden.Inzet.WaardeVanDeFiches > handDieGesplitstMoetWorden.Speler.Fiches.WaardeVanDeFiches)
             {
                 this.communicator.TellPlayer(handDieGesplitstMoetWorden.Speler, Meldingen.GeenFiches);
-                if (this.communicator.AskFichesKopen(handDieGesplitstMoetWorden.Speler, out waardeVanFiches))
+                if (!this.FichesKopen(handDieGesplitstMoetWorden.Speler))
                 {
-                    // inzet is ok
-                    // een hand wordt aangemaakt,
-                    // ok de speler heeft ingezet en wil dus meedoen
-                    // aan de collectie toegevoegd.
-                    // this.communicator.TellPlayer(handDieGesplitstMoetWorden.Speler, Meldingen.Verdienen);
-                    handDieGesplitstMoetWorden.Speler.Fiches.Add(this.tafel.Fiches.GeefMeFischesTerWaardeVan(waardeVanFiches, 100, true));
-                }
-                else
-                {
-                    // de speler wil niet inzetten en doetr dus niet mee.
                     return null;
                 }
             }
 
             // als ik hier kom, dan heeft de speler voldoende fiches en kan er gesplist worden.
-
             SpelerHand nieuweHand = null;
 
             // zoek de postitie va de handDieGesplitstMoetWorden
@@ -765,21 +702,12 @@ namespace HenE.GameBlackJack
                     }
 
                     this.spel.Kopen(handDieGesplitstMoetWorden, this.tafel.StapelKaarten);
-                }
+                    this.spel.Kopen(nieuweHand, this.tafel.StapelKaarten);
 
-                // ok de hand mag splitst worden en is dus al gesplitst
-                if (nieuweHand != null)
-                {
-                    // todo nog 1 functie van maken, want dit gebruik ik vaker
-                    while (!this.ZetFichesBijHandIn(nieuweHand, handDieGesplitstMoetWorden.Inzet.WaardeVanDeFiches))
+                    // ok de hand mag splitst worden en is dus al gesplitst
+                    if (nieuweHand != null)
                     {
-                        this.communicator.TellPlayer(this.spelerHand.Speler, Meldingen.NietGelijkFiches);
-                        if (this.communicator.AskFichesKopen(nieuweHand.Speler, out waardeVanFiches))
-                        {
-                            nieuweHand.Speler.Fiches.Add(this.tafel.Fiches.GeefMeFischesTerWaardeVan(waardeVanFiches, 100, true));
-                            this.communicator.TellPlayer(nieuweHand.Speler, Meldingen.Verdienen);
-                        }
-                        else
+                        if (!this.VraagFichesInzetten(nieuweHand, handDieGesplitstMoetWorden.Inzet.WaardeVanDeFiches))
                         {
                             return null;
                         }
@@ -871,7 +799,8 @@ namespace HenE.GameBlackJack
             if (betaalAanHand == 1.5)
             {
                 double keerEnHalfUit = hand.Inzet.WaardeVanDeFiches * 1.5;
-                int keerEnHalfUitWordtBetaald = (int)keerEnHalfUit;
+                double mathCeiling = Math.Ceiling(keerEnHalfUit);
+                int keerEnHalfUitWordtBetaald = (int)mathCeiling;
                 hand.Inzet.GeefMeFischesTerWaardeVan(keerEnHalfUitWordtBetaald, 100, true);
             }
 
@@ -1020,6 +949,52 @@ namespace HenE.GameBlackJack
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Vraag de speler om fiches in de hand te inzetten.
+        /// </summary>
+        /// <param name="hand">De hand die een fiches krijgt. </param>
+        /// <param name="inzetten">De waarde die de speler wil inzetten.</param>
+        /// <returns>Heeft de speler ingezet of niet.</returns>
+        private bool VraagFichesInzetten(SpelerHand hand, int inzetten)
+        {
+            while (!this.ZetFichesBijHandIn(hand, inzetten))
+            {
+                this.communicator.TellPlayer(this.spelerHand.Speler, Meldingen.NietGelijkFiches);
+                if (!this.FichesKopen(hand.Speler))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Ask de speler om fiches te kopen.
+        /// </summary>
+        /// <param name="speler">De speler die een fiches gaat kopen.</param>
+        /// <returns>Heeft de speler fiches gekocht of niet.</returns>
+        private bool FichesKopen(Speler speler)
+        {
+            int waardeVanFiches;
+
+            // inzet is ok
+            // een hand wordt aangemaakt,
+            // ok de speler heeft ingezet en wil dus meedoen
+            // aan de collectie toegevoegd.
+            if (this.communicator.AskFichesKopen(speler, out waardeVanFiches))
+            {
+                speler.Fiches.Add(this.tafel.Fiches.GeefMeFischesTerWaardeVan(waardeVanFiches, 100, true));
+                this.communicator.TellPlayer(speler, Meldingen.Verdienen);
+                return true;
+            }
+            else
+            {
+                // de speler wil niet inzetten en doetr dus niet mee.
+                return false;
+            }
         }
     }
 }

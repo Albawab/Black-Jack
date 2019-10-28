@@ -138,5 +138,20 @@ namespace HenE.GameBlackJack.Enum
         /// De maximaleInZet en min minimaleInZet bij de tafel die mag inzetten.
         /// </summary>
         VoorwaardenTafelFiches,
+
+        /// <summary>
+        /// Stuur een welkome message aan de persoon.
+        /// </summary>
+        Welkom,
+
+        /// <summary>
+        /// De naam van een persoon.
+        /// </summary>
+        DeNaam,
+
+        /// <summary>
+        /// Toot de fiches die in de portemonee staan.
+        /// </summary>
+        ToonFichesInPortemonnee,
     }
 }

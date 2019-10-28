@@ -17,7 +17,7 @@ namespace HenE.GameBlackJack.Enum
         /// <summary>
         /// Hart.
         /// </summary>
-        Hart,
+        Harten,
 
         /// <summary>
         /// Schoppen

@@ -48,6 +48,11 @@ namespace HenE.WinFormsApp
             throw new NotImplementedException();
         }
 
+        public string AskPersoon(Meldingen melding)
+        {
+            throw new NotImplementedException();
+        }
+
         public int AskWhichAction(SpelerHand hand, List<Acties> acties)
         {
             throw new NotImplementedException();
@@ -78,6 +83,11 @@ namespace HenE.WinFormsApp
         }
 
         public void TellHand(Hand hand, Meldingen melding, string meerInformatie)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TellPersoon(Meldingen melding)
         {
             throw new NotImplementedException();
         }

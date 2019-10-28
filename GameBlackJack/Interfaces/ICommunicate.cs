@@ -72,5 +72,18 @@ namespace HenE.GameBlackJack.Interface
         /// Doe het spel dicht.
         /// </summary>
         void SleuitHetSpel();
+
+        /// <summary>
+        /// Laat een persoon wat weten.
+        /// </summary>
+        /// <param name="melding">De soort van een melding.</param>
+        void TellPersoon(Meldingen melding);
+
+        /// <summary>
+        /// Stel een vraag aan de persoon.
+        /// </summary>
+        /// <param name="melding">De soort van een melding.</param>
+        /// <returns>Krijg een antwoord van die persoon.</returns>
+        string AskPersoon(Meldingen melding);
     }
 }

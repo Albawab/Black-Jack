@@ -58,15 +58,12 @@ namespace HenE.GameBlackJack.SpelSpullen
         public void Reset()
         {
             this.Kaarten = new List<Kaart>();
-            this.Kaarten.Add(new Kaart(KaartKleur.Klaveren, KaartTeken.Acht, this.GeefWaardeAanKaart()));
-            this.Kaarten.Add(new Kaart(KaartKleur.Klaveren, KaartTeken.Acht, this.GeefWaardeAanKaart()));
-            this.Kaarten.Add(new Kaart(KaartKleur.Klaveren, KaartTeken.Acht, this.GeefWaardeAanKaart()));
 
             for (int i = 0; i < this.aantalPakken; i++)
             {
                 foreach (KaartTeken tekenVanKaart in this.mogelijkeKaartTekens)
                 {
-                    this.Kaarten.Add(new Kaart(KaartKleur.Hart, tekenVanKaart, this.GeefWaardeAanKaart()));
+                    this.Kaarten.Add(new Kaart(KaartKleur.Harten, tekenVanKaart, this.GeefWaardeAanKaart()));
                 }
 
                 foreach (KaartTeken tekenVanKaart in this.mogelijkeKaartTekens)
@@ -84,10 +81,6 @@ namespace HenE.GameBlackJack.SpelSpullen
                     this.Kaarten.Add(new Kaart(KaartKleur.Schoppen, tekenVanKaart, this.GeefWaardeAanKaart()));
                 }
             }
-
-            this.Kaarten.Add(new Kaart(KaartKleur.Klaveren, KaartTeken.Acht, this.GeefWaardeAanKaart()));
-            this.Kaarten.Add(new Kaart(KaartKleur.Klaveren, KaartTeken.Acht, this.GeefWaardeAanKaart()));
-            this.Kaarten.Add(new Kaart(KaartKleur.Klaveren, KaartTeken.Acht, this.GeefWaardeAanKaart()));
         }
 
         /// <summary>
@@ -99,7 +92,7 @@ namespace HenE.GameBlackJack.SpelSpullen
             int i = 0;
             while (i < kerenDatWeDeStapelSchudden--)
             {
-                //this.RandomShuffleDeckOnce();
+                this.RandomShuffleDeckOnce();
             }
         }
 
