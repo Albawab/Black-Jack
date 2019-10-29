@@ -524,8 +524,7 @@ namespace HenE.GameBlackJack
         private void BetaalUit(SpelerHand hand, double factor)
         {
             // todo, ik wil hier naar afronden in het voordeel van de speler
-            this.FichesVerdienen(hand, (int)(hand.Inzet.WaardeVanDeFiches * factor));
-            this.communicator.TellHand(hand, Meldingen.Verdienen, hand.Inzet.WaardeVanDeFiches.ToString());
+            this.FichesVerdienen(hand, factor);
         }
 
         /// <summary>
@@ -578,7 +577,6 @@ namespace HenE.GameBlackJack
         {
             if (hand.Status == HandStatussen.BlackJeck || hand.Status == HandStatussen.Gewonnen)
             {
-                hand.Speler.Fiches.Add(hand.Inzet.GeefMeFischesTerWaardeVan(hand.Inzet.WaardeVanDeFiches, 100, true));
                 this.BetaalUit(hand, this.BepaalFactorInzet(hand));
             }
             else if (hand.Status == HandStatussen.OnHold)
@@ -796,15 +794,20 @@ namespace HenE.GameBlackJack
         /// <param name="betaalAanHand">Het bedrag die moet betalen worden.</param>
         private void FichesVerdienen(SpelerHand hand, double betaalAanHand)
         {
+            int keerEnHalfUitWordtBetaald = 0;
             if (betaalAanHand == 1.5)
             {
                 double keerEnHalfUit = hand.Inzet.WaardeVanDeFiches * 1.5;
                 double mathCeiling = Math.Ceiling(keerEnHalfUit);
-                int keerEnHalfUitWordtBetaald = (int)mathCeiling;
-                hand.Inzet.GeefMeFischesTerWaardeVan(keerEnHalfUitWordtBetaald, 100, true);
+                keerEnHalfUitWordtBetaald = (int)mathCeiling;
+                hand.Inzet.Add(this.tafel.Fiches.GeefMeFischesTerWaardeVan(keerEnHalfUitWordtBetaald, 100, true));
+            }
+            else
+            {
+                hand.Inzet.Add(this.tafel.Fiches.GeefMeFischesTerWaardeVan(hand.Inzet.WaardeVanDeFiches, 100, true));
             }
 
-            hand.Inzet.Add(this.tafel.Fiches.GeefMeFischesTerWaardeVan((int)betaalAanHand, 50, true));
+            this.communicator.TellHand(hand, Meldingen.Verdienen, hand.Inzet.WaardeVanDeFiches.ToString());
         }
 
         /// <summary>
